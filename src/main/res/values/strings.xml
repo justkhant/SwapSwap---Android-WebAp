@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="full_name">Full name</string>
+    <string name="your_email_this_will_be_used_for_login">Your email. This will be used for login.</string>
+    <string name="your_desired_password">Your desired password</string>
+    <string name="the_school_you_teach_at">The school you teach at</string>
+    <string name="upload_profile_picture">Upload Profile Picture</string>
+    <string name="signup">Signup</string>
+    <string name="user_uploaded_profile_picture_or_blank_otherwise">User uploaded profile picture, or blank otherwise</string>
+
+    <string name="title_activity_instructions">InstructionsActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
