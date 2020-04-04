@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditProfileActivity">
+
+        // background
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="15dp"
+            android:background="#284b63">
+
+            // profile pic
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/profile_pic"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="8dp"/>
+
+            // display full name
+            <TextView
+                android:id="@+id/full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rosa Sun"
+                android:textSize="40sp"
+                android:layout_below="@+id/profile_pic"
+                android:layout_centerHorizontal="true"
+                android:includeFontPadding="false"
+                android:textColor="#ffffff"/>
+
+            // display username
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rosa_sun"
+                android:textSize="20sp"
+                android:layout_below="@+id/full_name"
+                android:layout_centerHorizontal="true"
+                android:includeFontPadding="false"
+                android:textColor="#d9d9d9"
+                android:layout_marginTop="-6dp"/>
+        </RelativeLayout>
+
+        // cards
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginTop="-70dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#fcca46"
+                app:cardElevation="10dp">
+
+                // card
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    // rank icon
+                    <ImageView
+                        android:id="@+id/rank_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/rank_icon"
+                        android:layout_centerHorizontal="true"/>
+
+                    // ranking number
+                    <TextView
+                        android:id="@+id/rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#12"
+                        android:textSize="35sp"
+                        android:layout_centerInParent="true"
+                        android:includeFontPadding="false"/>
+
+                    // ranking label
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ranking"
+                        android:textSize="15sp"
+                        android:layout_below="@+id/rank"
+                        android:layout_centerHorizontal="true"
+                        android:includeFontPadding="false"/>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#fcca46"
+                app:cardElevation="10dp">
+
+                // card
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    // rank icon
+                    <ImageView
+                        android:id="@+id/points_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/points_icon"
+                        android:layout_centerHorizontal="true"/>
+
+                    // ranking number
+                    <TextView
+                        android:id="@+id/points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="147"
+                        android:textSize="35sp"
+                        android:layout_centerInParent="true"
+                        android:includeFontPadding="false"/>
+
+                    // ranking label
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Points"
+                        android:textSize="15sp"
+                        android:layout_below="@+id/points"
+                        android:layout_centerHorizontal="true"
+                        android:includeFontPadding="false"/>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            // About me header
+            <TextView
+                android:id="@+id/about_me_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About Me"
+                android:textColor="#284b63"
+                android:textSize="20sp" />
+
+            // user input for about me
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_me_header"
+                android:hint="A bit about myself..."
+                android:textSize="20sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/about_me_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="I like to sleep"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            // phone header
+            <TextView
+                android:id="@+id/phone_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Phone"
+                android:textColor="#284b63"/>
+
+            // user input for phone
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phone_header"
+                android:hint="Phone number you would like to be reached at:"
+                android:textSize="20sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5051234567"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        // email
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            // email header
+            <TextView
+                android:id="@+id/email_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Email"
+                android:textColor="#284b63"/>
+
+            // user input for email
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/email_header"
+                android:hint="Email you would like to be reached at:"
+                android:textSize="20sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="rosaasor.sun@gmail.com"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        // user's current listings
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="30dp">
+
+            <Button
+                android:id="@+id/view_user_listings_button"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:background="#fc9e4f"
+                android:text="SAVE"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="35dp"/>
+
+            <Button
+                android:id="@+id/rate_user_button"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/view_user_listings_button"
+                android:background="#d9d9d9"
+                android:text="CANCEL"
+                android:textSize="20dp"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="35dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
