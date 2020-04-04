@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="full_name">Full name</string>
+    <string name="full_name">Your full name.</string>
     <string name="your_email_this_will_be_used_for_login">Your email. This will be used for login.</string>
-    <string name="your_desired_password">Your desired password</string>
-    <string name="the_school_you_teach_at">The school you teach at</string>
+    <string name="your_desired_password">Your desired password.</string>
+    <string name="the_school_you_teach_at">The school you teach at.</string>
     <string name="upload_profile_picture">Upload Profile Picture</string>
     <string name="signup">Signup</string>
     <string name="user_uploaded_profile_picture_or_blank_otherwise">User uploaded profile picture, or blank otherwise</string>
@@ -11,4 +11,14 @@
     <string name="title_activity_instructions">InstructionsActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="your_desired_username">Your desired username.</string>
+    <string name="inst_test">Inst Test</string>
+    <string name="general_information">General Information</string>
+    <string name="this_is_your_user_profile_page_here_you_can_view_information_about_yourself_such_as_your_rating_comments_others_have_made_about_you_and_your_current_listings_if_you_would_like_to_learn_more_about_any_of_the_information_listed_here_please_look_below">This is your user profile page. Here, you can view information about yourself such as your rating, comments others have made about you, and your current listings. If you would like to learn more about any of the information listed here, please look below.</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="here_you_can_view_all_of_your_current_listings_for_items_you_have_posted_you_can_edit_or_delete_them_at_any_point_by_selecting_them">Here, you can view all of your current listings for items you have posted. You can edit or delete them at any point by selecting them.</string>
+    <string name="your_user_profile_will_show_basic_information_you_provide_about_yourself_such_as_your_profile_picture_and_your_biography_you_can_always_change_these_at_any_time_using_the_edit_feature">Your user profile will show basic information you provide about yourself, such as your profile picture and your biography. You can always change these at any time using the edit feature.</string>
+    <string name="delete">Delete</string>
+    <string name="use_this_function_to_delete_your_profile_please_note_that_this_cannot_be_undone_so_please_only_use_this_if_you_are_certain_that_you_would_like_to_do_so">Use this function to delete your profile. Please note that this cannot be undone, so please only use this if you are CERTAIN that you would like to do so.</string>
+    <string name="current_listings">Current Listings</string>
 </resources>

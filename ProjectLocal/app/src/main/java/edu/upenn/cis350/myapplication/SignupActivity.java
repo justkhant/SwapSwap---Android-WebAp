@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 public class SignupActivity extends AppCompatActivity {
     static final int IMAGE_PICK_ID = 500;
-    static final int REGISTER_ID = 501;
+    static final int INST_TEST_ID = 400;
 
     ImageView picView;
     Button profPic;
@@ -23,6 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText name;
     EditText school;
     EditText email;
+    EditText username;
     EditText password;
 
     Button signup;
@@ -39,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         name = findViewById(R.id.inputName);
         school = findViewById(R.id.inputSchool);
         email = findViewById(R.id.inputEmail);
+        username = findViewById(R.id.inputUsername);
         password = findViewById(R.id.inputPassword);
         profPic = findViewById(R.id.inputPic);
         signup = findViewById(R.id.inputSignup);
@@ -63,12 +65,22 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupButtonClick(View v) {
         boolean valid = validateData();
         if (valid) {
-            registerUser();
+            Intent i = new Intent();
+            i.putExtra("name", name.getText().toString());
+            i.putExtra("school", school.getText().toString());
+            i.putExtra("email", email.getText().toString());
+            i.putExtra("username", username.getText().toString());
+            i.putExtra("password", password.getText().toString());
+            i.putExtra("profPic", picUri);
+
+            setResult(RESULT_OK, i);
+            finish();
         }
     }
 
-    void registerUser() {
-        //TODO
+    public void onTestButtonClick(View v) {
+        Intent i = new Intent(this, InstructionsActivity.class);
+        startActivity(i);
     }
 
     boolean validateData() {
@@ -87,6 +99,11 @@ public class SignupActivity extends AppCompatActivity {
         if (!isEmail(email)) {
             valid = false;
             email.setError("You must input a valid email!");
+        }
+
+        if (isEmpty(username)) {
+            valid = false;
+            username.setError("You must input a desired username!");
         }
 
         if (isEmpty(password)) {
