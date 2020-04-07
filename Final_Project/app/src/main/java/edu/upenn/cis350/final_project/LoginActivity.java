@@ -11,6 +11,8 @@ import android.widget.Toast;
 public class LoginActivity extends AppCompatActivity {
     public static final int SIGNUP_ACTIVITY_ID = 1;
     public static final int EDIT_ACTIVITY_ID = 3;
+    public static final int HOME_ACTIVITY_ID = 4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,13 @@ public class LoginActivity extends AppCompatActivity {
             // check to see if password matches the respective username
             if (!passwordInput.equals("")) {
                 // go to 'homepage' activity
+                Intent i = new Intent(this, HomeActivity.class);
+                startActivityForResult(i, HOME_ACTIVITY_ID);
                 //for now go to edit profile page
-                Intent i = new Intent(this, EditProfileActivity.class);
-                startActivityForResult(i, EDIT_ACTIVITY_ID);
+               // Intent i = new Intent(this, EditProfileActivity.class);
+               // startActivityForResult(i, EDIT_ACTIVITY_ID);
 
-                // Intent i = new Intent(this, HomepageActivity.class);
-                // startActivityForResult(i, 1);
+
 
             } else {
                 // if password doesn't match, print out "Invalid password."

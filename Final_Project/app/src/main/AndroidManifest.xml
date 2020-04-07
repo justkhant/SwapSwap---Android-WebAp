@@ -19,6 +19,8 @@
         <activity android:name=".EditProfileActivity"></activity>
         <activity android:name=".SignupActivity"></activity>
         <activity android:name=".InstructionsActivity"></activity>
+        <activity android:name=".ItemListAdapter"></activity>
+        <activity android:name=".HomeActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
