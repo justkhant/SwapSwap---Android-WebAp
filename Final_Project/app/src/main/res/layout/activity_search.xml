@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.upenn.cis350.final_project.SearchActivity">
+
+    <RadioGroup
+        android:id="@+id/radio_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/distance_filter" />
+
+        <RadioButton
+            android:id="@+id/button_no_radius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/any_distance" />
+
+        <RadioButton
+            android:id="@+id/button_5mi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_5_miles" />
+
+        <RadioButton
+            android:id="@+id/button_10mi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_10_miles" />
+
+        <RadioButton
+            android:id="@+id/button_25mi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/_25_miles" />
+        <RadioButton
+            android:id="@+id/button_50mi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/_50_miles" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_materials"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/price_input"
+        app:layout_constraintStart_toEndOf="@+id/radio_radius">
+
+        <TextView
+            android:id="@+id/material_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/material_filter" />
+
+        <RadioButton
+            android:id="@+id/button_all_materials"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/all_materials" />
+
+        <RadioButton
+            android:id="@+id/button_writing_utensils"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/writing_utensils" />
+
+        <RadioButton
+            android:id="@+id/button_textbooks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textbooks" />
+
+        <RadioButton
+            android:id="@+id/button_notebooks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notebooks" />
+
+        <RadioButton
+            android:id="@+id/button_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/other" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radio_trade"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/price_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radio_materials"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/trade_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trade_filter" />
+
+        <RadioButton
+            android:id="@+id/button_any_trade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/any_trade_type" />
+
+        <RadioButton
+            android:id="@+id/button_donation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/donation" />
+
+        <RadioButton
+            android:id="@+id/button_barter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/barter" />
+
+        <RadioButton
+            android:id="@+id/button_selling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/selling" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/price_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/desired_maximum_price_default_unlimited"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_materials"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/avail_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/desired_availability_default_0"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_input"
+        android:importantForAutofill="no" />
+
+    <ListView
+        android:id="@+id/search_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
