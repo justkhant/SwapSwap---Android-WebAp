@@ -96,14 +96,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onHomeClick(View view) {
         //idk if need this?
-        //Intent i = new Intent(this, InstructionsActivity.class);
+        //Intent i = new Intent(this, ____Activity.class);
         //startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 
     public void onSearchClick(View view) {
        //not implemented yet
-        //Intent i = new Intent(this, __Activity.class);
-        //startActivityForResult(i, SEARCH_ACTIVITY_ID);
+        Intent i = new Intent(this, SearchActivity.class);
+        startActivityForResult(i, SEARCH_ACTIVITY_ID);
     }
 
     public void onPostsClick(View view) {
