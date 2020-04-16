@@ -24,7 +24,7 @@ var User = require('./User.js');
 app.use('/createNewUser', (req, res) => {
 	// construct the User from the form data which is in the request body
 	var newUser = new User ({
-		username: req.query.username,
+		email: req.query.email,
 		password: req.query.password,
 		name: req.query.name,
 		school: req.query.school,

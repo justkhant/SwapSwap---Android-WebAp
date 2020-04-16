@@ -1,10 +1,13 @@
-Here are all the people:
+Here are all the users:
 <ul>
-<% persons.forEach( (person) => { %>
+<% users.forEach( (user) => { %>
 
-<li><%= person.name %>: <%= person.age %></li>
+<li> <b>Name</b> = <%= user.name %>,
+     <b>Email</b> = <%= user.username %>, 
+     <b>School</b> = <%= user.school %>, 
+     </li>
 
 <% }); %>
 </ul>
 
-<br><a href="/">Create New Person</a>
+

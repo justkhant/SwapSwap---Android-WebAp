@@ -115,12 +115,12 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     // This helper method passes the strings to node and runs createNewUser to add new user info.
-    public void postUserProfile(String username, String password,
+    public void postUserProfile(String email, String password,
                                String name, String school) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
             URL url = new URL("http://10.0.2.2:3000/createNewUser?" +
-                    "username=" + username + "&" +
+                    "email=" + email + "&" +
                     "password=" + password + "&" +
                     "name=" + name + "&" +
                     "school=" + school);

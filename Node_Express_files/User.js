@@ -9,7 +9,7 @@ mongoose.connect("mongodb+srv://Max:Max@cis350project-8hdrl.mongodb.net/test?ret
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-	username: {type: String, required: true, unique: true},
+	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
 	name: {type: String, required: true},
 	school: {type: String, required: true}
