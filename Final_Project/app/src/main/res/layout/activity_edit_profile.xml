@@ -28,8 +28,17 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="8dp"/>
 
+            <Button
+                android:id="@+id/edit_prof_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onProfPicButtonClick"
+                android:text="EDIT PROFILE PICTURE"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"/>
+
             // display full name
-            <TextView
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,6 +47,8 @@
                 android:layout_below="@+id/profile_pic"
                 android:layout_centerHorizontal="true"
                 android:includeFontPadding="false"
+                android:layout_marginTop="-7dp"
+                android:layout_marginBottom="-10dp"
                 android:textColor="#ffffff"/>
 
             // display username
@@ -180,6 +191,38 @@
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            // About me header
+            <TextView
+                android:id="@+id/school_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My School"
+                android:textColor="#284b63"
+                android:textSize="20sp" />
+
+            // user input for about me
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/school_header"
+                android:hint="Your school:"
+                android:textSize="20sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="U of P"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        // phone
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

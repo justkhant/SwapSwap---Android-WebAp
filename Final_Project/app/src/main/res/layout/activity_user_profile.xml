@@ -175,6 +175,31 @@
                 android:text="Student at the University of Pennsylvania. I sleep a lot and study computer science in my free time."/>
         </RelativeLayout>
 
+        // School info
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            // school info header
+            <TextView
+                android:id="@+id/school_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="My School"
+                android:textColor="#284b63"/>
+            // user input for school info
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/school_header"
+                android:textSize="20sp"
+                android:text="University of Pennsylvania"/>
+        </RelativeLayout>
+
         // Phone
         <RelativeLayout
             android:layout_width="match_parent"
