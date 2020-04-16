@@ -28,14 +28,15 @@ app.use('/createNewUser', (req, res) => {
 		password: req.query.password,
 		name: req.query.name,
 		school: req.query.school,
-	    });
-	console.log(newUser.username);
+		});
+		
+	console.log(newUser.email);
 	console.log(newUser.password);
 	console.log(newUser.name);
 	console.log(newUser.school);
-	res.status(200).json({
-		message: "JSON Data received successfully"
-	});
+	//res.status(200).json({
+	//	message: "JSON Data received successfully"
+	//});
 	// save the user to the database
 	newUser.save( (err) => { 
 		if (err) {
@@ -74,7 +75,7 @@ app.use('/all', (req, res) => {
 		    res.render('all', { users: users });
 
 		}
-	    }).sort({ 'username': 'asc' }); // this sorts them BEFORE rendering the results
+	    }).sort({ 'email': 'asc' }); // this sorts them BEFORE rendering the results
     });
 
 // route for accessing data via the web api
@@ -85,9 +86,9 @@ app.use('/api', (req, res) => {
 
 	// construct the query object
 	var queryObject = {};
-	if (req.query.username) {
+	if (req.query.email) {
 	    // if there's a username in the query parameter, use it here
-	    queryObject = { "username" : req.query.username };
+		queryObject = { "email" : req.query.email };
 	}
     
 	User.find( queryObject, (err, users) => {
@@ -104,7 +105,7 @@ app.use('/api', (req, res) => {
 		else if (users.length == 1 ) {
 		    var user = users[0];
 		    // send back a single JSON object
-		    res.json( { "username" : user.username , "password" : user.password , "name" : user.name , "school" : user.school} );
+		    res.json( { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school} );
 		}
 		/* We will only return one JSONObject user per login request
 		else {

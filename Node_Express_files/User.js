@@ -19,6 +19,6 @@ var userSchema = new Schema({
 module.exports = mongoose.model('User', userSchema);
 
 userSchema.methods.standardizeName = function() {
-    this.username = this.username.toLowerCase();
-    return this.username;
+    this.email = this.email.toLowerCase();
+    return this.email;
 }

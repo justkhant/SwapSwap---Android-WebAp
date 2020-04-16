@@ -87,9 +87,11 @@ public class LoginActivity extends AppCompatActivity {
 
         // After getting the user from the database, import its verification information to Android
         // Only proceed to call JSONObject methods if the user is not an empty JSONObject
-        if (user.has("username") && user.has("password")) {
+        if (user.has("email") && user.has("password")) {
             try {
-                usernameActual = user.getString("username");
+                usernameActual = user.getString("email");
+                Toast.makeText(this, usernameActual, Toast.LENGTH_SHORT).show();
+                // go to 'homepage' activity
                 passwordActual = user.getString("password");
             } catch (Exception e) {
                 // ah shit, do nothing
