@@ -8,10 +8,12 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
 	username: {type: String, required: true, unique: true},
-	password: {type: String, required: true}
+	password: {type: String, required: true},
+	name: {type: String, required: true},
+	school: {type: String, required: true}
     });
 
-// export personSchema as a class called Person
+// export userSchema as a class called User
 module.exports = mongoose.model('User', userSchema);
 
 userSchema.methods.standardizeName = function() {

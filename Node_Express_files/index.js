@@ -1,3 +1,7 @@
+// Connect to MongoDB Atlas cluster
+const mongoose = require('mongoose');
+const connector = mongoose.connect("mongodb+srv://Max:Max@cis350project-8hdrl.mongodb.net/test?retryWrites=true&w=majority");
+
 // set up Express
 var express = require('express');
 var app = express();
@@ -20,15 +24,19 @@ var User = require('./User.js');
 app.use('/createNewUser', (req, res) => {
 	// construct the User from the form data which is in the request body
 	var newUser = new User ({
-		username: req.body.username,
-		password: req.body.password,
+		username: req.query.username,
+		password: req.query.password,
+		name: req.query.name,
+		school: req.query.school,
 	    });
 	console.log(newUser.username);
 	console.log(newUser.password);
+	console.log(newUser.name);
+	console.log(newUser.school);
 	res.status(200).json({
 		message: "JSON Data received successfully"
 	});
-	/*// save the person to the database
+	// save the user to the database
 	newUser.save( (err) => { 
 		if (err) {
 		    res.type('html').status(200);
@@ -38,78 +46,80 @@ app.use('/createNewUser', (req, res) => {
 		}
 		else {
 		    // display the "successfull created" page using EJS
-		    res.render('created', {user : newUser});
+		    // res.render('created', {user : newUser});
 		}
-	    } ); */
+	    } );
     }
     );
 
-	/*
-// route for showing all the people
+
+// route for showing all the users
 app.use('/all', (req, res) => {
     
-	// find all the Person objects in the database
-	Person.find( {}, (err, persons) => {
+	// find all the User objects in the database
+	User.find( {}, (err, users) => {
 		if (err) {
 		    res.type('html').status(200);
 		    console.log('uh oh' + err);
 		    res.write(err);
 		}
 		else {
-		    if (persons.length == 0) {
+		    if (users.length == 0) {
 			res.type('html').status(200);
-			res.write('There are no people');
+			res.write('There are no users.');
 			res.end();
 			return;
 		    }
-		    // use EJS to show all the people
-		    res.render('all', { persons: persons });
+		    // use EJS to show all the users
+		    res.render('all', { users: users });
 
 		}
-	    }).sort({ 'age': 'asc' }); // this sorts them BEFORE rendering the results
+	    }).sort({ 'username': 'asc' }); // this sorts them BEFORE rendering the results
     });
 
 // route for accessing data via the web api
-// to use this, make a request for /api to get an array of all Person objects
-// or /api?name=[whatever] to get a single object
+// to use this, make a request for /api to get an array of all User objects
+// or /api?username=[whatever] to get a single object
 app.use('/api', (req, res) => {
 	console.log("LOOKING FOR SOMETHING?");
 
 	// construct the query object
 	var queryObject = {};
-	if (req.query.name) {
-	    // if there's a name in the query parameter, use it here
-	    queryObject = { "name" : req.query.name };
+	if (req.query.username) {
+	    // if there's a username in the query parameter, use it here
+	    queryObject = { "username" : req.query.username };
 	}
     
-	Person.find( queryObject, (err, persons) => {
-		console.log(persons);
+	User.find( queryObject, (err, users) => {
+		console.log(users);
 		if (err) {
 		    console.log('uh oh' + err);
 		    res.json({});
 		}
-		else if (persons.length == 0) {
+		else if (users.length == 0) {
 		    // no objects found, so send back empty json
 		    res.json({});
 		}
-		else if (persons.length == 1 ) {
-		    var person = persons[0];
+		
+		else if (users.length == 1 ) {
+		    var user = users[0];
 		    // send back a single JSON object
-		    res.json( { "name" : person.name , "age" : person.age } );
+		    res.json( { "username" : user.username , "password" : user.password , "name" : user.name , "school" : user.school} );
 		}
+		/* We will only return one JSONObject user per login request
 		else {
 		    // construct an array out of the result
 		    var returnArray = [];
-		    persons.forEach( (person) => {
-			    returnArray.push( { "name" : person.name, "age" : person.age } );
+		    users.forEach( (user) => {
+			    returnArray.push( { "username" : user.username, "password" : user.password } );
 			});
 		    // send it back as JSON Array
 		    res.json(returnArray); 
 		}
+		*/
 		
 	    });
     });
-*/
 
 
 
