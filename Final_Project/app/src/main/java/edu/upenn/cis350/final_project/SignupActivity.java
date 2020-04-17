@@ -110,7 +110,6 @@ public class SignupActivity extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod(method); // send HTTP request
                 conn.connect();
-                int statusCode = conn.getResponseCode(); // should be 200
                 // read the first line of data that is returned
                 Scanner in = new Scanner(url.openStream());
                 String msg = in.nextLine();
