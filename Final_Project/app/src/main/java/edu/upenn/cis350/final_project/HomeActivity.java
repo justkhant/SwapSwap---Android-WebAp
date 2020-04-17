@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
             i.putExtra("bio", curr_intent.getStringExtra("bio"));
             i.putExtra("points", curr_intent.getIntExtra("points", 0));
             i.putExtra("rank", curr_intent.getIntExtra("rank", 0));
-            i.putExtra("phoneNum", curr_intent.getStringExtra("phoneNum"));
+            i.putExtra("phoneNumber", curr_intent.getStringExtra("phoneNumber"));
             i.putExtra("school", curr_intent.getStringExtra("school"));
 
         } catch (Exception e) {

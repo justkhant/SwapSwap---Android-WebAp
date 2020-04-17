@@ -31,10 +31,10 @@ app.use('/createNewUser', (req, res) => {
 		password: req.query.password,
 		name: req.query.name,
 		school: req.query.school,
-		bio: "About me...",
+		bio: "",
 		rank: 0,
 		points: 0,
-		phoneNumber: "xxx xxx xxxx",
+		phoneNumber: "",
 		});
 		
 	console.log("Creating new User...");
@@ -136,10 +136,12 @@ app.use('/search_user', (req, res) => {
 app.use('/update_profile', (req, res) => {
 	var new_bio = req.query.bio;
 	var new_phoneNumber = req.query.phoneNumber;
+	var new_school = req.query.school;
 
 	console.log("Updating Profile...");
 	console.log("Bomb Bio: " + new_bio);
 	console.log("My Numba: " + new_phoneNumber);
+	console.log("School: " + new_school);
 
 	// Find the User 
 	var query = {};
@@ -148,7 +150,7 @@ app.use('/update_profile', (req, res) => {
 		query = { "email" : req.query.email };
 	}
 
-	var updateProfile = { $set: {bio: new_bio, phoneNumber: new_phoneNumber} };
+	var updateProfile = { $set: {bio: new_bio, phoneNumber: new_phoneNumber, school: new_school} };
 
 	User.updateOne( query, updateProfile, (err, users) => {
 		if (err) {
@@ -166,6 +168,8 @@ app.use('/update_profile', (req, res) => {
 		} 
 			
 	});
+
+	console.log("Updated in database");
 });
 
 /********************************* POST STUFF ****************************************/

@@ -38,8 +38,8 @@
                 android:textColor="#ffffff"/>
 
             // display full name
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/full_name"
+            <TextView
+                android:id="@+id/edit_full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rosa Sun"
@@ -52,16 +52,16 @@
                 android:textColor="#ffffff"/>
 
             // display username
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="rosa_sun"
-                android:textSize="20sp"
-                android:layout_below="@+id/full_name"
-                android:layout_centerHorizontal="true"
-                android:includeFontPadding="false"
-                android:textColor="#d9d9d9"
-                android:layout_marginTop="-6dp"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="rosa_sun"-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_below="@+id/full_name"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:textColor="#d9d9d9"-->
+<!--                android:layout_marginTop="-6dp"/>-->
         </RelativeLayout>
 
         // cards
@@ -94,7 +94,7 @@
 
                     // ranking number
                     <TextView
-                        android:id="@+id/rank"
+                        android:id="@+id/edit_rank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#12"
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ranking"
                         android:textSize="15sp"
-                        android:layout_below="@+id/rank"
+                        android:layout_below="@+id/edit_rank"
                         android:layout_centerHorizontal="true"
                         android:includeFontPadding="false"/>
                 </RelativeLayout>
@@ -138,7 +138,7 @@
 
                     // ranking number
                     <TextView
-                        android:id="@+id/points"
+                        android:id="@+id/edit_points"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="147"
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:text="Points"
                         android:textSize="15sp"
-                        android:layout_below="@+id/points"
+                        android:layout_below="@+id/edit_points"
                         android:layout_centerHorizontal="true"
                         android:includeFontPadding="false"/>
                 </RelativeLayout>
@@ -185,6 +185,7 @@
                 android:textSize="20sp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_about_me_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="I like to sleep"/>
@@ -216,6 +217,7 @@
                 android:textSize="20sp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_school_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="U of P"/>
@@ -244,10 +246,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone_header"
-                android:hint="Phone number you would like to be reached at:"
+                android:hint="xxx xxx xxxx:"
                 android:textSize="20sp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_phone_num_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="5051234567"/>
@@ -280,6 +283,7 @@
                 android:textSize="20sp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="rosaasor.sun@gmail.com"/>

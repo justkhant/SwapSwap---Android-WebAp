@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserProfileActivity extends AppCompatActivity {
     private TextView bio;
@@ -15,12 +17,17 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView points;
     private TextView school;
 
+    private Intent curr_intent;
+
+    public static final int EDIT_ACTIVITY_ID = 9;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        Intent curr_intent = getIntent();
+        curr_intent = getIntent();
 
         //fill out info
         bio = findViewById(R.id.about_me_body);
@@ -42,9 +49,29 @@ public class UserProfileActivity extends AppCompatActivity {
         name.setText(curr_intent.getStringExtra("name"));
 
         phoneNumber = findViewById(R.id.phone_num_body);
-        phoneNumber.setText(curr_intent.getStringExtra("phoneNum"));;
+        phoneNumber.setText(curr_intent.getStringExtra("phoneNumber"));
 
         //points = findViewById(R.id.points);
         //points.setText(curr_intent.getIntExtra("points", 0));
     }
+
+    public void onEditClick(View view) {
+        Intent i = new Intent(this, EditProfileActivity.class);
+
+        //pass on user information
+        try {
+            i.putExtra("name", curr_intent.getStringExtra("name"));
+            i.putExtra("email", curr_intent.getStringExtra("email"));
+            i.putExtra("bio", curr_intent.getStringExtra("bio"));
+            i.putExtra("points", curr_intent.getIntExtra("points", 0));
+            i.putExtra("rank", curr_intent.getIntExtra("rank", 0));
+            i.putExtra("phoneNumber", curr_intent.getStringExtra("phoneNumber"));
+            i.putExtra("school", curr_intent.getStringExtra("school"));
+
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+        startActivityForResult(i, EDIT_ACTIVITY_ID);
+    }
+
 }

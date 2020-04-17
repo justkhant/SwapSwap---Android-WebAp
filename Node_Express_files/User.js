@@ -14,10 +14,10 @@ var userSchema = new Schema({
 	password: {type: String, required: true},
 	name: {type: String, required: true},
 	school: {type: String, required: true},
-	bio: {type: String},
-	rank: {type: Number},
-	points: {type: Number},
-	phoneNumber: {type: String},
+	bio: {type: String, required: true},
+	rank: {type: Number, required: true},
+	points: {type: Number, required: true},
+	phoneNumber: {type: String, required: true}
 });
 
 // export userSchema as a class called User
