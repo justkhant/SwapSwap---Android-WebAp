@@ -60,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
     public JSONObject getUserProfile(String email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
+
             URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
+
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
@@ -129,10 +131,10 @@ public class LoginActivity extends AppCompatActivity {
 
         } else if (usernameInput.equals("")) {
             // if username field is empty, print out "Please enter a username"
-            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a email", Toast.LENGTH_SHORT).show();
         } else {
             // if username doesn't exist, print out "Invalid Username."
-            Toast.makeText(this, "Invalid username", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid email", Toast.LENGTH_SHORT).show();
         }
     }
 
