@@ -112,10 +112,18 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     i.putExtra("name", user.getString("name"));
                     i.putExtra("email", usernameActual);
-                    i.putExtra("bio", user.getString("bio"));
-                    i.putExtra("points", user.getInt("points"));
-                    i.putExtra("rank", user.getInt("rank"));
-                    i.putExtra("phoneNum", user.getString("phoneNumber"));
+                    if (user.getString("bio").length() > 0) {
+                        i.putExtra("bio", user.getString("bio"));
+                    }
+                    if (user.getString("points").length() > 0) {
+                        i.putExtra("points", user.getInt("points"));
+                    }
+                    if (user.getString("rank").length() > 0) {
+                        i.putExtra("rank", user.getInt("rank"));
+                    }
+                    if (user.getString("phoneNumber").length() > 0) {
+                        i.putExtra("phoneNumber", user.getString("phoneNumber"));
+                    }
                     i.putExtra("school", user.getString("school"));
 
                 } catch (Exception e) {

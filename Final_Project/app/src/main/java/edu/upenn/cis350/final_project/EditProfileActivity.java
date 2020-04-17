@@ -19,7 +19,7 @@ import java.util.Scanner;
 import static android.widget.Toast.LENGTH_LONG;
 
 public class EditProfileActivity extends AppCompatActivity {
-    static final int PROFILE_ACTIVITY_ID = 2;
+    static final int PROFILE_ACTIVITY_ID = 50;
 
     private TextView bio;
     private TextView rank;
@@ -96,7 +96,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     // This helper method gathers the user data to be parsed when a login attempt is made.
-    public JSONObject updateUserProfile(String schoolInput, String bioInput, String pnInput, String s_email) {
+    public void updateUserProfile(String schoolInput, String bioInput, String pnInput, String s_email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
 
@@ -106,11 +106,12 @@ public class EditProfileActivity extends AppCompatActivity {
                     "phoneNumber=" + pnInput + "&" +
                     "school=" + schoolInput);
             AccessWebTask task = new AccessWebTask();
+            Toast.makeText(this, "Update successful", LENGTH_LONG).show();
             task.execute(url);
-            return task.get(); // waits for doInBackground to finish, then gets the return value
+
         } catch (Exception e) {
             e.printStackTrace();
-            return new JSONObject(); // return empty JSON Object upon encountering an exception
+            Toast.makeText(this, "Update error", LENGTH_LONG).show();
         }
     }
 
@@ -135,8 +136,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // This method call should end up uploading the information to the database
         updateUserProfile(schoolInput, bioInput, pnInput, s_email);
-
-        Toast.makeText(this, "Update successful", LENGTH_LONG).show();
 
         Intent i = new Intent(this, UserProfileActivity.class);
 

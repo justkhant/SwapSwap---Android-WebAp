@@ -117,7 +117,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onProfileClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
 
-
         //pass on user information
         try {
             i.putExtra("name", curr_intent.getStringExtra("name"));

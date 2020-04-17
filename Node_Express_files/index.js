@@ -156,13 +156,14 @@ app.use('/update_profile', (req, res) => {
 		if (err) {
 		    res.type('html').status(200);
 		    console.log('uh oh' + err);
-		    res.write(err);
+			res.write(err);
+			res.end();
 		}
 		else {
 			if (users.length == 0) {
 				res.type('html').status(200);
 				res.write('User does not exist');
-				res.end()
+				res.end();
 				return;
 			}
 		} 
