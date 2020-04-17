@@ -6,7 +6,7 @@ const connector = mongoose.connect("mongodb+srv://Max:Max@cis350project-8hdrl.mo
 var express = require('express');
 var app = express();
 
-// set up EJS
+// set up EJS -- WE DON'T NEED THIS FOR OUR PROJECT, RIGHT? -Max
 app.set('view engine', 'ejs');
 
 // set up BodyParser
@@ -17,7 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // import the User class from User.js
 var User = require('./User.js');
 
-/***************************************/
+// import the Post class from Post.js
+var Post = require('./Post.js');
+
+/************************ USER STUFF ***************************/
 
 // route for creating a new User
 // this is the action of the SignUp button on the SignUp Page
@@ -165,6 +168,40 @@ app.use('/update_profile', (req, res) => {
 	});
 });
 
+/********************************* POST STUFF ****************************************/
+
+// route for creating a new Post
+// this is the action of the <createNewPost> button on the <New Post> Page
+app.use('/createNewPost', (req, res) => {
+	// construct the Post from the form data which is in the request body
+	var newPost = new Post ({
+		name: req.query.name,
+		category: req.query.category,
+		avail: req.query.avail,
+		imgURL: req.query.imgURL,
+		});
+		
+	console.log("Creating new Post...");
+	console.log(newPost.name);
+	console.log(newPost.category);
+	console.log(newPost.avail);
+	console.log(newPost.imgURL);
+	
+	// save the user to the database
+	newPost.save( (err) => { 
+		if (err) {
+		    res.type('html').status(200);
+		    res.write('uh oh: ' + err);
+		    console.log(err);
+		    res.end();
+		}
+		else {
+		    // display the "successfull created" page using EJS
+		    // res.render('created', {user : newUser});
+		}
+	    } );
+    }
+    );
 
 /*************************************************/
 
