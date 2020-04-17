@@ -92,24 +92,37 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     // inner class used to access the web by the login method
-    public class AccessWebTask extends AsyncTask<URL, String, String> {
+    public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
+        private String method;
+
+        public AccessWebTask(String method) {
+            this.method = method;
+        }
         /*
         This method is called in background when this object's "execute" method is invoked.
         The arguments passed to "execute" are passed to this method.
          */
-        protected String doInBackground(URL... urls) {
+        protected JSONObject doInBackground(URL... urls) {
             try {
                 // get the first URL from the array
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST"); // send HTTP POST request
+                conn.setRequestMethod(method); // send HTTP request
                 conn.connect();
                 int statusCode = conn.getResponseCode(); // should be 200
-                return ""; // just to satisfy AsyncTask
+                // read the first line of data that is returned
+                Scanner in = new Scanner(url.openStream());
+                String msg = in.nextLine();
+
+                // use Android JSON library to parse JSON
+                JSONObject jo = new JSONObject(msg);
+                // pass the JSON object to the foreground that called this method
+                return jo;
+
             } catch (Exception e) {
                 e.printStackTrace();
-                return ""; // empty return upon encountering an exception
+                return new JSONObject(); // should empty JSONObject upon encountering an exception
             }
         }
     }
@@ -124,7 +137,7 @@ public class SignupActivity extends AppCompatActivity {
                     "password=" + password + "&" +
                     "name=" + name + "&" +
                     "school=" + school);
-            AccessWebTask task = new AccessWebTask();
+            AccessWebTask task = new AccessWebTask("POST");
             task.execute(url);
         } catch (Exception e) {
             // empty return upon encountering an exception
@@ -159,62 +172,19 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    /* Failed volley attempt :(
-    void registerUser() throws IOException {
-
-        final RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).
-                getRequestQueue();
-        final String url = "http://localhost:3000/createNewUser"; // your URL
-        queue.start();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                            Toast.makeText(activity, response, Toast.LENGTH_SHORT).show();
-                           // DisplayText.setText(response.getString("message"));
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                parseVolleyError(error);
-                Toast.makeText(activity, "That didn't work!", Toast.LENGTH_SHORT).show();
-                //DisplayText.setText("That didn't work!");
-            }
-        }) {
-           @Override
-           protected Map<String, String> getParams()
-           {
-               Map<String, String>  params = new HashMap<String, String>();
-               params.put("username", email.getText().toString()); // the entered data as the JSON body.
-               params.put("password", password.getText().toString());
-               params.put("name", name.getText().toString());
-               params.put("school", school.getText().toString());
-               return params;
-           }
-        };
-
-        MySingleton.getInstance(this).addToRequestQueue(stringRequest);
-
-        //for now just returns back to login
-
-    }
-
-    public void parseVolleyError(VolleyError error) {
+    // This helper method gathers the user data to be parsed when a login attempt is made.
+    public JSONObject getUserProfile(String email) {
         try {
-            String responseBody = new String(error.networkResponse.data, "utf-8");
-            JSONObject data = new JSONObject(responseBody);
-            JSONArray errors = data.getJSONArray("errors");
-            JSONObject jsonMessage = errors.getJSONObject(0);
-            String message = jsonMessage.getString("message");
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-        } catch (JSONException e) {
-        } catch (UnsupportedEncodingException errorr) {
+            // 10.0.2.2 is the host machine as represented by Android Virtual Device
+            URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
+            AccessWebTask task = new AccessWebTask("GET");
+            task.execute(url);
+            return task.get(); // waits for doInBackground to finish, then gets the return value
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONObject(); // return empty JSON Object upon encountering an exception
         }
     }
-    */
 
     boolean validateData() {
         boolean valid = true;
@@ -232,6 +202,12 @@ public class SignupActivity extends AppCompatActivity {
         if (!isEmail(email)) {
             valid = false;
             email.setError("You must input a valid email!");
+        } else {
+            JSONObject check_for_user = getUserProfile(email.getText().toString());
+            if (check_for_user.length() !=  0) {
+                valid = false;
+                email.setError("This email has already been used!");
+            }
         }
 
         if (isEmpty(password)) {

@@ -12,8 +12,12 @@ var userSchema = new Schema({
 	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
 	name: {type: String, required: true},
-	school: {type: String, required: true}
-    });
+	school: {type: String, required: true},
+	bio: {type: String},
+	rank: {type: Number},
+	points: {type: Number},
+	phoneNumber: {type: String},
+});
 
 // export userSchema as a class called User
 module.exports = mongoose.model('User', userSchema);

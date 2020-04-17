@@ -23,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final int POSTS_ACTIVITY_ID = 7;
     public static final int PROFILE_ACTIVITY_ID = 8;
 
+    private Intent curr_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started.");
         ListView mListView = (ListView) findViewById(R.id.listView);
 
+        curr_intent = getIntent();
         //Create the Item objects
 
         Item book1 = new Item("Hamlet","Book","Borrow",
@@ -114,6 +116,22 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onProfileClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
+
+
+        //pass on user information
+        try {
+            i.putExtra("name", curr_intent.getStringExtra("name"));
+            i.putExtra("email", curr_intent.getStringExtra("email"));
+            i.putExtra("bio", curr_intent.getStringExtra("bio"));
+            i.putExtra("points", curr_intent.getIntExtra("points", 0));
+            i.putExtra("rank", curr_intent.getIntExtra("rank", 0));
+            i.putExtra("phoneNum", curr_intent.getStringExtra("phoneNum"));
+            i.putExtra("school", curr_intent.getStringExtra("school"));
+
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 

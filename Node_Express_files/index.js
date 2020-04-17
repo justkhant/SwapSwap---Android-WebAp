@@ -28,8 +28,13 @@ app.use('/createNewUser', (req, res) => {
 		password: req.query.password,
 		name: req.query.name,
 		school: req.query.school,
+		bio: "About me...",
+		rank: 0,
+		points: 0,
+		phoneNumber: "xxx xxx xxxx",
 		});
 		
+	console.log("Creating new User...");
 	console.log(newUser.email);
 	console.log(newUser.password);
 	console.log(newUser.name);
@@ -56,7 +61,8 @@ app.use('/createNewUser', (req, res) => {
 
 // route for showing all the users
 app.use('/all', (req, res) => {
-    
+	console.log("Show all users");
+	
 	// find all the User objects in the database
 	User.find( {}, (err, users) => {
 		if (err) {
@@ -81,13 +87,13 @@ app.use('/all', (req, res) => {
 // route for accessing data via the web api
 // to use this, make a request for /api to get an array of all User objects
 // or /api?username=[whatever] to get a single object
-app.use('/api', (req, res) => {
-	console.log("LOOKING FOR SOMETHING?");
+app.use('/search_user', (req, res) => {
+	console.log("Searching for user");
 
 	// construct the query object
 	var queryObject = {};
 	if (req.query.email) {
-	    // if there's a username in the query parameter, use it here
+	    // if there's a email in the query parameter, use it here
 		queryObject = { "email" : req.query.email };
 	}
     
@@ -102,10 +108,11 @@ app.use('/api', (req, res) => {
 		    res.json({});
 		}
 		
-		else if (users.length == 1 ) {
+		else if (users.length > 0 ) {
 		    var user = users[0];
 		    // send back a single JSON object
-		    res.json( { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school} );
+			res.json( { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school, "bio" : user.bio,
+			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber} );
 		}
 		/* We will only return one JSONObject user per login request
 		else {
@@ -122,13 +129,45 @@ app.use('/api', (req, res) => {
 	    });
     });
 
+//route to update profile information for user
+app.use('/update_profile', (req, res) => {
+	var new_bio = req.query.bio;
+	var new_phoneNumber = req.query.phoneNumber;
+
+	console.log("Updating Profile...");
+	console.log("Bomb Bio: " + new_bio);
+	console.log("My Numba: " + new_phoneNumber);
+
+	// Find the User 
+	var query = {};
+	if (req.query.email) {
+	    // if there's a email in the query parameter, use it here
+		query = { "email" : req.query.email };
+	}
+
+	var updateProfile = { $set: {bio: new_bio, phoneNumber: new_phoneNumber} };
+
+	User.updateOne( query, updateProfile, (err, users) => {
+		if (err) {
+		    res.type('html').status(200);
+		    console.log('uh oh' + err);
+		    res.write(err);
+		}
+		else {
+			if (users.length == 0) {
+				res.type('html').status(200);
+				res.write('User does not exist');
+				res.end()
+				return;
+			}
+		} 
+			
+	});
+});
 
 
 /*************************************************/
 
-app.use('/public', express.static('public'));
-
-app.use('/', (req, res) => { res.redirect('/public/personform.html'); } );
 
 app.listen(3000,  () => {
 	console.log('Listening on port 3000');

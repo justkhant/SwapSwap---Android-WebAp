@@ -57,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // This helper method gathers the user data to be parsed when a login attempt is made.
-    public JSONObject getUserProfile(String username) {
+    public JSONObject getUserProfile(String email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
-            URL url = new URL("http://10.0.2.2:3000/api?username=" + username);
+            URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         if (user.has("email") && user.has("password")) {
             try {
                 usernameActual = user.getString("email");
-                Toast.makeText(this, usernameActual, Toast.LENGTH_SHORT).show();
                 // go to 'homepage' activity
                 passwordActual = user.getString("password");
             } catch (Exception e) {
@@ -106,10 +105,23 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 // go to 'homepage' activity
                 Intent i = new Intent(this, HomeActivity.class);
+
+                //pass on user information
+                try {
+                    i.putExtra("name", user.getString("name"));
+                    i.putExtra("email", usernameActual);
+                    i.putExtra("bio", user.getString("bio"));
+                    i.putExtra("points", user.getInt("points"));
+                    i.putExtra("rank", user.getInt("rank"));
+                    i.putExtra("phoneNum", user.getString("phoneNumber"));
+                    i.putExtra("school", user.getString("school"));
+
+                } catch (Exception e) {
+                    Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+                }
+
                 startActivityForResult(i, HOME_ACTIVITY_ID);
-                //for now go to edit profile page
-                // Intent i = new Intent(this, EditProfileActivity.class);
-                // startActivityForResult(i, EDIT_ACTIVITY_ID);
+
             } else {
                 // if password doesn't match, print out "Invalid password."
                 Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();

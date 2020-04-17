@@ -168,6 +168,7 @@
                 android:textColor="#284b63"/>
             // user input for about me
             <TextView
+                android:id="@+id/about_me_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/about_me_header"
@@ -193,6 +194,7 @@
                 android:textColor="#284b63"/>
             // user input for school info
             <TextView
+                android:id="@+id/school_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/school_header"
@@ -218,6 +220,7 @@
                 android:textColor="#284b63"/>
             // user input for phone
             <TextView
+                android:id="@+id/phone_num_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone_num"
@@ -243,6 +246,7 @@
                 android:textColor="#284b63"/>
             // user input for email
             <TextView
+                android:id="@+id/email_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/email"
