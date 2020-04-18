@@ -22,6 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     public static final int SEARCH_ACTIVITY_ID = 6;
     public static final int POSTS_ACTIVITY_ID = 7;
     public static final int PROFILE_ACTIVITY_ID = 8;
+    public static final int NEW_POST_ID = 10;
 
     private Intent curr_intent;
 
@@ -113,6 +114,12 @@ public class HomeActivity extends AppCompatActivity {
         //Intent i = new Intent(this, __Activity.class);
         //startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
+
+    public void onAddClick(View view) {
+        Intent i = new Intent(this, NewPostActivity.class);
+        startActivityForResult(i, NEW_POST_ID);
+    }
+
 
     public void onProfileClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
