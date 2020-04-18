@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NewPostActivity"></activity>
+        <activity android:name=".PostingsListActivity"></activity>
+        <activity android:name=".NewPostActivity" />
         <activity android:name=".SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

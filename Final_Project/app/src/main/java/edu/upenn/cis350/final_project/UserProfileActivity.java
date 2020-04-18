@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView school;
 
     private Intent curr_intent;
-
+    private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
 
 
@@ -26,6 +27,14 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+        viewPostings = findViewById(R.id.view_user_listings_button);
+        viewPostings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPostingsListPage();
+            }
+        });
 
         curr_intent = getIntent();
 
@@ -53,6 +62,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
         //points = findViewById(R.id.points);
         //points.setText(curr_intent.getIntExtra("points", 0));
+    }
+
+    private void goToPostingsListPage() {
+        Intent intent = new Intent(UserProfileActivity.this, PostingsListActivity.class);
+        startActivity(intent);
     }
 
     public void onEditClick(View view) {
