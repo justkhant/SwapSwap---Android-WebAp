@@ -38,7 +38,7 @@
                     android:id="@+id/title_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="To Kill a Mockingbird 100 copies!"/>
+                    android:text=""/>
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
@@ -114,7 +114,7 @@
                     android:id="@+id/details_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Really it's 99 copies cuz my cat tore one up. :("/>
+                    android:text=""/>
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 

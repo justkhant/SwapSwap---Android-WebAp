@@ -112,7 +112,7 @@ app.use('/search_user', (req, res) => {
 		else if (users.length == 0) {
 		    // no objects found, so send back empty json
 			res.json({});
-			rs.end();
+			res.end();
 			return;
 		}
 		
@@ -124,7 +124,7 @@ app.use('/search_user', (req, res) => {
 			// use EJS to show all the users
 			res.render('all', { users: users });
 			res.end();
-			retur;
+			return;
 		}
 		/* We will only return one JSONObject user per login request
 		else {
