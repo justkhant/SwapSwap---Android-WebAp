@@ -35,6 +35,7 @@ app.use('/createNewUser', (req, res) => {
 		rank: 0,
 		points: 0,
 		phoneNumber: "",
+		post_ids: [],
 		});
 		
 	console.log("Creating new User...");
@@ -104,18 +105,26 @@ app.use('/search_user', (req, res) => {
 		console.log(users);
 		if (err) {
 		    console.log('uh oh' + err);
-		    res.json({});
+			res.json({});
+			res.end()
+			return;
 		}
 		else if (users.length == 0) {
 		    // no objects found, so send back empty json
-		    res.json({});
+			res.json({});
+			rs.end();
+			return;
 		}
 		
 		else if (users.length > 0 ) {
 		    var user = users[0];
 		    // send back a single JSON object
 			res.json( { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school, "bio" : user.bio,
-			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber} );
+			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber, "post_ids" : user.post_ids} );
+			// use EJS to show all the users
+			res.render('all', { users: users });
+			res.end();
+			retur;
 		}
 		/* We will only return one JSONObject user per login request
 		else {
@@ -180,37 +189,97 @@ app.use('/update_profile', (req, res) => {
 app.use('/createNewPost', (req, res) => {
 	// construct the Post from the form data which is in the request body
 	var newPost = new Post ({
-		name: req.query.name,
+		title: req.query.title,
 		category: req.query.category,
 		avail: req.query.avail,
 		imgURL: req.query.imgURL,
-		});
+		details: req.query.details,
+		owner: req.query.owner
+	});
 		
 	console.log("Creating new Post...");
-	console.log(newPost.name);
+	console.log(newPost._id);
+	console.log(newPost.title);
 	console.log(newPost.category);
 	console.log(newPost.avail);
 	console.log(newPost.imgURL);
+	console.log(newPost.details);
+	console.log(newPost.owner);
 	
-	// save the user to the database
+	// save the post to the database
 	newPost.save( (err) => { 
 		if (err) {
 		    res.type('html').status(200);
 		    res.write('uh oh: ' + err);
 		    console.log(err);
-		    res.end();
+			res.end();
+			return;
 		}
 		else {
 		    // display the "successfull created" page using EJS
-		    // res.render('created', {user : newUser});
+			// res.render('created', {user : newUser});
 		}
-	    } );
-    }
-    );
+	});
+
+	// Find the User 
+	var query = {};
+	query = { "email" : req.query.owner };
+
+	var newPostId = { $push: {post_ids: [newPost._id] } };
+
+	//Update post_ids in User
+	User.updateOne( query, newPostId, (err, users) => {
+		if (err) {
+		    res.type('html').status(200);
+		    console.log('uh oh' + err);
+			res.write(err);
+			res.end();
+			return;
+		}
+		else {
+			if (users.length == 0) {
+				res.type('html').status(200);
+				res.write('User does not exist');
+				res.end();
+				return;
+			}
+		} 
+			
+	});
+});
+
+	
+// route for showing all the users
+app.use('/allPosts', (req, res) => {
+	console.log("Show all Posts");
+	
+	// find all the User objects in the database
+	Post.find( {}, (err, posts) => {
+		if (err) {
+		    res.type('html').status(200);
+		    console.log('uh oh' + err);
+			res.write(err);
+			res.end();
+			return;
+		}
+		else {
+		    if (posts.length == 0) {
+				res.type('html').status(200);
+				res.write('There are posts.');
+				res.end();
+				return;
+		    }
+		    // use EJS to show all the users
+		    res.render('all_posts', { posts: posts });
+
+		}
+	    }).sort({ 'title': 'asc' }); // this sorts them BEFORE rendering the results
+    });
+
 
 /*************************************************/
 
 
 app.listen(3000,  () => {
 	console.log('Listening on port 3000');
-    });
+});

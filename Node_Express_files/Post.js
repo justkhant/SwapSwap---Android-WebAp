@@ -10,18 +10,18 @@ mongoose.connect("mongodb+srv://Max:Max@cis350project-8hdrl.mongodb.net/test?ret
 var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-	
-	name: {type: String, required: true},
+	title: {type: String, required: true},
 	category: {type: String, required: true},
-	avail: {type: String, required: true},
-	imgURL: {type: String, required: true},
-	
+	avail: {type: Boolean, required: true},
+	imgURL: {type: String},
+	details: {type: String},
+	owner: {type: String, required: true}
 });
 
 // export postSchema as a class called Post
 module.exports = mongoose.model('Post', postSchema);
 
-postSchema.methods.standardizeName = function() {
+postSchema.methods.generateUniqueId = function() {
     // this.email = this.email.toLowerCase();
     // return this.email;
 }

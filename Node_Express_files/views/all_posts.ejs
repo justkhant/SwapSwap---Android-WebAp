@@ -1,0 +1,16 @@
+Here are all the posts:
+<ul>
+<% posts.forEach( (post) => { %>
+
+<li> 
+     <b>Id</b> = <%= post._id%> <br>
+     <b>Title</b> = <%= post.title%> <br>
+     <b>Owner</b> = <%= post.owner %> <br> 
+     <b>Details</b> = <%= post.details%> <br>
+     <b>Category</b> = <%= post.category%> <br> 
+     <b>Availability</b> = <%= post.avail%> <br>
+     <b>ImageURL</b> = <%= post.imgURL%> <br><br>
+     </li>
+
+<% }); %>
+</ul>

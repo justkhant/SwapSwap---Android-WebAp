@@ -117,6 +117,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onAddClick(View view) {
         Intent i = new Intent(this, NewPostActivity.class);
+
+        //pass on user information
+        try {
+            i.putExtra("email", curr_intent.getStringExtra("email"));
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+
         startActivityForResult(i, NEW_POST_ID);
     }
 
