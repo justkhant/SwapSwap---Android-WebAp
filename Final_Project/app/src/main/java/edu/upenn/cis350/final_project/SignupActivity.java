@@ -148,11 +148,6 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = validateData();
         if (valid) {
 
-            // FIND A WAY TO PASS THIS DATA TO NODE.
-            // I'm guessing I have to run something like: localhost:3000/createNewUser?...
-            // with the data to pass in
-
-            // HELP
             String nameInput = name.getText().toString();
             String schoolInput = school.getText().toString();
             String emailInput = email.getText().toString();

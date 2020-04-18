@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -66,6 +67,12 @@ public class EditProfileActivity extends AppCompatActivity {
     // inner class used to access the web by the login method
     public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
 
+        private String method;
+
+        public AccessWebTask(String method) {
+            this.method = method;
+        }
+
         /*
         This method is called in background when this object's "execute" method is invoked.
         The arguments passed to "execute" are passed to this method.
@@ -76,9 +83,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST"); // send HTTP GET request
+                conn.setRequestMethod(method); // send HTTP GET request
                 conn.connect();
                 int statusCode = conn.getResponseCode(); // should be 200
+
+                // BELOW not used unless task.get() is called
                 // read the first line of data that is returned
                 Scanner in = new Scanner(url.openStream());
                 String msg = in.nextLine();
@@ -105,7 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     "bio=" + bioInput + "&" +
                     "phoneNumber=" + pnInput + "&" +
                     "school=" + schoolInput);
-            AccessWebTask task = new AccessWebTask();
+            AccessWebTask task = new AccessWebTask("POST");
             Toast.makeText(this, "Update successful", LENGTH_LONG).show();
             task.execute(url);
 
@@ -115,11 +124,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void onSaveButtonClick(View v) {
-        //create Intent using the current Activity
-        //and the Class to be created
 
         EditText schoolEditText = (EditText) findViewById(R.id.edit_school_body);
         String schoolInput = schoolEditText.getText().toString();
@@ -132,33 +137,56 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String s_email = email.getText().toString();
 
-       // JSONObject user = getUserProfile(s_email);
+        if (validateData(pnEditText)) {
 
-        // This method call should end up uploading the information to the database
-        updateUserProfile(schoolInput, bioInput, pnInput, s_email);
+            // JSONObject user = getUserProfile(s_email);
 
-        Intent i = new Intent(this, UserProfileActivity.class);
+            // This method call should end up uploading the information to the database
+            updateUserProfile(schoolInput, bioInput, pnInput, s_email);
 
+            Intent i = new Intent(this, UserProfileActivity.class);
 
-        try {
-            //i.putExtra("name", curr_intent.getStringExtra("name"));
-            i.putExtra("email", s_email);
-            i.putExtra("name", name.getText().toString());
-            i.putExtra("bio", bioInput);
-            i.putExtra("points", points.getText().toString());
-            i.putExtra("rank", rank.getText().toString());
-            i.putExtra("phoneNumber", pnInput);
-            i.putExtra("school", school.getText().toString());
+            try {
+                //i.putExtra("name", curr_intent.getStringExtra("name"));
+                i.putExtra("email", s_email);
+                i.putExtra("name", name.getText().toString());
+                i.putExtra("bio", bioInput);
+                i.putExtra("points", points.getText().toString());
+                i.putExtra("rank", rank.getText().toString());
+                i.putExtra("phoneNumber", pnInput);
+                i.putExtra("school", school.getText().toString());
 
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+            }
+
+            //pass Intent to activity using specified code
+            startActivityForResult(i, PROFILE_ACTIVITY_ID);
         }
-
-        //pass Intent to activity using specified code
-        startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 
+    boolean validateData(EditText phone) {
+        boolean valid = true;
+
+        if (!isPhone(phone)) {
+            valid = false;
+            phoneNumber.setError("You must input a valid phone number format.");
+        }
+
+        return valid;
+    }
+
+    boolean isPhone(EditText phoneNumberEditText) {
+        String phone = phoneNumberEditText.getText().toString();
+        return Patterns.PHONE.matcher(phone).matches();
+    }
+
+
     public void onCancelButtonClick(View v) {
+        // Let the user know the attempt to edit the profile was cancelled
+        Toast.makeText(this, "Profile edit cancelled", LENGTH_LONG).show();
+
         //create Intent using the current Activity
         //and the Class to be created
         Intent i = new Intent(this, UserProfileActivity.class);
