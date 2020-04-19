@@ -209,6 +209,7 @@ app.use('/createNewPost', (req, res) => {
 	console.log(newPost.details);
 	console.log(newPost.owner);
 	
+
 	// save the post to the database
 	newPost.save( (err) => { 
 		if (err) {
@@ -224,8 +225,101 @@ app.use('/createNewPost', (req, res) => {
 		}
 	});
 });
+
+
+// route for finding a specific Post by id
+app.use('/findPostID', (req, res) => {
+	// construct the Post from the form data which is in the request body
+	console.log("Searching for Post by ID");
 	
-// route for showing all the users
+	// construct the query object
+	var queryObject = {};
+	if (req.query._id) {
+	    // if there's a id in the query parameter, use it here
+		queryObject = { "_id" : req.query._id };
+	}
+		
+	console.log("Finding Post by ID...");
+	
+	Post.find( queryObject, (err, posts) => {
+		console.log(posts);
+		if (err) {
+		    console.log('uh oh' + err);
+			return res.json({});
+		}
+		else if (posts.length == 0) {
+		    // no objects found, so send back empty json
+			console.log("no posts");
+			return res.json({});
+		}
+		
+		else if (posts.length > 0 ) {
+			var post = posts[0];
+
+			console.log("title: " + post.title);
+			console.log("category: " + post.category);
+			console.log("completed: " + post.completed);
+			console.log("details: " + post.details);
+			console.log("owner: " + post.owner);
+
+		    // send back a single JSON object
+			return res.json( { "title" : post.title, 
+				"category" : post.category, 
+				"completed" : post.completed,
+				"imgURL": post.imgURL,
+				"details": post.details,
+				"owner": post.owner 
+			});
+		}
+		
+	});
+
+});
+
+
+// route for all posts by single user
+app.use('/findUserPosts', (req, res) => {
+	// construct the Post from the form data which is in the request body
+	console.log("Searching for User's Posts");
+	
+	// construct the query object
+	var queryObject = {};
+	if (req.query.owner) {
+	    // if there's a email in the query parameter, use it here
+		queryObject = { "owner" : req.query.owner };
+	}
+		
+	console.log("Finding User's Posts...");
+	
+	Post.find( queryObject, (err, posts) => {
+		console.log(posts);
+		if (err) {
+		    console.log('uh oh' + err);
+			return res.json({});
+		}
+		else {
+		    if (posts.length == 0) {
+				res.type('html').status(200);
+				res.write('There are no posts for this user yet.');
+				res.end();
+				return;
+			}
+			
+			//otherwise return all posts
+
+			posts.forEach (post => 
+				console.log("title: " + post.title));
+
+			return res.json(posts);
+		}
+		
+	});
+
+});
+
+
+	
+// route for showing all the posts
 app.use('/allPosts', (req, res) => {
 	console.log("Show all Posts");
 	
@@ -241,7 +335,7 @@ app.use('/allPosts', (req, res) => {
 		else {
 		    if (posts.length == 0) {
 				res.type('html').status(200);
-				res.write('There are posts.');
+				res.write('There are no posts yet.');
 				res.end();
 				return;
 		    }
