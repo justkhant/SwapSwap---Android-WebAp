@@ -115,8 +115,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onPostsClick(View view) {
         //not implemented yet
-        //Intent i = new Intent(this, __Activity.class);
-        //startActivityForResult(i, POSTS_ACTIVITY_ID);
+        Intent i = new Intent(this, PostingsListActivity.class);
+        passOnEmail(i, curr_intent.getStringExtra("email"));
+        startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
 
     public void onAddClick(View view) {

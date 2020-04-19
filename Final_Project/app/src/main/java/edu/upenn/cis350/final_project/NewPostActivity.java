@@ -27,6 +27,8 @@ import static android.widget.Toast.LENGTH_LONG;
 public class NewPostActivity extends AppCompatActivity {
 
     int HOME_ACTIVITY_ID = 12;
+    int VIEW_POST_ACTIVITY_ID = 13;
+
     EditText title;
     RadioButton cat;
     EditText details;
@@ -145,6 +147,15 @@ public class NewPostActivity extends AppCompatActivity {
         }
     }
 
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void onSaveButtonClick(View v) throws IOException {
 
         String titleInput = title.getText().toString();
@@ -160,15 +171,16 @@ public class NewPostActivity extends AppCompatActivity {
         Toast.makeText(this, "New Post successful", LENGTH_LONG).show();
 
         // just go back to Login Activity
+        Intent i = new Intent(this, ViewPostActivity.class);
+
+        passOnEmail(i, curr_intent.getStringExtra("email"));
+        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
+    }
+
+    public void onCancelButtonClick(View view) {
         Intent i = new Intent(this, HomeActivity.class);
 
-        //pass on info
-        try {
-            i.putExtra("email", curr_intent.getStringExtra("email"));
-
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
+        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 

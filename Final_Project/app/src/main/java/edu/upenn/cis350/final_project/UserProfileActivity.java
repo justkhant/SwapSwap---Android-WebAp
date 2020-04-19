@@ -26,10 +26,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView points;
     private TextView school;
+    private String user_email;
 
     private JSONObject user;
     private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
+    public static final int POSTS_ACTIVITY_ID = 10;
 
 
     @Override
@@ -47,7 +49,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         //find user to display their information
         Intent curr_intent = getIntent();
-        String user_email = curr_intent.getStringExtra("email");
+        user_email = curr_intent.getStringExtra("email");
 
         user = getUserProfile(user_email);
 
@@ -172,6 +174,22 @@ public class UserProfileActivity extends AppCompatActivity {
             // empty return upon encountering an exception
             e.printStackTrace();
         }
+    }
+
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onPostsClick(View view) {
+        //not implemented yet
+        Intent i = new Intent(this, PostingsListActivity.class);
+        passOnEmail(i, user_email);
+        startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
 
     public void onDeleteUserClick(View view) {

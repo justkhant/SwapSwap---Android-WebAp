@@ -60,7 +60,7 @@ public class EditProfileActivity extends AppCompatActivity {
         name.setText(curr_intent.getStringExtra("name"));
 
         phoneNumber = findViewById(R.id.edit_phone_num_body);
-        phoneNumber.setText(curr_intent.getStringExtra("phoneNumber"));;
+        phoneNumber.setText(curr_intent.getStringExtra("phoneNumber"));
 
     }
 
