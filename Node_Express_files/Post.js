@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;
 var postSchema = new Schema({
 	title: {type: String, required: true},
 	category: {type: String, required: true},
-	avail: {type: Boolean, required: true},
+	completed: {type: Boolean, required: true},
 	imgURL: {type: String},
 	details: {type: String},
 	owner: {type: String, required: true}

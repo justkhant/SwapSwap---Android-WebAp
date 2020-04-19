@@ -82,47 +82,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
     }
 
-    // inner class used to access the web by the login method
-    public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
-        /*
-        This method is called in background when this object's "execute" method is invoked.
-        The arguments passed to "execute" are passed to this method.
-         */
-        protected JSONObject doInBackground(URL... urls) {
-            try {
-                // get the first URL from the array
-                URL url = urls[0];
-                // create connection and send HTTP request
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET"); // send HTTP GET request
-                conn.connect();
-
-                // read the first line of data that is returned
-                Scanner in = new Scanner(url.openStream());
-                String msg = in.nextLine();
-
-                // use Android JSON library to parse JSON
-                JSONObject jo = new JSONObject(msg);
-                // pass the JSON object to the foreground that called this method
-                return jo;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return new JSONObject(); // should empty JSONObject upon encountering an exception
-            }
-        }
-
-        //This method is called in foreground after doInBackground finishes.
-        protected void onPostExecute(String msg) {
-            // not implemented but you can use this if you’d like//
-        }
-    }
-
     // This helper method gathers the user data to be parsed when a login attempt is made.
     public JSONObject getUserProfile(String email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
             URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
-            AccessWebTask task = new AccessWebTask();
+            AccessWebTask task = new AccessWebTask("GET");
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
         } catch (Exception e) {

@@ -44,6 +44,7 @@ public class NewPostActivity extends AppCompatActivity {
 
         curr_intent = getIntent();
 
+        /*
         // AVAILABILITY SWITCH CODE
         avail_switch = (Switch) findViewById(R.id.avail_switch);
         avail_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -57,6 +58,7 @@ public class NewPostActivity extends AppCompatActivity {
                 }
             }
         });
+    */
 
         //Category code
         RadioGroup category = (RadioGroup)findViewById(R.id.category_body);
@@ -131,7 +133,7 @@ public class NewPostActivity extends AppCompatActivity {
             URL url = new URL("http://10.0.2.2:3000/createNewPost?" +
                     "title=" + titleInput + "&" +
                     "category=" + catInput + "&" +
-                    "avail=" + avail_bool + "&" +
+                    "completed=" + avail_bool + "&" +
                     "imgURL=" + imgURLInput + "&" +
                     "details=" + detailInput + "&" +
                     "owner=" + email);
@@ -153,7 +155,7 @@ public class NewPostActivity extends AppCompatActivity {
         String email = curr_intent.getStringExtra("email");
 
         // This method call should end up uploading the information to the database
-        createNewPost(titleInput, catInput, avail_bool, "tempEmpty", detailInput, email);
+        createNewPost(titleInput, catInput, false, "tempEmpty", detailInput, email);
 
         Toast.makeText(this, "New Post successful", LENGTH_LONG).show();
 

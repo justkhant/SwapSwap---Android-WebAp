@@ -194,7 +194,7 @@ app.use('/createNewPost', (req, res) => {
 	var newPost = new Post ({
 		title: req.query.title,
 		category: req.query.category,
-		avail: req.query.avail,
+		completed: req.query.completed,
 		imgURL: req.query.imgURL,
 		details: req.query.details,
 		owner: req.query.owner
@@ -204,7 +204,7 @@ app.use('/createNewPost', (req, res) => {
 	console.log(newPost._id);
 	console.log(newPost.title);
 	console.log(newPost.category);
-	console.log(newPost.avail);
+	console.log(newPost.completed);
 	console.log(newPost.imgURL);
 	console.log(newPost.details);
 	console.log(newPost.owner);
