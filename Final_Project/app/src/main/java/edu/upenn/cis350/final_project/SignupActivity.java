@@ -91,13 +91,8 @@ public class SignupActivity extends AppCompatActivity {
         startActivityForResult(i, IMAGE_PICK_ID);
     }
 
-    // inner class used to access the web by the login method
+    // inner GET class used to access the web by the login method
     public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
-        private String method;
-
-        public AccessWebTask(String method) {
-            this.method = method;
-        }
         /*
         This method is called in background when this object's "execute" method is invoked.
         The arguments passed to "execute" are passed to this method.
@@ -108,14 +103,15 @@ public class SignupActivity extends AppCompatActivity {
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod(method); // send HTTP request
+                conn.setRequestMethod("GET"); // send HTTP request
                 conn.connect();
+
                 // read the first line of data that is returned
                 Scanner in = new Scanner(url.openStream());
                 String msg = in.nextLine();
-
                 // use Android JSON library to parse JSON
                 JSONObject jo = new JSONObject(msg);
+                in.close();
                 // pass the JSON object to the foreground that called this method
                 return jo;
 
@@ -136,11 +132,14 @@ public class SignupActivity extends AppCompatActivity {
                     "password=" + password + "&" +
                     "name=" + name + "&" +
                     "school=" + school);
-            AccessWebTask task = new AccessWebTask("POST");
+            AccessWebTask task = new AccessWebTask();
             task.execute(url);
+            return;
         } catch (Exception e) {
             // empty return upon encountering an exception
+            Toast.makeText(this, "Signup successful", LENGTH_LONG).show();
             e.printStackTrace();
+            return;
         }
     }
 
@@ -161,7 +160,7 @@ public class SignupActivity extends AppCompatActivity {
             // just go back to Login Activity
             Intent i = new Intent(this, LoginActivity.class);
             startActivityForResult(i, LOGIN_ACTIVITY_ID);
-            //registerUser(); leftover from failed volley attempt
+
         }
     }
 
@@ -171,7 +170,7 @@ public class SignupActivity extends AppCompatActivity {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
             URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
-            AccessWebTask task = new AccessWebTask("GET");
+            AccessWebTask task = new AccessWebTask();
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
         } catch (Exception e) {

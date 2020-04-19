@@ -18,7 +18,6 @@ var userSchema = new Schema({
 	rank: {type: Number},
 	points: {type: Number},
 	phoneNumber: {type: String},
-	post_ids: {type: Array}
 });
 
 // export userSchema as a class called User

@@ -85,8 +85,6 @@ public class HomeActivity extends AppCompatActivity {
         itemList.add(book1);
         itemList.add(pencils);
 
-
-
         ItemListAdapter adapter = new ItemListAdapter(this, R.layout.activity_item_adapter_view_layout, itemList);
         mListView.setAdapter(adapter);
 
@@ -94,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onInfoClick(View view) {
         Intent i = new Intent(this, InstructionsActivity.class);
+        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, INFO_ACTIVITY_ID);
     }
 
@@ -106,6 +105,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onSearchClick(View view) {
        //not implemented yet
         Intent i = new Intent(this, SearchActivity.class);
+        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, SEARCH_ACTIVITY_ID);
     }
 
@@ -119,29 +119,28 @@ public class HomeActivity extends AppCompatActivity {
         Intent i = new Intent(this, NewPostActivity.class);
 
         //pass on user information
-        try {
-            i.putExtra("email", curr_intent.getStringExtra("email"));
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
+        passOnEmail(i, curr_intent.getStringExtra("email"));
 
         startActivityForResult(i, NEW_POST_ID);
     }
 
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void onProfileClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
 
+        passOnEmail(i, curr_intent.getStringExtra("email"));
+
         //pass on user information
         try {
-            i.putExtra("name", curr_intent.getStringExtra("name"));
             i.putExtra("email", curr_intent.getStringExtra("email"));
-            i.putExtra("bio", curr_intent.getStringExtra("bio"));
-            i.putExtra("points", curr_intent.getIntExtra("points", 0));
-            i.putExtra("rank", curr_intent.getIntExtra("rank", 0));
-            i.putExtra("phoneNumber", curr_intent.getStringExtra("phoneNumber"));
-            i.putExtra("school", curr_intent.getStringExtra("school"));
-
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
         }

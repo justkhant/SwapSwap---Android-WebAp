@@ -29,8 +29,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView points;
     private TextView school;
-
-    private Intent curr_intent;
+    private String user_email;
 
 
     @Override
@@ -38,14 +37,15 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        curr_intent = getIntent();
+        Intent curr_intent = getIntent();
+        user_email = curr_intent.getStringExtra("email");
 
        //fill out info
         bio = findViewById(R.id.edit_about_me_body);
         bio.setText(curr_intent.getStringExtra("bio"));
 
         email = findViewById(R.id.edit_email_body);
-        email.setText(curr_intent.getStringExtra("email"));
+        email.setText(user_email);
 
         rank = findViewById(R.id.edit_rank);
         rank.setText(String.valueOf(curr_intent.getIntExtra("rank", 0)));
@@ -64,14 +64,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
-    // inner class used to access the web by the login method
+    // inner class used to access the web
     public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
-
-        private String method;
-
-        public AccessWebTask(String method) {
-            this.method = method;
-        }
 
         /*
         This method is called in background when this object's "execute" method is invoked.
@@ -83,13 +77,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod(method); // send HTTP GET request
+                conn.setRequestMethod("POST"); // send HTTP request
                 conn.connect();
-                int statusCode = conn.getResponseCode(); // should be 200
-
-                // BELOW not used unless task.get() is called
                 // read the first line of data that is returned
                 Scanner in = new Scanner(url.openStream());
+
                 String msg = in.nextLine();
 
                 // use Android JSON library to parse JSON
@@ -102,6 +94,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 return new JSONObject(); // should empty JSONObject upon encountering an exception
             }
         }
+
+        //This method is called in foreground after doInBackground finishes.
+        protected void onPostExecute(String msg) {
+            // not implemented but you can use this if you’d like//
+        }
+
     }
 
     // This helper method gathers the user data to be parsed when a login attempt is made.
@@ -114,13 +112,13 @@ public class EditProfileActivity extends AppCompatActivity {
                     "bio=" + bioInput + "&" +
                     "phoneNumber=" + pnInput + "&" +
                     "school=" + schoolInput);
-            AccessWebTask task = new AccessWebTask("POST");
-            Toast.makeText(this, "Update successful", LENGTH_LONG).show();
-            task.execute(url);
+            AccessWebTask task = new AccessWebTask();
+            task.execute(url).get();
+            Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Update error", LENGTH_LONG).show();
+            Toast.makeText(this, "Update error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -137,51 +135,37 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String s_email = email.getText().toString();
 
-        if (validateData(pnEditText)) {
-
-            // JSONObject user = getUserProfile(s_email);
-
+        if (validateData(pnInput) || pnInput.length() == 0) {
             // This method call should end up uploading the information to the database
             updateUserProfile(schoolInput, bioInput, pnInput, s_email);
 
             Intent i = new Intent(this, UserProfileActivity.class);
-
-            try {
-                //i.putExtra("name", curr_intent.getStringExtra("name"));
-                i.putExtra("email", s_email);
-                i.putExtra("name", name.getText().toString());
-                i.putExtra("bio", bioInput);
-                i.putExtra("points", points.getText().toString());
-                i.putExtra("rank", rank.getText().toString());
-                i.putExtra("phoneNumber", pnInput);
-                i.putExtra("school", school.getText().toString());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-            }
-
+            passOnEmail(i, s_email);
             //pass Intent to activity using specified code
             startActivityForResult(i, PROFILE_ACTIVITY_ID);
         }
+
+
     }
 
-    boolean validateData(EditText phone) {
+    boolean validateData(String pnInput) {
         boolean valid = true;
 
-        if (!isPhone(phone)) {
+        if (!Patterns.PHONE.matcher(pnInput).matches()) {
             valid = false;
             phoneNumber.setError("You must input a valid phone number format.");
         }
-
         return valid;
     }
 
-    boolean isPhone(EditText phoneNumberEditText) {
-        String phone = phoneNumberEditText.getText().toString();
-        return Patterns.PHONE.matcher(phone).matches();
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
     public void onCancelButtonClick(View v) {
         // Let the user know the attempt to edit the profile was cancelled
@@ -190,6 +174,8 @@ public class EditProfileActivity extends AppCompatActivity {
         //create Intent using the current Activity
         //and the Class to be created
         Intent i = new Intent(this, UserProfileActivity.class);
+
+        passOnEmail(i, user_email);
 
         //pass Intent to activity using specified code
         startActivityForResult(i, PROFILE_ACTIVITY_ID);

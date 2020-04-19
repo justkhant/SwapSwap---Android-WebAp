@@ -44,11 +44,12 @@ public class LoginActivity extends AppCompatActivity {
                 // read the first line of data that is returned
                 Scanner in = new Scanner(url.openStream());
                 String msg = in.nextLine();
-
                 // use Android JSON library to parse JSON
                 JSONObject jo = new JSONObject(msg);
+                in.close();
                 // pass the JSON object to the foreground that called this method
                 return jo;
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return new JSONObject(); // should empty JSONObject upon encountering an exception
@@ -60,9 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     public JSONObject getUserProfile(String email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
-
             URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
-
             AccessWebTask task = new AccessWebTask();
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
@@ -110,22 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //pass on user information
                 try {
-                    i.putExtra("name", user.getString("name"));
                     i.putExtra("email", usernameActual);
-                    if (user.getString("bio").length() > 0) {
-                        i.putExtra("bio", user.getString("bio"));
-                    }
-                    if (user.getString("points").length() > 0) {
-                        i.putExtra("points", user.getInt("points"));
-                    }
-                    if (user.getString("rank").length() > 0) {
-                        i.putExtra("rank", user.getInt("rank"));
-                    }
-                    if (user.getString("phoneNumber").length() > 0) {
-                        i.putExtra("phoneNumber", user.getString("phoneNumber"));
-                    }
-                    i.putExtra("school", user.getString("school"));
-
                 } catch (Exception e) {
                     Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
                 }
