@@ -1,11 +1,15 @@
 package edu.upenn.cis350.final_project;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -148,6 +152,39 @@ public class HomeActivity extends AppCompatActivity {
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 
+    public void onLogoutClick(View view) {
+
+        ImageButton logoutButton = (ImageButton) findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder altdial = new AlertDialog.Builder(HomeActivity.this);
+                altdial.setMessage("Are you sure you want to log out?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // finish(); this option will just destroy the stack
+
+                                // This just returns the user to the login page
+                                Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                                startActivityForResult(i, 100);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert = altdial.create();
+                alert.setTitle("Logout");
+                alert.show();
+            }
+        });
+
+
+    }
 }
 
 

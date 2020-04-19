@@ -2,6 +2,8 @@ package edu.upenn.cis350.final_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -158,4 +160,86 @@ public class UserProfileActivity extends AppCompatActivity {
         startActivityForResult(i, EDIT_ACTIVITY_ID);
     }
 
+    // inner class used to access the web by the login method
+    public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
+        private String method;
+
+        public AccessWebTask(String method) {
+            this.method = method;
+        }
+        /*
+        This method is called in background when this object's "execute" method is invoked.
+        The arguments passed to "execute" are passed to this method.
+         */
+        protected JSONObject doInBackground(URL... urls) {
+            try {
+                // get the first URL from the array
+                URL url = urls[0];
+                // create connection and send HTTP request
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod(method); // send HTTP request
+                conn.connect();
+                // read the first line of data that is returned
+                Scanner in = new Scanner(url.openStream());
+                String msg = in.nextLine();
+
+                // use Android JSON library to parse JSON
+                JSONObject jo = new JSONObject(msg);
+                // pass the JSON object to the foreground that called this method
+                return jo;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new JSONObject();
+            }
+        }
+    }
+
+    // This helper method passes the strings to node and runs createNewUser to add new user info.
+    public void deleteUser(String email) {
+        try {
+            // 10.0.2.2 is the host machine as represented by Android Virtual Device
+            URL url = new URL("http://10.0.2.2:3000/deleteUser?" +
+                    "userToDelete=" + email);
+            AccessWebTask task = new AccessWebTask("POST");
+            task.execute(url);
+        } catch (Exception e) {
+            // empty return upon encountering an exception
+            e.printStackTrace();
+        }
+    }
+
+    public void onDeleteUserClick(View view) {
+
+        Button deleteUserButton = (Button) findViewById(R.id.delete_user_button);
+        deleteUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder altDialog = new AlertDialog.Builder(UserProfileActivity.this);
+                altDialog.setMessage("Are you sure you want to delete your profile?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteUser(email.getText().toString());
+
+                                // Go back to the login page after deleting the profile from the database
+                                Intent i = new Intent(UserProfileActivity.this, LoginActivity.class);
+                                startActivityForResult(i, 100);
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert = altDialog.create();
+                alert.setTitle("Logout");
+                alert.show();
+            }
+        });
+    }
 }

@@ -167,6 +167,24 @@ app.use('/update_profile', (req, res) => {
 
 });
 
+app.use('/deleteUser', (req, res) => {
+	var userToDelete = req.query.userToDelete;
+	console.log("Deleting profile...");
+	console.log("Profile being deleted: " + userToDelete);
+		
+	User.deleteOne({ "email" : userToDelete}, (err, results) => {
+		if (err) {
+			res.type('html').status(200);
+			console.log('uh oh' + err);
+			res.write(err);
+			res.end();
+		} else {
+			console.log("Successful deletion");
+		}
+	});
+});
+
+
 /********************************* POST STUFF ****************************************/
 
 // route for creating a new Post

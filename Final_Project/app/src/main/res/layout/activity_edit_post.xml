@@ -118,6 +118,32 @@
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
+        // -- TOGGLE (BOOLEAN) SELECTION FOR AVAILABILITY --
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/avail_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Completed?"
+                android:textColor="#284b63"/>
+
+            <Switch
+                android:id="@+id/avail_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avail_header"
+                android:layout_marginTop="5dp"
+                android:hint="Toggle on if transaction has been made:      "
+                />
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -129,7 +155,7 @@
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:background="#fc9e4f"
-                android:text="CREATE POST"
+                android:text="SAVE EDITS"
                 android:textSize="20dp"
                 android:textColor="#ffffff"
                 android:layout_marginBottom="35dp"
