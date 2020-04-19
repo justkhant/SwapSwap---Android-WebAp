@@ -7,15 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-
-    <ListView
-        android:id="@+id/listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="594dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="66dp" />
+        android:layout_marginTop="66dp"
+        android:scrollbars="vertical" />
 
     <TextView
         android:layout_width="match_parent"

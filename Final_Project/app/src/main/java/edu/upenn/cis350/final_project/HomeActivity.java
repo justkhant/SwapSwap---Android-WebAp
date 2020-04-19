@@ -3,25 +3,29 @@ package edu.upenn.cis350.final_project;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    ArrayList<Item> itemList = new ArrayList<>();
     public static final int INFO_ACTIVITY_ID = 5;
     public static final int SEARCH_ACTIVITY_ID = 6;
     public static final int POSTS_ACTIVITY_ID = 7;
@@ -29,69 +33,118 @@ public class HomeActivity extends AppCompatActivity {
     public static final int NEW_POST_ID = 10;
 
     private Intent curr_intent;
+    private String curr_user;
+
+    private List<String> titles = new ArrayList<>();
+    private List<String> descriptions = new ArrayList<>();
+
+    //images in drawable folder
+    private int image_icons[] = {R.drawable.art_icon, R.drawable.blackboard_icon, R.drawable.book_icon,
+            R.drawable.books_icon, R.drawable.computer_icon, R.drawable.deskchair_icon,
+            R.drawable.art_icon, R.drawable.blackboard_icon};
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter postAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: Started.");
-        ListView mListView = (ListView) findViewById(R.id.listView);
 
         curr_intent = getIntent();
-        //Create the Item objects
 
-        Item book1 = new Item("Hamlet","Book","Borrow",
-                "drawable://" + R.drawable.image_1);
-        Item whiteboard = new Item("Whiteboard","Materials","Give",
-                "drawable://" + R.drawable.image_1);
-        Item book2 = new Item("To Kill A Mockingbird","Book","Give",
-                "drawable://" + R.drawable.image_1);
-        Item pencils = new Item("Pencils","Materials","Give",
-                "drawable://" + R.drawable.image_1);
-        Item desk = new Item("Desk","Furniture","Give",
-                "drawable://" + R.drawable.image_1);
-        Item book3 = new Item("Beloved","book","Borrow",
-                "drawable://" + R.drawable.image_1);
-        Item mouse = new Item("Mouse","Materials","Request",
-                "drawable://" + R.drawable.image_1);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
 
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        Intent curr_intent = getIntent();
+        curr_user = curr_intent.getStringExtra("email");
+        getAllPosts();
 
-        //Add the Person objects to an ArrayList
-        // ArrayList<Item> itemList = new ArrayList<>();
-        itemList.add(book1);
-        itemList.add(whiteboard);
-        itemList.add(book2);
-        itemList.add(pencils);
-        itemList.add(desk);
-        itemList.add(book3);
-        itemList.add(mouse);
-        itemList.add(pencils);
-        itemList.add(book2);
-        itemList.add(mouse);
-        itemList.add(whiteboard);
-        itemList.add(book3);
-        itemList.add(book1);
-        itemList.add(pencils);
-        itemList.add(book1);
-        itemList.add(whiteboard);
-        itemList.add(book2);
-        itemList.add(pencils);
-        itemList.add(desk);
-        itemList.add(book3);
-        itemList.add(mouse);
-        itemList.add(pencils);
-        itemList.add(book2);
-        itemList.add(mouse);
-        itemList.add(whiteboard);
-        itemList.add(book3);
-        itemList.add(book1);
-        itemList.add(pencils);
+        // specify an adapter (see also next example)
+        postAdapter = new PostingsAdapter(titles, descriptions, image_icons);
+        recyclerView.setAdapter(postAdapter);
+    }
 
-        ItemListAdapter adapter = new ItemListAdapter(this, R.layout.activity_item_adapter_view_layout, itemList);
-        mListView.setAdapter(adapter);
+    // inner class used to access the web
+    public class AccessWebTask extends AsyncTask<URL, String, JSONArray> {
 
+        /*
+        This method is called in background when this object's "execute" method is invoked.
+        The arguments passed to "execute" are passed to this method.
+         */
+        protected JSONArray doInBackground(URL... urls) {
+            try {
+                // get the first URL from the array
+                URL url = urls[0];
+                // create connection and send HTTP request
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET"); // send HTTP request
+                conn.connect();
+                // read the first line of data that is returned
+                Scanner in = new Scanner(url.openStream());
+
+                String msg = in.nextLine();
+
+                // use Android JSON library to parse JSON
+                JSONArray jo = new JSONArray(msg);
+                // pass the JSON object to the foreground that called this method
+                return jo;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new JSONArray(); // should empty JSONObject upon encountering an exception
+            }
+        }
+
+        //This method is called in foreground after doInBackground finishes.
+        protected void onPostExecute(String msg) {
+            // not implemented but you can use this if you’d like//
+        }
+
+    }
+
+    // This helper method gathers the user data to be parsed when a login attempt is made.
+    public void getAllPosts() {
+        try {
+            // 10.0.2.2 is the host machine as represented by Android Virtual Device
+
+            URL url = new URL("http://10.0.2.2:3000/allPosts");
+            AccessWebTask task = new AccessWebTask();
+            JSONArray posts = task.execute(url).get();
+
+            Toast.makeText(this, "Retrieved Posts", Toast.LENGTH_SHORT).show();
+
+            try {
+                for (int i = 0; i < posts.length(); i++) {
+                    JSONObject post = posts.getJSONObject(i);
+                    String title = post.getString("title");
+                    String description = post.getString("details");
+
+                    //filter out your own
+                    if (!post.getString("owner").equals(curr_user)) {
+                        titles.add(title);
+                        descriptions.add(description);
+                    }
+
+                }
+            } catch (Exception e) {
+                Toast.makeText(this, "Error Retrieving Posts", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error Retrieving Posts", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public void onInfoClick(View view) {
