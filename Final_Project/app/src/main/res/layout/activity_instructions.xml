@@ -90,11 +90,35 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
+                android:id="@+id/homeHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/home" />
+
+            <TextView
+                android:id="@+id/homeBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/here_at_the_top_you_can_see_the_most_recent_listings_that_other_users_have_put_on_the_app_at_the_bottom_you_can_go_to_search_for_an_item_view_your_postings_or_go_to_your_profile" />
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
                 android:id="@+id/listingsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="@string/current_listings" />
+                android:text="@string/your_posts" />
 
             <TextView
                 android:id="@+id/listingsBody"
@@ -107,6 +131,78 @@
 
             <View
                 android:id="@+id/divider4"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/newPostHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/new_post" />
+
+            <TextView
+                android:id="@+id/newPostBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/here_you_can_post_an_item_on_our_app_for_trade_or_donation_purposes_as_well_as_request_an_item_to_be_donated_to_you_adding_details_will_make_it_more_likely_that_someone_will_interact_with_your_posts" />
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/editPostHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/edit_post" />
+
+            <TextView
+                android:id="@+id/editPostBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/here_you_can_edit_a_posting_you_have_already_listed_by_its_attributes_as_well_as_mark_it_completed" />
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/editProfHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/edit_profile" />
+
+            <TextView
+                android:id="@+id/editProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:text="@string/here_you_can_change_your_profile_picture_at_the_top_as_well_as_modify_your_description_the_school_you_work_at_your_phone_number_and_email" />
+
+            <View
+                android:id="@+id/divider6"
                 android:layout_width="409dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"

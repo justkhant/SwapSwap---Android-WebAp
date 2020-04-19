@@ -42,6 +42,15 @@
     <string name="your_user_profile_will_show_basic_information_you_provide_about_yourself_such_as_your_profile_picture_and_your_biography_you_can_always_change_these_at_any_time_using_the_edit_feature">Your user profile will show basic information you provide about yourself, such as your profile picture and your biography. You can always change these at any time using the edit feature.</string>
     <string name="delete">Delete</string>
     <string name="use_this_function_to_delete_your_profile_please_note_that_this_cannot_be_undone_so_please_only_use_this_if_you_are_certain_that_you_would_like_to_do_so">Use this function to delete your profile. Please note that this cannot be undone, so please only use this if you are CERTAIN that you would like to do so.</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="here_you_can_edit_a_posting_you_have_already_listed_by_its_attributes_as_well_as_mark_it_completed">Here, you can edit a posting you have already listed by its attributes, as well as mark it completed.</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="here_you_can_change_your_profile_picture_at_the_top_as_well_as_modify_your_description_the_school_you_work_at_your_phone_number_and_email">Here, you can change your profile picture at the top, as well as modify your description, the school you work at, your phone number, and email.</string>
+    <string name="here_you_can_post_an_item_on_our_app_for_trade_or_donation_purposes_as_well_as_request_an_item_to_be_donated_to_you_adding_details_will_make_it_more_likely_that_someone_will_interact_with_your_posts">Here, you can post an item on our app for trade or donation purposes, as well as request an item to be donated to you. Adding details will make it more likely that someone will interact with your posts!</string>
+    <string name="new_post">New Post</string>
+    <string name="your_posts">Your Posts</string>
+    <string name="home">Home</string>
+    <string name="here_at_the_top_you_can_see_the_most_recent_listings_that_other_users_have_put_on_the_app_at_the_bottom_you_can_go_to_search_for_an_item_view_your_postings_or_go_to_your_profile">Here, at the top you can see the most recent listings that other users have put on the app. At the bottom, you can go to search for an item, view your postings, or go to your profile.</string>
 
     <string-array name="example">
         <item>Chalk</item>
