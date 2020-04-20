@@ -37,6 +37,7 @@ public class NewPostActivity extends AppCompatActivity {
     Boolean avail_bool;
     String email;
 
+
     private Intent curr_intent;
 
     @Override
@@ -46,21 +47,6 @@ public class NewPostActivity extends AppCompatActivity {
 
         curr_intent = getIntent();
 
-        /*
-        // AVAILABILITY SWITCH CODE
-        avail_switch = (Switch) findViewById(R.id.avail_switch);
-        avail_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked == true) {
-                    avail_bool = true;
-                } else {
-                    avail_bool = false;
-                }
-            }
-        });
-    */
 
         //Category code
         RadioGroup category = (RadioGroup)findViewById(R.id.category_body);
@@ -86,7 +72,6 @@ public class NewPostActivity extends AppCompatActivity {
         // Set up views
         title = findViewById(R.id.title_body);
         details = findViewById(R.id.details_body);
-        //avail = findViewById(R.id.avail_switch);
         //imgURL = findViewById(R.id.inputSignup);
     }
 
@@ -128,7 +113,7 @@ public class NewPostActivity extends AppCompatActivity {
 
 
     // This helper method passes the strings to node and runs createNewUser to add new user info.
-    public void createNewPost(String titleInput, String catInput, Boolean avail_bool, String imgURLInput,
+    public String createNewPost(String titleInput, String catInput, Boolean avail_bool, String imgURLInput,
                               String detailInput, String email) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
@@ -140,11 +125,14 @@ public class NewPostActivity extends AppCompatActivity {
                     "details=" + detailInput + "&" +
                     "owner=" + email);
             AccessWebTask task = new AccessWebTask("POST");
-            task.execute(url);
+            JSONObject new_post = task.execute(url).get();
+            return new_post.getString("_id");
+
         } catch (Exception e) {
             // empty return upon encountering an exception
             e.printStackTrace();
         }
+        return null;
     }
 
     public void passOnEmail(Intent i, String email) {
@@ -156,24 +144,37 @@ public class NewPostActivity extends AppCompatActivity {
         }
     }
 
+    public void passOnID(Intent i, String _id) {
+        //pass on post information
+        try {
+            i.putExtra("_id", _id);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void onSaveButtonClick(View v) throws IOException {
 
         String titleInput = title.getText().toString();
         String catInput = cat.getText().toString();
-        //Boolean availInput = avail_switch.toBoolean();
         String detailInput = details.getText().toString();
         //String imgURLInput = imgURL.getText().toString();
         String email = curr_intent.getStringExtra("email");
 
-        // This method call should end up uploading the information to the database
-        createNewPost(titleInput, catInput, false, "tempEmpty", detailInput, email);
+        // create new post and get its id
+        String id = createNewPost(titleInput, catInput, false, "tempEmpty", detailInput, email);
+
 
         Toast.makeText(this, "New Post successful", LENGTH_LONG).show();
 
         // just go back to Login Activity
         Intent i = new Intent(this, ViewPostActivity.class);
 
+
         passOnEmail(i, curr_intent.getStringExtra("email"));
+        passOnID(i, id);
+
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 

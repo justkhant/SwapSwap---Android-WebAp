@@ -140,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/avail_header"
                 android:layout_marginTop="5dp"
+                android:checked="false"
                 android:hint="Toggle on if transaction has been made:      "
                 />
         </RelativeLayout>

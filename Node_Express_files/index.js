@@ -220,17 +220,17 @@ app.use('/createNewPost', (req, res) => {
 				message: "Error Creating Post"});
 		}
 		else {
-			return res.json({
-				message: "New Post Created Successfully"});
+			console.log("New Post Created Successfully");
+			return res.json({"_id": newPost._id});
 		}
 	});
 });
 
 
 // route for finding a specific Post by id
-app.use('/findPostID', (req, res) => {
+app.use('/getPost', (req, res) => {
 	// construct the Post from the form data which is in the request body
-	console.log("Searching for Post by ID");
+	console.log("Getting Post by ID");
 	
 	// construct the query object
 	var queryObject = {};
@@ -268,7 +268,8 @@ app.use('/findPostID', (req, res) => {
 				"completed" : post.completed,
 				"imgURL": post.imgURL,
 				"details": post.details,
-				"owner": post.owner 
+				"owner": post.owner ,
+				"_id": post._id
 			});
 		}
 		
@@ -313,6 +314,55 @@ app.use('/findUserPosts', (req, res) => {
 			return res.json(posts);
 		}
 		
+	});
+
+});
+
+//route to update post information
+app.use('/updatePost', (req, res) => {
+	var new_title = req.query.title;
+	var new_category = req.query.category;
+	var new_completed = req.query.completed;
+	var new_imgURL = req.query.imgURL;
+	var new_details = req.query.details;
+
+	console.log("Updating Post...");
+
+	console.log("New Title: " + new_title);
+	console.log("New Categroy: " + new_category);
+	console.log("New Completed: " + new_completed);
+	console.log("New Details: " + new_details);
+
+	// Find the post 
+	var query = {};
+	if (req.query._id) {
+	    // if there's a email in the query parameter, use it here
+		query = { "_id" : req.query._id };
+	}
+
+	var updatePost = { $set: {title: new_title, category: new_category, completed: new_completed, imgURL: new_imgURL, details: new_details} };
+
+	Post.updateOne( query, updatePost, (err, posts) => {
+		if (err) {
+		    res.type('html').status(200);
+		    console.log('uh oh' + err);
+			res.write(err);
+			return res.json({
+				message: "Error updating post"});
+		}
+		else {
+			if (posts.length == 0) {
+				res.type('html').status(200);
+				res.write('post does not exist');
+				return res.status(200).json({
+					message: "post not Found"});
+			
+			}
+			console.log("Updated in database");
+			return res.json({
+				message: "Post updated Successfully"});
+		}
+			
 	});
 
 });

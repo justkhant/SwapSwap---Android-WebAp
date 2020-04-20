@@ -27,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView points;
     private TextView school;
     private String user_email;
+    private Intent curr_intent;
 
     private JSONObject user;
     private Button viewPostings;
@@ -48,7 +49,7 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         //find user to display their information
-        Intent curr_intent = getIntent();
+        curr_intent = getIntent();
         user_email = curr_intent.getStringExtra("email");
 
         user = getUserProfile(user_email);
@@ -124,6 +125,8 @@ public class UserProfileActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
         }
+       // passOnEmail(i, curr_intent.getStringExtra("email"));
+
         startActivityForResult(i, EDIT_ACTIVITY_ID);
     }
 
