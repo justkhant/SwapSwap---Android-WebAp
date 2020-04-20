@@ -302,14 +302,13 @@ app.use('/findUserPosts', (req, res) => {
 		    if (posts.length == 0) {
 				res.type('html').status(200);
 				res.write('There are no posts for this user yet.');
-				res.end();
-				return;
+				return res.json({})
 			}
 			
 			//otherwise return all posts
 
-			posts.forEach (post => 
-				console.log("title: " + post.title));
+			//posts.forEach (post => 
+			//	console.log("title: " + post.title));
 
 			return res.json(posts);
 		}
@@ -380,21 +379,22 @@ app.use('/allPosts', (req, res) => {
 		    console.log('uh oh' + err);
 			res.write(err);
 			res.end();
-			return;
+			return res.json({});;
 		}
 		else {
 		    if (posts.length == 0) {
 				res.type('html').status(200);
 				res.write('There are no posts yet.');
 				res.end();
-				return;
+				return res.json({});
 		    }
 		    // use EJS to show all the users
-		    res.render('all_posts', { posts: posts });
+			//res.render('all_posts', { posts: posts });
+			return res.json(posts);
 
 		}
-	    }).sort({ 'title': 'asc' }); // this sorts them BEFORE rendering the results
-    });
+	})
+});
 
 
 /*************************************************/

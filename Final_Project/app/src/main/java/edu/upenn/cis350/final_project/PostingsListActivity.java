@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -20,22 +21,30 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 
 public class PostingsListActivity extends AppCompatActivity {
 
-    private String titles[] = {"Hello", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7",
-            "Item 8"};
-    private String descriptions[] = {"Item description 1", "Item description 2", "Item description 3",
-            "Item description 4", "Item description 5", "Item description 6", "Item description 7",
-            "Item description 8"};
+    private List<String> titles = new ArrayList<>();
+    private List<String> descriptions = new ArrayList<>();
+
     //images in drawable folder
     private int image_icons[] = {R.drawable.art_icon, R.drawable.blackboard_icon, R.drawable.book_icon,
             R.drawable.books_icon, R.drawable.computer_icon, R.drawable.deskchair_icon,
             R.drawable.art_icon, R.drawable.blackboard_icon};
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter postAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,118 +60,83 @@ public class PostingsListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        Intent curr_intent = getIntent();
+        getUserPosts(curr_intent.getStringExtra("email"));
+
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(titles, descriptions, image_icons);
-        recyclerView.setAdapter(mAdapter);
+        postAdapter = new PostingsAdapter(titles, descriptions, image_icons);
+        recyclerView.setAdapter(postAdapter);
 
     }
 
-    public static class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-        private String[] titles;
-        private String[] descriptions;
-        private int[] images;
+    // inner class used to access the web
+    public class AccessWebTask extends AsyncTask<URL, String, JSONArray> {
 
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
-        public static class MyViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            public LinearLayout postRow;
+        /*
+        This method is called in background when this object's "execute" method is invoked.
+        The arguments passed to "execute" are passed to this method.
+         */
+        protected JSONArray doInBackground(URL... urls) {
+            try {
+                // get the first URL from the array
+                URL url = urls[0];
+                // create connection and send HTTP request
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET"); // send HTTP request
+                conn.connect();
+                // read the first line of data that is returned
+                Scanner in = new Scanner(url.openStream());
 
-            public MyViewHolder(LinearLayout v) {
-                super(v);
-                postRow = v;
+                String msg = in.nextLine();
+
+                // use Android JSON library to parse JSON
+                JSONArray jo = new JSONArray(msg);
+                // pass the JSON object to the foreground that called this method
+                return jo;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new JSONArray(); // should empty JSONObject upon encountering an exception
             }
         }
 
-        // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(String[] titles, String[] descriptions, int[] images) {
-            this.titles = titles;
-            this.descriptions = descriptions;
-            this.images = images;
+        //This method is called in foreground after doInBackground finishes.
+        protected void onPostExecute(String msg) {
+            // not implemented but you can use this if you’d like//
         }
 
-        // Create new views (invoked by the layout manager)
-        @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
-            // create a new view
-            LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.postingslist_row, parent, false);
-
-            MyViewHolder vh = new MyViewHolder(v);
-            return vh;
-        }
-
-        // Replace the contents of a view (invoked by the layout manager)
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-            TextView item_title = holder.postRow.findViewById(R.id.item_title);
-            item_title.setText(titles[position]);
-
-            TextView item_description = holder.postRow.findViewById(R.id.item_description);
-            item_description.setText(descriptions[position]);
-
-            ImageView image = holder.postRow.findViewById(R.id.row_image);
-            image.setImageAlpha(images[position]);
-        }
-
-        // Return the size of your dataset (invoked by the layout manager)
-        @Override
-        public int getItemCount() {
-            return titles.length;
-        }
     }
-       /* listView = findViewById(R.id.posts_list);
 
-        MyAdapter adapter = new MyAdapter(this, titles, descriptions, image_icons);
-        listView.setAdapter(adapter);
+    // This helper method gathers the user data to be parsed when a login attempt is made.
+    public void getUserPosts(String s_email) {
+        try {
+            // 10.0.2.2 is the host machine as represented by Android Virtual Device
 
-        // item click on list view
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    Toast.makeText(PostingsListActivity.this,
-                            "Brief item description here.", Toast.LENGTH_SHORT).show();
+            URL url = new URL("http://10.0.2.2:3000/findUserPosts?" +
+                    "owner=" + s_email);
+            AccessWebTask task = new AccessWebTask();
+            JSONArray posts = task.execute(url).get();
+
+            Toast.makeText(this, "Retrieved Posts", Toast.LENGTH_SHORT).show();
+
+            try {
+                for (int i = 0; i < posts.length(); i++) {
+                    String title = posts.getJSONObject(i).getString("title");
+                    String description = posts.getJSONObject(i).getString("details");
+
+                    titles.add(title);
+                    descriptions.add(description);
+
                 }
+            } catch (Exception e) {
+                Toast.makeText(this, "Error Retrieving Posts", Toast.LENGTH_SHORT).show();
+
             }
-        });*/
-    }
-/*
-    class MyAdapter extends ArrayAdapter {
 
-        Context context;
-        String itemTitles[];
-        String itemDescriptions[];
-        int itemImages[];
-
-        public MyAdapter (Context c, String title[], String description[], int imgs[]) {
-            super(c, R.layout.postingslist_row);
-            this.context = c;
-            this.itemTitles = title;
-            this.itemDescriptions = description;
-            this.itemImages = imgs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error Retrieving Posts", Toast.LENGTH_SHORT).show();
         }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View concertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row = layoutInflater.inflate(R.layout.postingslist_row, parent,false);
-            ImageView images = row.findViewById(R.id.row_image);
-            TextView myTitle = row.findViewById(R.id.item_title);
-            TextView myDescription = row.findViewById(R.id.item_description);
-
-            images.setImageResource(itemImages[position]);
-            myTitle.setText(itemTitles[position]);
-            myDescription.setText(itemDescriptions[position]);
-
-            return row;
-        }
-
     }
+
 }
-*/

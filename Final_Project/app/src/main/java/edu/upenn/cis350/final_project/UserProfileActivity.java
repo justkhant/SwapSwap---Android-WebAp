@@ -101,11 +101,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void goToPostingsListPage() {
         Intent intent = new Intent(UserProfileActivity.this, PostingsListActivity.class);
-        try {
-            intent.putExtra("email", user.getString("email"));
-        } catch (Exception e){
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
+        passOnEmail(intent, user_email);
         startActivity(intent);
     }
 
@@ -186,13 +182,6 @@ public class UserProfileActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void onPostsClick(View view) {
-        //not implemented yet
-        Intent i = new Intent(this, PostingsListActivity.class);
-        passOnEmail(i, user_email);
-        startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
 
     public void onDeleteUserClick(View view) {
