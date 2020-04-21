@@ -40,7 +40,7 @@ public class ViewPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_post);
         curr_intent = getIntent();
 
-        user_email = curr_intent.getStringExtra("email");
+        user_email = SingletonVariableStorer.getCurrUserInstance();
         _id = curr_intent.getStringExtra("_id");
 
         post = getPost(_id);
@@ -49,7 +49,6 @@ public class ViewPostActivity extends AppCompatActivity {
             //fill out info
             title = findViewById(R.id.title_body);
             title.setText(post.getString("title"));
-
 
             //category buttons
             category = findViewById(R.id.category_body);
@@ -92,36 +91,6 @@ public class ViewPostActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
-        //fill out info
-//        title = findViewById(R.id.title_body);
-//        //title.setText(curr_intent.getStringExtra("title"));
-//
-//        details = findViewById(R.id.details_body);
-//        //email.setText(user_email);
-//
-//        availability = findViewById(R.id.avail_icon);
-        //rank.setText(String.valueOf(curr_intent.getIntExtra("rank", 0)));
-
-//        category = (RadioGroup)findViewById(R.id.category_body);
-//        category.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-//        {
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                // checkedId is the RadioButton selected
-//                switch(checkedId) {
-//                    case R.id.button_trade:
-//                        cat = findViewById(R.id.button_trade);
-//                        break;
-//                    case R.id.button_donation:
-//                        cat = findViewById(R.id.button_donation);
-//                        break;
-//                    case R.id.button_donation_req:
-//                        cat = findViewById(R.id.button_donation_req);
-//                        break;
-//                    default:
-//                        //if (
-//                }
-//            }
-//        });
     }
 
         // This helper method gathers the user data to be parsed when a login attempt is made.
@@ -194,8 +163,6 @@ public class ViewPostActivity extends AppCompatActivity {
 
     public void onEditButtonClick(View view) {
         Intent i = new Intent(this, EditPostActivity.class);
-
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         passOnID(i, curr_intent.getStringExtra("_id"));
 
         startActivityForResult(i, EDIT_POST_ACTIVITY_ID);
@@ -204,7 +171,6 @@ public class ViewPostActivity extends AppCompatActivity {
     public void onProfileButtonClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
 
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 

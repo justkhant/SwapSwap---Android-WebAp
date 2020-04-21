@@ -1,7 +1,5 @@
 package edu.upenn.cis350.final_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,13 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class OtherUserProfileActivity extends AppCompatActivity {
     private TextView bio;
     private TextView rank;
     private TextView name;
@@ -27,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView points;
     private TextView school;
     private String user_email;
+    private Intent curr_intent;
 
     private JSONObject user;
     private Button viewPostings;
@@ -48,7 +49,9 @@ public class UserProfileActivity extends AppCompatActivity {
         });
 
         //find user to display their information
-        user_email = SingletonVariableStorer.getCurrUserInstance();
+        curr_intent = getIntent();
+        user_email = curr_intent.getStringExtra("email");
+
         user = getUserProfile(user_email);
 
         try {
@@ -97,7 +100,8 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void goToPostingsListPage() {
-        Intent intent = new Intent(UserProfileActivity.this, PostingsListActivity.class);
+        Intent intent = new Intent(OtherUserProfileActivity.this, PostingsListActivity.class);
+        passOnEmail(intent, user_email);
         startActivity(intent);
     }
 
@@ -107,6 +111,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //pass on user information
         try {
             i.putExtra("name", user.getString("name"));
+            i.putExtra("email", user.getString("email"));
             i.putExtra("bio", user.getString("bio"));
             i.putExtra("points", user.getInt("points"));
             i.putExtra("rank", user.getInt("rank"));
@@ -116,6 +121,7 @@ public class UserProfileActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
         }
+       // passOnEmail(i, curr_intent.getStringExtra("email"));
 
         startActivityForResult(i, EDIT_ACTIVITY_ID);
     }
@@ -169,22 +175,31 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void onDeleteUserClick(View view) {
 
         Button deleteUserButton = (Button) findViewById(R.id.delete_user_button);
         deleteUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder altDialog = new AlertDialog.Builder(UserProfileActivity.this);
+                AlertDialog.Builder altDialog = new AlertDialog.Builder(OtherUserProfileActivity.this);
                 altDialog.setMessage("Are you sure you want to delete your profile?").setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                deleteUser(user_email);
+                                deleteUser(email.getText().toString());
 
                                 // Go back to the login page after deleting the profile from the database
-                                Intent i = new Intent(UserProfileActivity.this, LoginActivity.class);
+                                Intent i = new Intent(OtherUserProfileActivity.this, LoginActivity.class);
                                 startActivityForResult(i, 100);
 
                             }

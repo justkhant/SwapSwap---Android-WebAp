@@ -71,8 +71,7 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Intent curr_intent = getIntent();
-        curr_user = curr_intent.getStringExtra("email");
+        curr_user = SingletonVariableStorer.getCurrUserInstance();
         getAllPosts();
 
         // specify an adapter (see also next example)
@@ -86,7 +85,6 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     public void onPostClick(int position) {
         Intent i = new Intent(this, ViewPostActivity.class);
         i.putExtra("_id", post_ids.get(position));
-        passOnEmail(i, curr_user);
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 
@@ -167,7 +165,6 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
 
     public void onInfoClick(View view) {
         Intent i = new Intent(this, InstructionsActivity.class);
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, INFO_ACTIVITY_ID);
     }
 
@@ -180,47 +177,22 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     public void onSearchClick(View view) {
        //not implemented yet
         Intent i = new Intent(this, SearchActivity.class);
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, SEARCH_ACTIVITY_ID);
     }
 
     public void onMyPostsClick(View view) {
         //not implemented yet
         Intent i = new Intent(this, PostingsListActivity.class);
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
 
     public void onAddClick(View view) {
         Intent i = new Intent(this, NewPostActivity.class);
-
-        //pass on user information
-        passOnEmail(i, curr_intent.getStringExtra("email"));
-
         startActivityForResult(i, NEW_POST_ID);
-    }
-
-    public void passOnEmail(Intent i, String email) {
-        //pass on user information
-        try {
-            i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void onProfileClick(View view) {
         Intent i = new Intent(this, UserProfileActivity.class);
-
-        passOnEmail(i, curr_intent.getStringExtra("email"));
-
-        //pass on user information
-        try {
-            i.putExtra("email", curr_intent.getStringExtra("email"));
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 

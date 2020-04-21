@@ -107,12 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 // go to 'homepage' activity
                 Intent i = new Intent(this, HomeActivity.class);
 
-                //pass on user information
-                try {
-                    i.putExtra("email", usernameActual);
-                } catch (Exception e) {
-                    Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-                }
+                SingletonVariableStorer.setCurrUserInstance(usernameActual);
 
                 startActivityForResult(i, HOME_ACTIVITY_ID);
 

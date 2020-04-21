@@ -63,8 +63,7 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        Intent curr_intent = getIntent();
-        curr_user = curr_intent.getStringExtra("email");
+        curr_user = SingletonVariableStorer.getCurrUserInstance();
         getUserPosts(curr_user);
 
         // specify an adapter (see also next example)
@@ -73,20 +72,10 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
 
     }
 
-    public void passOnEmail(Intent i, String email) {
-        //pass on user information
-        try {
-            i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     public void onPostClick(int position) {
         Intent i = new Intent(this, ViewPostActivity.class);
         i.putExtra("_id", post_ids.get(position));
-        passOnEmail(i, curr_user);
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 

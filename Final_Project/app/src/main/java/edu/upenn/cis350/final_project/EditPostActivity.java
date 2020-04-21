@@ -42,7 +42,7 @@ public class EditPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
         curr_intent = getIntent();
-        email = curr_intent.getStringExtra("email");
+        email = SingletonVariableStorer.getCurrUserInstance();
         _id = curr_intent.getStringExtra("_id");
 
         post = getPost(_id);
@@ -212,15 +212,6 @@ public class EditPostActivity extends AppCompatActivity {
         }
     }
 
-    public void passOnEmail(Intent i, String email) {
-        //pass on user information
-        try {
-            i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void onSaveButtonClick(View view) {
 
         EditText titleET = findViewById(R.id.title_body);
@@ -238,9 +229,6 @@ public class EditPostActivity extends AppCompatActivity {
 
         // just go back to Login Activity
         Intent i = new Intent(this, ViewPostActivity.class);
-
-
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         passOnID(i, _id);
 
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
@@ -248,7 +236,6 @@ public class EditPostActivity extends AppCompatActivity {
 
     public void onCancelButtonClick(View view) {
         Intent i = new Intent(this, ViewPostActivity.class);
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         passOnID(i, _id);
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }

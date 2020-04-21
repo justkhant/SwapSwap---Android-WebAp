@@ -38,7 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         Intent curr_intent = getIntent();
-        user_email = curr_intent.getStringExtra("email");
+        user_email = SingletonVariableStorer.getCurrUserInstance();
 
        //fill out info
         bio = findViewById(R.id.edit_about_me_body);
@@ -140,7 +140,6 @@ public class EditProfileActivity extends AppCompatActivity {
             updateUserProfile(schoolInput, bioInput, pnInput, s_email);
 
             Intent i = new Intent(this, UserProfileActivity.class);
-            passOnEmail(i, s_email);
             //pass Intent to activity using specified code
             startActivityForResult(i, PROFILE_ACTIVITY_ID);
         }
@@ -158,15 +157,6 @@ public class EditProfileActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void passOnEmail(Intent i, String email) {
-        //pass on user information
-        try {
-            i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void onCancelButtonClick(View v) {
         // Let the user know the attempt to edit the profile was cancelled
         Toast.makeText(this, "Profile edit cancelled", LENGTH_LONG).show();
@@ -174,8 +164,6 @@ public class EditProfileActivity extends AppCompatActivity {
         //create Intent using the current Activity
         //and the Class to be created
         Intent i = new Intent(this, UserProfileActivity.class);
-
-        passOnEmail(i, user_email);
 
         //pass Intent to activity using specified code
         startActivityForResult(i, PROFILE_ACTIVITY_ID);

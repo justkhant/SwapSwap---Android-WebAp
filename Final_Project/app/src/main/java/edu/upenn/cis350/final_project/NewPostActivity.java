@@ -33,20 +33,11 @@ public class NewPostActivity extends AppCompatActivity {
     RadioButton cat;
     EditText details;
     EditText imgURL;
-    Switch avail_switch;
-    Boolean avail_bool;
-    String email;
-
-
-    private Intent curr_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
-
-        curr_intent = getIntent();
-
 
         //Category code
         RadioGroup category = (RadioGroup)findViewById(R.id.category_body);
@@ -135,15 +126,6 @@ public class NewPostActivity extends AppCompatActivity {
         return null;
     }
 
-    public void passOnEmail(Intent i, String email) {
-        //pass on user information
-        try {
-            i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void passOnID(Intent i, String _id) {
         //pass on post information
         try {
@@ -160,28 +142,21 @@ public class NewPostActivity extends AppCompatActivity {
         String catInput = cat.getText().toString();
         String detailInput = details.getText().toString();
         //String imgURLInput = imgURL.getText().toString();
-        String email = curr_intent.getStringExtra("email");
+        String email = SingletonVariableStorer.getCurrUserInstance();
 
         // create new post and get its id
         String id = createNewPost(titleInput, catInput, false, "tempEmpty", detailInput, email);
-
 
         Toast.makeText(this, "New Post successful", LENGTH_LONG).show();
 
         // just go back to Login Activity
         Intent i = new Intent(this, ViewPostActivity.class);
-
-
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         passOnID(i, id);
-
         startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 
     public void onCancelButtonClick(View view) {
         Intent i = new Intent(this, HomeActivity.class);
-
-        passOnEmail(i, curr_intent.getStringExtra("email"));
         startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 

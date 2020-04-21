@@ -53,17 +53,6 @@
 <!--                android:textColor="#d9d9d9"-->
 <!--                android:layout_marginTop="-6dp"/>-->
 
-            <ImageButton
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:onClick="onEditClick"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
-
         </RelativeLayout>
 
         // cards
@@ -278,7 +267,7 @@
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:background="#fc9e4f"
-                android:text="View Listings"
+                android:text="See More Posts"
                 android:textSize="20dp"
                 android:textColor="#ffffff"
                 android:layout_marginBottom="35dp"/>
@@ -295,17 +284,6 @@
                 android:textColor="#ffffff"
                 android:layout_marginBottom="35dp"/>
 
-            <Button
-                android:id="@+id/delete_user_button"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/rate_user_button"
-                android:background="#ff0000"
-                android:text="Delete Account"
-                android:textSize="20dp"
-                android:textColor="#ffffff"
-                android:onClick="onDeleteUserClick"/>
         </RelativeLayout>
 
     </LinearLayout>

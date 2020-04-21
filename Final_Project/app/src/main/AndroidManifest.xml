@@ -34,6 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserProfileActivity" />
+        <activity android:name=".OtherUserProfileActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".InstructionsActivity" />
