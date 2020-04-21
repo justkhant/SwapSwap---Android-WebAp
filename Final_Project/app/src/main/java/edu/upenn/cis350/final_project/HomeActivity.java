@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.selection.SelectionPredicates;
+import androidx.recyclerview.selection.SelectionTracker;
+import androidx.recyclerview.selection.StableIdKeyProvider;
+import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements PostingsAdapter.OnPostListener {
 
     private static final String TAG = "MainActivity";
     public static final int INFO_ACTIVITY_ID = 5;
@@ -31,12 +34,15 @@ public class HomeActivity extends AppCompatActivity {
     public static final int POSTS_ACTIVITY_ID = 7;
     public static final int PROFILE_ACTIVITY_ID = 8;
     public static final int NEW_POST_ID = 10;
+    public static final int VIEW_POST_ACTIVITY_ID = 11;
 
     private Intent curr_intent;
     private String curr_user;
 
     private List<String> titles = new ArrayList<>();
     private List<String> descriptions = new ArrayList<>();
+    private List<String> post_ids = new ArrayList<>();
+
 
     //images in drawable folder
     private int image_icons[] = {R.drawable.art_icon, R.drawable.blackboard_icon, R.drawable.book_icon,
@@ -70,9 +76,20 @@ public class HomeActivity extends AppCompatActivity {
         getAllPosts();
 
         // specify an adapter (see also next example)
-        postAdapter = new PostingsAdapter(titles, descriptions, image_icons);
+        postAdapter = new PostingsAdapter(titles, descriptions, image_icons, this);
         recyclerView.setAdapter(postAdapter);
+
+
     }
+
+    @Override
+    public void onPostClick(int position) {
+        Intent i = new Intent(this, ViewPostActivity.class);
+        i.putExtra("_id", post_ids.get(position));
+        passOnEmail(i, curr_user);
+        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
+    }
+
 
     // inner class used to access the web
     public class AccessWebTask extends AsyncTask<URL, String, JSONArray> {
@@ -133,6 +150,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (!post.getString("owner").equals(curr_user)) {
                         titles.add(title);
                         descriptions.add(description);
+                        post_ids.add(post.getString("_id"));
                     }
 
                 }
@@ -166,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivityForResult(i, SEARCH_ACTIVITY_ID);
     }
 
-    public void onPostsClick(View view) {
+    public void onMyPostsClick(View view) {
         //not implemented yet
         Intent i = new Intent(this, PostingsListActivity.class);
         passOnEmail(i, curr_intent.getStringExtra("email"));
@@ -212,8 +230,8 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder altdial = new AlertDialog.Builder(HomeActivity.this);
-                altdial.setMessage("Are you sure you want to log out?").setCancelable(false)
+                AlertDialog.Builder altDial = new AlertDialog.Builder(HomeActivity.this);
+                altDial.setMessage("Are you sure you want to log out?").setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -231,7 +249,7 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         });
 
-                AlertDialog alert = altdial.create();
+                AlertDialog alert = altDial.create();
                 alert.setTitle("Logout");
                 alert.show();
             }

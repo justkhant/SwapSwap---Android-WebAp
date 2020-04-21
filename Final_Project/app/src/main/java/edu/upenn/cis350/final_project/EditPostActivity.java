@@ -37,8 +37,6 @@ public class EditPostActivity extends AppCompatActivity {
     Switch avail_switch;
     Boolean completed;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

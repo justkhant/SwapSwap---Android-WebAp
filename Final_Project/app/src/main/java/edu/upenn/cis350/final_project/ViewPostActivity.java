@@ -45,7 +45,6 @@ public class ViewPostActivity extends AppCompatActivity {
 
         post = getPost(_id);
 
-
         try {
             //fill out info
             title = findViewById(R.id.title_body);
@@ -174,8 +173,6 @@ public class ViewPostActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     public void passOnEmail(Intent i, String email) {
         //pass on user information

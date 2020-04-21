@@ -30,11 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+public class PostingsListActivity extends AppCompatActivity implements PostingsAdapter.OnPostListener {
 
-public class PostingsListActivity extends AppCompatActivity {
+    private static final int VIEW_POST_ACTIVITY_ID = 80;
 
     private List<String> titles = new ArrayList<>();
     private List<String> descriptions = new ArrayList<>();
+    private List<String> post_ids = new ArrayList<>();
+    private String curr_user;
 
     //images in drawable folder
     private int image_icons[] = {R.drawable.art_icon, R.drawable.blackboard_icon, R.drawable.book_icon,
@@ -61,12 +64,30 @@ public class PostingsListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         Intent curr_intent = getIntent();
-        getUserPosts(curr_intent.getStringExtra("email"));
+        curr_user = curr_intent.getStringExtra("email");
+        getUserPosts(curr_user);
 
         // specify an adapter (see also next example)
-        postAdapter = new PostingsAdapter(titles, descriptions, image_icons);
+        postAdapter = new PostingsAdapter(titles, descriptions, image_icons, this);
         recyclerView.setAdapter(postAdapter);
 
+    }
+
+    public void passOnEmail(Intent i, String email) {
+        //pass on user information
+        try {
+            i.putExtra("email", email);
+        } catch (Exception e) {
+            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onPostClick(int position) {
+        Intent i = new Intent(this, ViewPostActivity.class);
+        i.putExtra("_id", post_ids.get(position));
+        passOnEmail(i, curr_user);
+        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 
     // inner class used to access the web
@@ -126,6 +147,7 @@ public class PostingsListActivity extends AppCompatActivity {
 
                     titles.add(title);
                     descriptions.add(description);
+                    post_ids.add(posts.getJSONObject(i).getString("_id"));
 
                 }
             } catch (Exception e) {

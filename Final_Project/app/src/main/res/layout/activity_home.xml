@@ -13,8 +13,10 @@
         android:layout_height="594dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="66dp"
+        android:layout_marginBottom="76dp"
         android:scrollbars="vertical" />
 
     <TextView
@@ -55,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="13dp"
-        android:onClick="onPostsClick"
+        android:onClick="onMyPostsClick"
         android:text="My Posts" />
 
     <Button
