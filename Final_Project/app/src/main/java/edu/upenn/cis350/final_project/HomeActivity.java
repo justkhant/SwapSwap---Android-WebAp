@@ -129,7 +129,7 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
             AccessWebTask task = new AccessWebTask();
             JSONArray posts = task.execute(url).get();
 
-            Toast.makeText(this, "Retrieved Posts", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Retrieved Posts", Toast.LENGTH_SHORT).show();
 
             try {
                 for (int i = 0; i < posts.length(); i++) {
@@ -162,8 +162,7 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     }
 
     public void onHomeClick(View view) {
-        //idk if need this?
-        //Intent i = new Intent(this, ____Activity.class);
+        //Intent i = new Intent(this, HomeActivity.class);
         //startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,11 +14,18 @@
         tools:context=".NewPostActivity">
 
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:onClick="onHomeClick"
+            android:text="Home" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
             android:layout_marginBottom="30dp">
@@ -67,21 +77,24 @@
                     android:layout_height="wrap_content"
                     android:text="Trade"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
                 <RadioButton
                     android:id="@+id/button_donation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Donation"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
                 <RadioButton
                     android:id="@+id/button_donation_req"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Donation Request"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
             </RadioGroup>
         </RelativeLayout>
 
@@ -148,11 +161,11 @@
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:background="#fc9e4f"
-                android:text="VIEW USER PROFILE"
+                android:text="BACK TO MY POSTS"
                 android:textSize="20dp"
                 android:textColor="#ffffff"
                 android:layout_marginBottom="35dp"
-                android:onClick="onProfileButtonClick"/>
+                android:onClick="onMyPostsClick"/>
 
             <Button
                 android:layout_width="90dp"
@@ -165,6 +178,7 @@
                 android:textColor="#ffffff"
                 android:layout_marginBottom="35dp"
                 android:onClick="onEditButtonClick"/>
+
         </RelativeLayout>
     </LinearLayout>
 

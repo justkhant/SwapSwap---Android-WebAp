@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class ViewOtherPostActivity extends AppCompatActivity {
     static final int EDIT_POST_ACTIVITY_ID = 20;
     static final int PROFILE_ACTIVITY_ID = 21;
+    static final int HOME_ACTIVITY_ID = 29;
     private Intent curr_intent;
     private String user_email;
     private TextView title;
@@ -166,6 +167,11 @@ public class ViewOtherPostActivity extends AppCompatActivity {
         Intent i = new Intent(this, OtherUserProfileActivity.class);
         passOnEmail(i, user_email);
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
+    }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 
 

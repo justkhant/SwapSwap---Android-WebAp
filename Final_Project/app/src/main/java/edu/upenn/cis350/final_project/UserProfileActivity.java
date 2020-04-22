@@ -32,6 +32,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
     public static final int POSTS_ACTIVITY_ID = 10;
+    static final int HOME_ACTIVITY_ID = 29;
 
 
     @Override
@@ -201,5 +202,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 }

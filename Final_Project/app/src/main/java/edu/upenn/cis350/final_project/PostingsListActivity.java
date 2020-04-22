@@ -1,28 +1,16 @@
 package edu.upenn.cis350.final_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,6 +21,7 @@ import java.util.Scanner;
 public class PostingsListActivity extends AppCompatActivity implements PostingsAdapter.OnPostListener {
 
     private static final int VIEW_POST_ACTIVITY_ID = 80;
+    static final int HOME_ACTIVITY_ID = 29;
 
     private List<String> titles = new ArrayList<>();
     private List<String> descriptions = new ArrayList<>();
@@ -149,5 +138,12 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
             Toast.makeText(this, "Error Retrieving Posts", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
+    }
+
+
 
 }

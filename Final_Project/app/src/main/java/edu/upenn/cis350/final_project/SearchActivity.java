@@ -30,6 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     TextView desiredAvail;
     ListView searchResults;
     ArrayAdapter<String> adapter;
+    static final int HOME_ACTIVITY_ID = 29;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,4 +95,10 @@ public class SearchActivity extends AppCompatActivity {
         desiredAvail.setVisibility(View.INVISIBLE);
         searchResults.setVisibility(View.VISIBLE);
     }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
+    }
+
 }
