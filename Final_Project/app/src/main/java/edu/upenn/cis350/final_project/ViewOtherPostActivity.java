@@ -1,7 +1,5 @@
 package edu.upenn.cis350.final_project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,20 +10,22 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class ViewPostActivity extends AppCompatActivity {
+public class ViewOtherPostActivity extends AppCompatActivity {
     static final int EDIT_POST_ACTIVITY_ID = 20;
     static final int PROFILE_ACTIVITY_ID = 21;
     private Intent curr_intent;
+    private String user_email;
     private TextView title;
     private TextView details;
+    private TextView posted_by;
     private ImageView availability;
     private RadioGroup category;
     private RadioButton cat;
@@ -35,7 +35,7 @@ public class ViewPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_post);
+        setContentView(R.layout.activity_view_other_post);
         curr_intent = getIntent();
 
         _id = curr_intent.getStringExtra("_id");
@@ -55,14 +55,17 @@ public class ViewPostActivity extends AppCompatActivity {
                 case "Trade":
                     cat = findViewById(R.id.button_trade);
                     category.check(R.id.button_trade);
+                    //cat.setChecked(true);
                     break;
                 case "Donation":
                     cat = findViewById(R.id.button_donation);
                     category.check(R.id.button_donation);
+                    //cat.setChecked(true);
                     break;
                 case "Donation Request":
                     cat = findViewById(R.id.button_donation_req);
                     category.check(R.id.button_donation_req);
+                    //cat.setChecked(true);
                     break;
             }
 
@@ -79,6 +82,10 @@ public class ViewPostActivity extends AppCompatActivity {
                 availability.setImageResource(R.drawable.green_check);
             }
 
+            posted_by = findViewById(R.id.post_by_body);
+            posted_by.setText(post.getString("owner_name"));
+
+            user_email = post.getString("owner");
 
         } catch (Exception e) {
             Toast.makeText(this, "error displaying profile data",
@@ -155,16 +162,9 @@ public class ViewPostActivity extends AppCompatActivity {
         }
     }
 
-    public void onEditButtonClick(View view) {
-        Intent i = new Intent(this, EditPostActivity.class);
-        passOnID(i, curr_intent.getStringExtra("_id"));
-
-        startActivityForResult(i, EDIT_POST_ACTIVITY_ID);
-    }
-
     public void onProfileButtonClick(View view) {
-        Intent i = new Intent(this, UserProfileActivity.class);
-
+        Intent i = new Intent(this, OtherUserProfileActivity.class);
+        passOnEmail(i, user_email);
         startActivityForResult(i, PROFILE_ACTIVITY_ID);
     }
 

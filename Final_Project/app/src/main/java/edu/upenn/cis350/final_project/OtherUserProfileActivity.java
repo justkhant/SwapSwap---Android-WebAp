@@ -1,7 +1,5 @@
 package edu.upenn.cis350.final_project;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,7 +36,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_other_user_profile);
 
         viewPostings = findViewById(R.id.view_user_listings_button);
         viewPostings.setOnClickListener(new View.OnClickListener() {
@@ -100,30 +98,9 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     }
 
     private void goToPostingsListPage() {
-        Intent intent = new Intent(OtherUserProfileActivity.this, PostingsListActivity.class);
+        Intent intent = new Intent(this, PostingsListActivity.class);
         passOnEmail(intent, user_email);
         startActivity(intent);
-    }
-
-    public void onEditClick(View view) {
-        Intent i = new Intent(this, EditProfileActivity.class);
-
-        //pass on user information
-        try {
-            i.putExtra("name", user.getString("name"));
-            i.putExtra("email", user.getString("email"));
-            i.putExtra("bio", user.getString("bio"));
-            i.putExtra("points", user.getInt("points"));
-            i.putExtra("rank", user.getInt("rank"));
-            i.putExtra("phoneNumber", user.getString("phoneNumber"));
-            i.putExtra("school", user.getString("school"));
-
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-       // passOnEmail(i, curr_intent.getStringExtra("email"));
-
-        startActivityForResult(i, EDIT_ACTIVITY_ID);
     }
 
     // inner class used to access the web by the login method
@@ -161,20 +138,6 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         }
     }
 
-    // This helper method passes the strings to node and runs createNewUser to add new user info.
-    public void deleteUser(String email) {
-        try {
-            // 10.0.2.2 is the host machine as represented by Android Virtual Device
-            URL url = new URL("http://10.0.2.2:3000/deleteUser?" +
-                    "userToDelete=" + email);
-            AccessWebTask task = new AccessWebTask("POST");
-            task.execute(url);
-        } catch (Exception e) {
-            // empty return upon encountering an exception
-            e.printStackTrace();
-        }
-    }
-
     public void passOnEmail(Intent i, String email) {
         //pass on user information
         try {
@@ -184,37 +147,4 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void onDeleteUserClick(View view) {
-
-        Button deleteUserButton = (Button) findViewById(R.id.delete_user_button);
-        deleteUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder altDialog = new AlertDialog.Builder(OtherUserProfileActivity.this);
-                altDialog.setMessage("Are you sure you want to delete your profile?").setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                deleteUser(email.getText().toString());
-
-                                // Go back to the login page after deleting the profile from the database
-                                Intent i = new Intent(OtherUserProfileActivity.this, LoginActivity.class);
-                                startActivityForResult(i, 100);
-
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert = altDialog.create();
-                alert.setTitle("Logout");
-                alert.show();
-            }
-        });
-    }
 }

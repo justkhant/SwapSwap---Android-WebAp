@@ -13,6 +13,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".EditPostActivity"></activity>
         <activity android:name=".ViewPostActivity" />
+        <activity android:name=".ViewOtherPostActivity" />
         <activity android:name=".PostingsListActivity" />
         <activity android:name=".NewPostActivity" />
         <activity android:name=".SearchActivity">
@@ -38,7 +39,6 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".InstructionsActivity" />
-        <activity android:name=".ItemListAdapter" />
         <activity android:name=".HomeActivity" />
     </application>
 

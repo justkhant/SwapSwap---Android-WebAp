@@ -262,14 +262,27 @@ app.use('/getPost', (req, res) => {
 			console.log("details: " + post.details);
 			console.log("owner: " + post.owner);
 
-		    // send back a single JSON object
-			return res.json( { "title" : post.title, 
-				"category" : post.category, 
-				"completed" : post.completed,
-				"imgURL": post.imgURL,
-				"details": post.details,
-				"owner": post.owner ,
-				"_id": post._id
+			//get owner's name
+			User.find( {"email" : post.owner}, (err, users) => {
+				if (err) {
+					console.log('uh oh' + err);
+				}
+				else if (users.length == 0) {
+					// no objects found, so send back empty json
+				} else {
+					user = users[0];
+					console.log("owner_name: " + user.name);
+					// send back a single JSON object
+					return res.json( { "title" : post.title, 
+									"category" : post.category, 
+									"completed" : post.completed,
+									"imgURL": post.imgURL,
+									"details": post.details,
+									"owner": post.owner ,
+									"_id": post._id,
+									"owner_name": user.name
+									});
+				}
 			});
 		}
 		

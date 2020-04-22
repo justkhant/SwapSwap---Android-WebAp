@@ -10,10 +10,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.selection.SelectionPredicates;
-import androidx.recyclerview.selection.SelectionTracker;
-import androidx.recyclerview.selection.StableIdKeyProvider;
-import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,9 +30,9 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     public static final int POSTS_ACTIVITY_ID = 7;
     public static final int PROFILE_ACTIVITY_ID = 8;
     public static final int NEW_POST_ID = 10;
-    public static final int VIEW_POST_ACTIVITY_ID = 11;
+    public static final int VIEW_OTHER_POST_ACTIVITY_ID = 11;
 
-    private Intent curr_intent;
+
     private String curr_user;
 
     private List<String> titles = new ArrayList<>();
@@ -59,8 +55,6 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: Started.");
 
-        curr_intent = getIntent();
-
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -78,14 +72,13 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         postAdapter = new PostingsAdapter(titles, descriptions, image_icons, this);
         recyclerView.setAdapter(postAdapter);
 
-
     }
 
     @Override
     public void onPostClick(int position) {
-        Intent i = new Intent(this, ViewPostActivity.class);
+        Intent i = new Intent(this, ViewOtherPostActivity.class);
         i.putExtra("_id", post_ids.get(position));
-        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
+        startActivityForResult(i, VIEW_OTHER_POST_ACTIVITY_ID);
     }
 
 
