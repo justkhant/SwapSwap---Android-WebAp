@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void onLoginClick(View view) {
+    public void onLoginClick(View view) throws JSONException {
 
         // temporarily store usernamee and password inputs
         EditText usernameEditText = (EditText) findViewById(R.id.username);
@@ -103,12 +104,11 @@ public class LoginActivity extends AppCompatActivity {
         if (!usernameInput.equals("") && !usernameActual.equals("")) {
             // check to see if password matches the password on file under the username
             if (passwordInput.equals(passwordActual)) {
-                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 // go to 'homepage' activity
                 Intent i = new Intent(this, HomeActivity.class);
 
                 SingletonVariableStorer.setCurrUserInstance(usernameActual);
-
+                i.putExtra("name", user.getString("name"));
                 startActivityForResult(i, HOME_ACTIVITY_ID);
 
             } else {

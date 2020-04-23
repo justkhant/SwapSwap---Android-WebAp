@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/appname"
-        android:layout_width="160dp"
-        android:layout_height="35dp"
+        android:layout_width="193dp"
+        android:layout_height="62dp"
         android:gravity="center"
         android:text="SwapSwap"
-        android:textSize="25sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -18,6 +18,7 @@ var userSchema = new Schema({
 	rank: {type: Number},
 	points: {type: Number},
 	phoneNumber: {type: String},
+	profilePic: {type: String}
 });
 
 // export userSchema as a class called User

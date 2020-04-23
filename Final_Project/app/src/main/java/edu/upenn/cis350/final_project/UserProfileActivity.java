@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -26,13 +31,13 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView points;
     private TextView school;
+    private ImageView profilePic;
+
     private String user_email;
 
     private JSONObject user;
     private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
-    public static final int POSTS_ACTIVITY_ID = 10;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,9 @@ public class UserProfileActivity extends AppCompatActivity {
         try {
             //fill out info
             bio = findViewById(R.id.about_me_body);
-            bio.setText(user.getString("bio"));
+            if (user.getString("bio").length() > 0) {
+                bio.setText(user.getString("bio"));
+            }
 
             email = findViewById(R.id.email_body);
             email.setText(user_email);
@@ -72,14 +79,31 @@ public class UserProfileActivity extends AppCompatActivity {
             name.setText(user.getString("name"));
 
             phoneNumber = findViewById(R.id.phone_num_body);
-            phoneNumber.setText(user.getString("phoneNumber"));
+            if (user.getString("phoneNumber").length() > 0) {
+                phoneNumber.setText(user.getString("phoneNumber"));
+            }
+
+            //set prof pic
+            profilePic = findViewById(R.id.profile_pic);
+            String base64Image = user.getString("profilePic");
+            if (base64Image.length() == 0) {
+                profilePic.setImageResource(R.drawable.profile_pic);
+            } else {
+                profilePic.setImageBitmap(base64StringToBitmap(base64Image));
+            }
 
         } catch (Exception e) {
             Toast.makeText(this, "error displaying profile data",
                     Toast.LENGTH_SHORT).show();
         }
+    }
 
-
+    public Bitmap base64StringToBitmap(String base64Image) throws JSONException {
+        String cleanImage = base64Image.replace("data:image/png;base64,", "")
+                .replace("data:image/jpeg;base64,", "");
+        byte[] decodedString = Base64.decode(cleanImage, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
     }
 
     // This helper method gathers the user data to be parsed when a login attempt is made.
@@ -112,6 +136,7 @@ public class UserProfileActivity extends AppCompatActivity {
             i.putExtra("rank", user.getInt("rank"));
             i.putExtra("phoneNumber", user.getString("phoneNumber"));
             i.putExtra("school", user.getString("school"));
+            i.putExtra("profilePic", user.getString("profilePic"));
 
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();

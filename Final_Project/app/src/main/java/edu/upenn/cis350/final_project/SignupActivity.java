@@ -3,61 +3,48 @@ package edu.upenn.cis350.final_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-/*
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import com.android.volley.toolbox.StringRequest;
-*/
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static android.widget.Toast.LENGTH_LONG;
 
 public class SignupActivity extends AppCompatActivity {
-    static final int IMAGE_PICK_ID = 500;
-    static final int REGISTER_ID = 501;
     static final int LOGIN_ACTIVITY_ID = 2;
-
-    SignupActivity activity = this;
-    ImageView picView;
-    Button profPic;
 
     EditText name;
     EditText school;
     EditText email;
     EditText password;
-
     Button signup;
-
-    Uri picUri;
+    Map<String, String> valueMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,34 +52,27 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         // Set up views
-        picView = findViewById(R.id.viewPicture);
         name = findViewById(R.id.inputName);
-
         school = findViewById(R.id.inputSchool);
         email = findViewById(R.id.inputEmail);
         password = findViewById(R.id.inputPassword);
-        profPic = findViewById(R.id.inputPic);
         signup = findViewById(R.id.inputSignup);
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode,resultCode, intent);
-        switch(requestCode) {
-            case IMAGE_PICK_ID:
-                if (resultCode == RESULT_OK) {
-                    picUri = intent.getData();
-                    picView.setImageURI(picUri);
-                }
-        }
-    }
-
-    public void onProfPicButtonClick(View v) {
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, IMAGE_PICK_ID);
     }
 
     // inner GET class used to access the web by the login method
     public class AccessWebTask extends AsyncTask<URL, String, JSONObject> {
+        String method;
+        String jsonInputString;
+
+        public AccessWebTask(String method) {
+            this.method = method;
+            this.jsonInputString = "";
+        }
+
+        public AccessWebTask(String method, String jsonInputString) {
+            this.method = method;
+            this.jsonInputString = jsonInputString;
+        }
         /*
         This method is called in background when this object's "execute" method is invoked.
         The arguments passed to "execute" are passed to this method.
@@ -103,17 +83,46 @@ public class SignupActivity extends AppCompatActivity {
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET"); // send HTTP request
-                conn.connect();
+                conn.setRequestMethod(method); // send HTTP request
 
-                // read the first line of data that is returned
-                Scanner in = new Scanner(url.openStream());
-                String msg = in.nextLine();
-                // use Android JSON library to parse JSON
-                JSONObject jo = new JSONObject(msg);
-                in.close();
-                // pass the JSON object to the foreground that called this method
-                return jo;
+                if (method == "GET") {
+                    conn.connect();
+
+                    // read the first line of data that is returned
+                    Scanner in = new Scanner(url.openStream());
+                    String msg = in.nextLine();
+                    // use Android JSON library to parse JSON
+                    JSONObject jo = new JSONObject(msg);
+                    in.close();
+                    // pass the JSON object to the foreground that called this method
+                    return jo;
+
+                } else {
+                    conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+
+                    try(OutputStream os = conn.getOutputStream()) {
+                        byte[] input = jsonInputString.getBytes("utf-8");
+                        os.write(input, 0, input.length);
+                    }
+
+                    String msg = "{}";
+                    try(BufferedReader br = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                        StringBuilder response = new StringBuilder();
+                        String responseLine = null;
+                        while ((responseLine = br.readLine()) != null) {
+                            response.append(responseLine.trim());
+                        }
+                        msg = response.toString();
+                    }
+                    Log.d("RESPONSE", msg);
+                    // use Android JSON library to parse JSON
+                    JSONObject jo = new JSONObject(msg);
+                    // pass the JSON object to the foreground that called this method
+                    return jo;
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -123,16 +132,11 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     // This helper method passes the strings to node and runs createNewUser to add new user info.
-    public void postUserProfile(String email, String password,
-                               String name, String school) {
+    public void postUserProfile(String jsonInputString) {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
-            URL url = new URL("http://10.0.2.2:3000/createNewUser?" +
-                    "email=" + email + "&" +
-                    "password=" + password + "&" +
-                    "name=" + name + "&" +
-                    "school=" + school);
-            AccessWebTask task = new AccessWebTask();
+            URL url = new URL("http://10.0.2.2:3000/createNewUser");
+            AccessWebTask task = new AccessWebTask("POST", jsonInputString);
             task.execute(url);
             return;
         } catch (Exception e) {
@@ -143,25 +147,61 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    public void onSignupButtonClick(View v) throws IOException {
+    public void onSignupButtonClick(View v) throws IOException, JSONException {
         boolean valid = validateData();
         if (valid) {
 
             String nameInput = name.getText().toString();
+            valueMap.put("name", nameInput);
             String schoolInput = school.getText().toString();
+            valueMap.put("school", schoolInput);
             String emailInput = email.getText().toString();
+            valueMap.put("email", emailInput);
             String passwordInput = password.getText().toString();
+            valueMap.put("password", passwordInput);
+
+            //set anonymous profile pic
+            int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+            Bitmap bm;
+            switch(randomNum) {
+                case 1:
+                    bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user1);
+                case 2:
+                    bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user2);
+                case 3:
+                    bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user3);
+                default:
+                    bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user4);
+            }
+            String base64Pic = bitMapToBase64String(bm);
+            valueMap.put("profilePic", base64Pic);
+
+            String jsonInputString = convertToJsonString(valueMap);
 
             // This method call should end up uploading the information to the database
-            postUserProfile(emailInput, passwordInput, nameInput, schoolInput);
+            postUserProfile(jsonInputString);
 
             Toast.makeText(this, "Signup successful", LENGTH_LONG).show();
 
             // just go back to Login Activity
             Intent i = new Intent(this, LoginActivity.class);
             startActivityForResult(i, LOGIN_ACTIVITY_ID);
-
         }
+    }
+
+    public String bitMapToBase64String(Bitmap profPicBitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        profPicBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    public String convertToJsonString(Map<String, String> valueMap) throws JSONException {
+        JSONObject jsonInput = new JSONObject();
+        for (String key : valueMap.keySet()) {
+            jsonInput.put(key, valueMap.get(key));
+        }
+        return jsonInput.toString();
     }
 
 
@@ -170,7 +210,7 @@ public class SignupActivity extends AppCompatActivity {
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
             URL url = new URL("http://10.0.2.2:3000/search_user?email=" + email);
-            AccessWebTask task = new AccessWebTask();
+            AccessWebTask task = new AccessWebTask("GET");
             task.execute(url);
             return task.get(); // waits for doInBackground to finish, then gets the return value
         } catch (Exception e) {

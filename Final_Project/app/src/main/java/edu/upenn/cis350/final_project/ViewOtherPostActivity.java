@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class ViewOtherPostActivity extends AppCompatActivity {
-    static final int EDIT_POST_ACTIVITY_ID = 20;
     static final int PROFILE_ACTIVITY_ID = 21;
     private Intent curr_intent;
     private String user_email;
@@ -148,15 +147,6 @@ public class ViewOtherPostActivity extends AppCompatActivity {
         //pass on user information
         try {
             i.putExtra("email", email);
-        } catch (Exception e) {
-            Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void passOnID(Intent i, String _id) {
-        //pass on post information
-        try {
-            i.putExtra("_id", _id);
         } catch (Exception e) {
             Toast.makeText(this, "error passing on values", Toast.LENGTH_SHORT).show();
         }

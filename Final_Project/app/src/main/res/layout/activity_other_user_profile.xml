@@ -20,14 +20,16 @@
             android:background="#284b63">
 
             // profile pic
+
             <ImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="132dp"
+                android:layout_height="132dp"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/profile_pic"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="55dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/profile_pic" />
 
             // display full name
             <TextView

@@ -19,23 +19,28 @@
             android:background="#284b63">
 
             // profile pic
+
             <ImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="132dp"
+                android:layout_height="132dp"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/profile_pic"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="55dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/profile_pic" />
 
             <Button
                 android:id="@+id/edit_prof_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onProfPicButtonClick"
-                android:text="EDIT PROFILE PICTURE"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:textColor="#ffffff"/>
+                android:layout_marginTop="0dp"
+                android:backgroundTint="#C3C0C0"
+                android:onClick="onUploadButtonClick"
+                android:text="UPLOAD NEW PHOTO"
+                android:textColor="#ffffff" />
 
             // display full name
             <TextView
@@ -47,12 +52,43 @@
                 android:layout_below="@+id/profile_pic"
                 android:layout_centerHorizontal="true"
                 android:includeFontPadding="false"
-                android:layout_marginTop="-7dp"
+                android:layout_marginTop="-1dp"
                 android:layout_marginBottom="-10dp"
                 android:textColor="#ffffff"/>
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/cameraButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="155dp"
+                android:layout_marginEnd="112dp"
+                android:clickable="true"
+                android:onClick="onCameraButtonClick"
+                android:scaleType="center"
+                android:tint="#1F3950"
+                app:backgroundTint="#C3C0C0"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton3"
+                android:layout_width="281dp"
+                android:layout_height="76dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="112dp"
+                android:layout_marginTop="45dp"
+                android:clickable="true"
+                android:onClick="onDeletePicButtonClick"
+                android:tint="#1F3950"
+                app:backgroundTint="#B5B3B3"
+                app:fabSize="mini"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
             // display username
-<!--            <TextView-->
+            <!--            <TextView-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="rosa_sun"-->

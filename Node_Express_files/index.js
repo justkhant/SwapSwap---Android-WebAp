@@ -11,7 +11,8 @@ app.set('view engine', 'ejs');
 
 // set up BodyParser
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
+
+app.use(bodyParser.json( {limit: "500mb"}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // import the User class from User.js
@@ -27,14 +28,15 @@ var Post = require('./Post.js');
 app.use('/createNewUser', (req, res) => {
 	// construct the User from the form data which is in the request body
 	var newUser = new User ({
-		email: req.query.email,
-		password: req.query.password,
-		name: req.query.name,
-		school: req.query.school,
+		email: req.body.email,
+		password: req.body.password,
+		name: req.body.name,
+		school: req.body.school,
 		bio: "",
 		rank: 0,
 		points: 0,
 		phoneNumber: "",
+		profilePic: req.body.profilePic
 	});
 		
 	console.log("Creating new User...");
@@ -42,6 +44,7 @@ app.use('/createNewUser', (req, res) => {
 	console.log("Password: " + newUser.password);
 	console.log("Name: " + newUser.name);
 	console.log("School: " + newUser.school);
+	console.log("Strong default profile picture...")
 	
 	// save the user to the database
 	newUser.save( (err) => { 
@@ -91,7 +94,7 @@ app.use('/all', (req, res) => {
 // to use this, make a request for /api to get an array of all User objects
 // or /api?username=[whatever] to get a single object
 app.use('/search_user', (req, res) => {
-	console.log("Searching for user");
+	console.log("Searching for User:"+ req.query.email + "...");
 
 	// construct the query object
 	var queryObject = {};
@@ -101,7 +104,6 @@ app.use('/search_user', (req, res) => {
 	}
     
 	User.find( queryObject, (err, users) => {
-		console.log(users);
 		if (err) {
 		    console.log('uh oh' + err);
 			return res.json({});
@@ -113,10 +115,14 @@ app.use('/search_user', (req, res) => {
 		
 		else if (users.length > 0 ) {
 			var user = users[0];
-	
+			var temp = { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school, "bio" : user.bio,
+			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber };
+			console.log(temp);
+
 		    // send back a single JSON object
 			return res.json( { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school, "bio" : user.bio,
-			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber });
+			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber, "profilePic" : user.profilePic});
+			
 		}
 		
 	});
@@ -124,23 +130,27 @@ app.use('/search_user', (req, res) => {
 
 //route to update profile information for user
 app.use('/update_profile', (req, res) => {
-	var new_bio = req.query.bio;
-	var new_phoneNumber = req.query.phoneNumber;
-	var new_school = req.query.school;
+	var new_bio = req.body.bio;
+	var new_phoneNumber = req.body.phoneNumber;
+	var new_school = req.body.school;
+	var new_profilePic = req.body.profilePic;
 
-	console.log("Updating Profile...");
+	console.log("Updating Profile of User:" + req.body.email + "...");
 	console.log("Bomb Bio: " + new_bio);
 	console.log("My Numba: " + new_phoneNumber);
 	console.log("School: " + new_school);
-
+	if (new_profilePic) {
+		console.log("New Profile Pic Received...")
+	}
+	//console.log("Profile Pic:" + new_profilePic);
 	// Find the User 
 	var query = {};
-	if (req.query.email) {
+	if (req.body.email) {
 	    // if there's a email in the query parameter, use it here
-		query = { "email" : req.query.email };
+		query = { "email" : req.body.email };
 	}
 
-	var updateProfile = { $set: {bio: new_bio, phoneNumber: new_phoneNumber, school: new_school} };
+	var updateProfile = { $set: {bio: new_bio, phoneNumber: new_phoneNumber, school: new_school, profilePic: new_profilePic} };
 
 	User.updateOne( query, updateProfile, (err, users) => {
 		if (err) {

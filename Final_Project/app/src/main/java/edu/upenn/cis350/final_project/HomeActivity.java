@@ -55,6 +55,10 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: Started.");
 
+        Intent curr_intent = getIntent();
+        String user_name = curr_intent.getStringExtra("name");
+        Toast.makeText(this, "Welcome, " + user_name + "!", Toast.LENGTH_SHORT).show();
+
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -128,8 +132,6 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
             URL url = new URL("http://10.0.2.2:3000/allPosts");
             AccessWebTask task = new AccessWebTask();
             JSONArray posts = task.execute(url).get();
-
-            Toast.makeText(this, "Retrieved Posts", Toast.LENGTH_SHORT).show();
 
             try {
                 for (int i = 0; i < posts.length(); i++) {
