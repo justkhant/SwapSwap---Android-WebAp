@@ -81,11 +81,11 @@
                 android:layout_marginStart="112dp"
                 android:layout_marginTop="45dp"
                 android:clickable="true"
-                android:onClick="onDeletePicButtonClick"
+                android:onClick="onRenewPicButtonClick"
                 android:tint="#1F3950"
                 app:backgroundTint="#B5B3B3"
                 app:fabSize="mini"
-                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+                app:srcCompat="@drawable/ic_autorenew_black_24dp" />
 
             // display username
             <!--            <TextView-->

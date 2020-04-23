@@ -31,6 +31,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -161,18 +162,23 @@ public class SignupActivity extends AppCompatActivity {
             valueMap.put("password", passwordInput);
 
             //set anonymous profile pic
-            int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+            Random random = new Random();
+            int randomNum = random.nextInt(4);
             Bitmap bm;
             switch(randomNum) {
-                case 1:
+                case 0:
                     bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user1);
-                case 2:
+                    break;
+                case 1:
                     bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user2);
-                case 3:
+                    break;
+                case 2:
                     bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user3);
+                    break;
                 default:
                     bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user4);
             }
+            bm = Bitmap.createScaledBitmap(bm, 500, 500, true);
             String base64Pic = bitMapToBase64String(bm);
             valueMap.put("profilePic", base64Pic);
 

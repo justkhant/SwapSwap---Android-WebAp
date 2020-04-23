@@ -156,6 +156,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 URL url = urls[0];
                 // create connection and send HTTP request
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(10000);
                 conn.setRequestMethod(method); // send HTTP request
                 conn.connect();
                 // read the first line of data that is returned

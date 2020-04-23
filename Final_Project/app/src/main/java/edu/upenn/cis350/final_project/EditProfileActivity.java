@@ -71,7 +71,7 @@ public class EditProfileActivity extends AppCompatActivity {
     String currentPhotoPath = "";
     boolean isCamera = true;
     Map<String, String> valueMap = new HashMap<>();
-    private int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+    private int randomNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
         user_email = SingletonVariableStorer.getCurrUserInstance();
 
        //fill out info
+
         bio = findViewById(R.id.edit_about_me_body);
         bio.setText(curr_intent.getStringExtra("bio"));
 
@@ -287,17 +288,32 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void onDeletePicButtonClick(View v) {
+    public void onRenewPicButtonClick(View v) {
+        randomNum = (randomNum + 1) % 4;
+        profilePic.invalidate();
+        BitmapDrawable drawable = (BitmapDrawable) profilePic.getDrawable();
+        Bitmap profPicBitmap = drawable.getBitmap();
+
         switch(randomNum) {
+            case 0:
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.anonymous_user1);
+                if (!profPicBitmap.equals(bm)) {
+                    profilePic.setImageResource(R.drawable.anonymous_user1);
+                } else {
+                    randomNum++;
+                    profilePic.setImageResource(R.drawable.anonymous_user2);
+                }
+                break;
             case 1:
-                profilePic.setImageResource(R.drawable.anonymous_user1);
-            case 2:
                 profilePic.setImageResource(R.drawable.anonymous_user2);
-            case 3:
+                break;
+            case 2:
                 profilePic.setImageResource(R.drawable.anonymous_user3);
+                break;
             default:
                 profilePic.setImageResource(R.drawable.anonymous_user4);
         }
+        profilePic.invalidate();
     }
 
     @Override

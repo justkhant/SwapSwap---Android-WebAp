@@ -187,9 +187,12 @@ app.use('/deleteUser', (req, res) => {
 			res.type('html').status(200);
 			console.log('uh oh' + err);
 			res.write(err);
-			res.end();
+			return res.status(200).json({
+				message: "Error Deleting User"});
 		} else {
 			console.log("Successful deletion");
+			return res.status(200).json({
+				message: "User Deleted"});
 		}
 	});
 });
