@@ -31,6 +31,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
     public static final int POSTS_ACTIVITY_ID = 10;
+    static final int HOME_ACTIVITY_ID = 29;
 
 
     @Override
@@ -38,13 +39,13 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_user_profile);
 
-        viewPostings = findViewById(R.id.view_user_listings_button);
-        viewPostings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPostingsListPage();
-            }
-        });
+//        viewPostings = findViewById(R.id.view_user_listings_button);
+//        viewPostings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                goToPostingsListPage();
+//            }
+//        });
 
         //find user to display their information
         curr_intent = getIntent();
@@ -97,6 +98,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         }
     }
 
+
     private void goToPostingsListPage() {
         Intent intent = new Intent(this, PostingsListActivity.class);
         passOnEmail(intent, user_email);
@@ -136,6 +138,11 @@ public class OtherUserProfileActivity extends AppCompatActivity {
                 return new JSONObject();
             }
         }
+    }
+
+    public void backToAllPostsClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 
     public void passOnEmail(Intent i, String email) {

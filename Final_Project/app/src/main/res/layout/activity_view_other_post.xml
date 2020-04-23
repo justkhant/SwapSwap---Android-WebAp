@@ -8,12 +8,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:onClick="onHomeClick"
+                android:text="Home" />
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="28dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="28dp"
             android:layout_marginBottom="30dp">
 
@@ -66,21 +78,24 @@
                     android:layout_height="wrap_content"
                     android:text="Trade"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
                 <RadioButton
                     android:id="@+id/button_donation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Donation"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
                 <RadioButton
                     android:id="@+id/button_donation_req"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Donation Request"
                     android:textColor="#284b63"
-                    android:textSize="17dp"/>
+                    android:textSize="17dp"
+                    android:clickable="false"/>
             </RadioGroup>
 
         </RelativeLayout>
@@ -185,7 +200,7 @@
                 android:layout_marginBottom="35dp"
                 android:background="#fc9e4f"
                 android:onClick="onProfileButtonClick"
-                android:text="CONTACT USER"
+                android:text="USER PROFILE"
                 android:textColor="#ffffff"
                 android:textSize="20dp" />
 

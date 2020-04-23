@@ -269,9 +269,10 @@
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
                 android:background="#fc9e4f"
-                android:text="See More Posts"
+                android:text="BACK TO ALL POSTS"
                 android:textSize="20dp"
                 android:textColor="#ffffff"
+                android:onClick="backToAllPostsClick"
                 android:layout_marginBottom="35dp"/>
 
             <Button

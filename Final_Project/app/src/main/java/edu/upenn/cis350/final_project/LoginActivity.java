@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(this, HomeActivity.class);
 
                 SingletonVariableStorer.setCurrUserInstance(usernameActual);
-                i.putExtra("name", user.getString("name"));
+                Toast.makeText(this, "Welcome, " + user.getString("name") + "!", Toast.LENGTH_LONG).show();
                 startActivityForResult(i, HOME_ACTIVITY_ID);
 
             } else {

@@ -23,6 +23,8 @@ import java.util.Scanner;
 public class ViewPostActivity extends AppCompatActivity {
     static final int EDIT_POST_ACTIVITY_ID = 20;
     static final int PROFILE_ACTIVITY_ID = 21;
+    static final int HOME_ACTIVITY_ID = 29;
+    static final int POSTS_ACTIVITY_ID = 7;
     private Intent curr_intent;
     private TextView title;
     private TextView details;
@@ -162,10 +164,15 @@ public class ViewPostActivity extends AppCompatActivity {
         startActivityForResult(i, EDIT_POST_ACTIVITY_ID);
     }
 
-    public void onProfileButtonClick(View view) {
-        Intent i = new Intent(this, UserProfileActivity.class);
+    public void onMyPostsClick(View view) {
+        Intent i = new Intent(this, PostingsListActivity.class);
 
-        startActivityForResult(i, PROFILE_ACTIVITY_ID);
+        startActivityForResult(i, POSTS_ACTIVITY_ID);
+    }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 
 

@@ -55,10 +55,6 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         setContentView(R.layout.activity_home);
         Log.d(TAG, "onCreate: Started.");
 
-        Intent curr_intent = getIntent();
-        String user_name = curr_intent.getStringExtra("name");
-        Toast.makeText(this, "Welcome, " + user_name + "!", Toast.LENGTH_SHORT).show();
-
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -164,8 +160,7 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     }
 
     public void onHomeClick(View view) {
-        //idk if need this?
-        //Intent i = new Intent(this, ____Activity.class);
+        //Intent i = new Intent(this, HomeActivity.class);
         //startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 

@@ -36,21 +36,15 @@ public class UserProfileActivity extends AppCompatActivity {
     private String user_email;
 
     private JSONObject user;
-    private Button viewPostings;
     public static final int EDIT_ACTIVITY_ID = 9;
+    public static final int POSTS_ACTIVITY_ID = 10;
+    static final int HOME_ACTIVITY_ID = 29;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
-        viewPostings = findViewById(R.id.view_user_listings_button);
-        viewPostings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPostingsListPage();
-            }
-        });
 
         //find user to display their information
         user_email = SingletonVariableStorer.getCurrUserInstance();
@@ -120,9 +114,9 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void goToPostingsListPage() {
+    public void goToPostingsListPage(View v) {
         Intent intent = new Intent(UserProfileActivity.this, PostingsListActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, POSTS_ACTIVITY_ID);
     }
 
     public void onEditClick(View view) {
@@ -226,5 +220,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    public void onHomeClick(View view) {
+        Intent i = new Intent(this, HomeActivity.class);
+        startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 }

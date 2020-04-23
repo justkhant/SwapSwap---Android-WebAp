@@ -181,7 +181,7 @@ public class EditPostActivity extends AppCompatActivity {
     // This helper method gathers the user data to be parsed when a login attempt is made.
     public void updatePost(String titleInput, String catInput, Boolean compInput, String imgURLInput,
                            String detailInput, String email) {
-        Toast.makeText(this, "entered update", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "entered update", Toast.LENGTH_SHORT).show();
         try {
             // 10.0.2.2 is the host machine as represented by Android Virtual Device
 
@@ -195,7 +195,7 @@ public class EditPostActivity extends AppCompatActivity {
                     "owner=" + email);
             AccessWebTask task = new AccessWebTask("POST");
             task.execute(url).get();
-            Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             e.printStackTrace();
