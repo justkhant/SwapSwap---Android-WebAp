@@ -9,14 +9,14 @@
     <%- include ('partials/header') %>
 
     <div class="header">
-			<form class="form">
+			<form class="form" method="POST" action="/">
 				<h1>Find <span>Teachers</span> by <span>Username.</span></h1>
 
 			<div class="form_box">
-				<input class="username_input" name="s_input" type="text" placeholder="Username"/>
+				<input class="username_input" type="text" name="search_email" placeholder="Username" value="<%= qs.search_email %>" />
 
 				<div class="button">
-					<button class="button search_button" type="button">FIND PROFILE</button>
+					<button class="button search_button" type="submit" formaction="/pullTeacher">FIND PROFILE</button>
 				</div>
 			</div>
 

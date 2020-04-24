@@ -501,7 +501,8 @@ app.post('/login', urlencodedParser, function (req, res) {
 	console.log(req.body.login_password);
 
 	var bodyObject = {};
-
+	
+	// inputs are named in login_signup.ejs
 	if (req.body.login_email && req.body.login_password) {
 		// if there's a email in the query parameter, use it here
 		bodyObject = { "email": req.body.login_email, "password": req.body.login_password };
@@ -515,7 +516,7 @@ app.post('/login', urlencodedParser, function (req, res) {
 
 	Admin.find(bodyObject, (err, admins) => {
 		if (err) {
-			console.log('uh oh' + err);
+			console.log('uh oh ' + err);
 			res.end('Error');
 		}
 		else if (admins.length == 0) {
@@ -537,12 +538,99 @@ app.post('/login', urlencodedParser, function (req, res) {
 });
 
 
+// render search_by_teacher.ejs when the "Find Teacher" button in the homepage menu is clicked
 app.get('/findTeacher', (req, res) => {
 	res.render('search_by_teacher', { qs: req.query });
 });
 
+// This method is run when the FIND PROFILE button is clicked.
+// (Done similarly to findPost - we search by email)
+app.post('/pullTeacher', urlencodedParser, function (req, res) {
+
+	console.log("Find Profile button clicked");
+	console.log(req.body.search_email); // input is named in <search_by_teacher.ejs>
+	console.log("Searching for user by email...");
+	
+	// construct the query object
+	var queryObject = {};
+	if (req.body.search_email) {
+		// if there's an email in the query parameter, use it here
+		queryObject = { "email": req.body.search_email };
+	}
+	
+	// need an empty string check to make sure it doesn't search with an empty queryObject
+	if (req.body.search_email == 0) {
+		console.log("Empty search field");
+		res.redirect('/');
+		return;
+	}
+	
+	console.log("Retrieving User...");
+	
+	User.find(queryObject, (err, users) => {
+		if (err) {
+			console.log('uh oh ' + err);
+			res.end('Error');
+		}
+		else if (users.length == 0) {
+			console.log('No users found');
+			res.end('No users found');
+		}
+		else if (users.length > 0) {
+			var userToShow = users[0];
+			console.log(userToShow);
+			res.render('find_teacher_result', { data: userToShow});
+		}
+	});
+});
+
+// render search_by_school.ejs when the "Find School" button in the homepage menu is clicked
 app.get('/findSchool', (req, res) => {
 	res.render('search_by_school', { qs: req.query });
+});
+
+// This method is run when the FIND SCHOOL button is clicked.
+// (Done similarly to findPost - we search for users by school)
+app.post('/pullSchool', urlencodedParser, function (req, res) {
+
+	console.log("Find School button clicked");
+	console.log(req.body.search_school); // input is named in <search_by_school.ejs>
+	console.log("Searching for user by school...");
+	
+	// construct the query object
+	var queryObject = {};
+	if (req.body.search_school) {
+		// if there's a school in the query parameter, use it here
+		queryObject = { "school" : req.body.search_school };
+	}
+	
+	// need an empty string check to make sure it doesn't search with an empty queryObject
+	if (req.body.search_school == 0) {
+		console.log("Empty search field");
+		res.redirect('/');
+		return;
+	}
+	
+	console.log("Retrieving User...");
+	
+	User.find(queryObject, (err, users) => {
+		if (err) {
+			console.log('uh oh ' + err);
+			res.end('Error');
+		}
+		else if (users.length == 0) {
+			console.log('No users found');
+			res.end('No users found');
+		}
+		else if (users.length > 0) {
+			
+			// MUST FIND A WAY TO DISPLAY ALL THE CONTENTS IN THE ARRAY!
+			users.forEach(function(entry) {
+				console.log(entry);
+			});
+			res.render('find_school_result', { data: users});
+		}
+	});
 });
 
 

@@ -9,11 +9,12 @@
 	<%- include ('partials/header') %>
 	
 <div class="header">
-			<form class="form">
+			<form class="form" method="POST" action="/">
 				<h1>Find <span>Teachers</span> by <span>School.</span></h1>
 
 			<div class="form_box">
-				<input class="school_input" name="s_input" type="text" placeholder="Name of School"/>
+				<input class="school_input" name="search_school" type="text" placeholder="Name of School"
+				value="<%= qs.search_school %>"/>
 
 				<div class="dropdowns">
 					<select name="school">
@@ -28,7 +29,7 @@
 				</div>
 
 				<div class="button">
-					<button class="button search_button" type="button">SEARCH</button>
+					<button class="button search_button" type="submit" formaction="/pullSchool">SEARCH</button>
 				</div>
 			</div>
 
