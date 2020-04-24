@@ -11,9 +11,11 @@ app.set('view engine', 'ejs');
 
 // set up BodyParser
 var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(bodyParser.json( {limit: "500mb"}));
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // import the User class from User.js
 var User = require('./User.js');
@@ -87,7 +89,8 @@ app.use('/all', (req, res) => {
 		    res.render('all', { users: users });
 
 		}
-	    }).sort({ 'email': 'asc' }); // this sorts them BEFORE rendering the results
+		}).sort({ 'email': 'asc' }); // this sorts them BEFORE rendering the results
+
     });
 
 // route for accessing data via the web api
@@ -196,6 +199,7 @@ app.use('/deleteUser', (req, res) => {
 		}
 	});
 });
+
 
 
 /********************************* POST STUFF ****************************************/
@@ -423,7 +427,62 @@ app.use('/allPosts', (req, res) => {
 });
 
 
+
+/********************* WEB STUFF *******************/
+app.get('/', (req, res) => {
+	res.render('login_signup', {qs: req.query});
+});
+
+app.post('/', urlencodedParser, function(req, res){
+	console.log(req.body.email);
+	console.log(req.body.password);
+
+	var bodyObject = {};
+
+	if (req.body.email && req.body.password) {
+	    // if there's a email in the query parameter, use it here
+		bodyObject = { "email" : req.body.email, "password" : req.body.password };
+	}
+    
+	User.find( bodyObject, (err, users) => {
+		if (err) {
+			console.log('uh oh' + err);
+			res.end('Error');
+			//return;
+		}
+		else if (users.length == 0) {
+			console.log('Invalid User');
+			res.end('Invalid User');
+		    // no objects found, so send back empty json
+			//return;
+		}
+		
+		else if (users.length > 0 ) {
+			var user = users[0];
+			var temp = { "email" : user.email , "password" : user.password , "name" : user.name , "school" : user.school, "bio" : user.bio,
+			"rank" : user.rank, "points" : user.points, "phoneNumber" : user.phoneNumber };
+			console.log(temp);
+			//res.redirect('/public/temp.html');
+			res.render('temp', {data: user});
+
+		}
+		
+	});
+});
+
+// app.post('/temp', urlencodedParser, function(req, res){
+// //app.get('/temp', (req, res) => {
+// 	console.log('temp:' + req.body.email);
+// 	console.log('temp:' + req.body.password);
+// 	res.render('temp', {qs: req.query});
+// });
+
+
+
 /*************************************************/
+app.use('/public', express.static('public'));
+
+//app.use('/', (req, res) => { res.redirect('/public/temp.html'); } );
 
 
 app.listen(3000,  () => {

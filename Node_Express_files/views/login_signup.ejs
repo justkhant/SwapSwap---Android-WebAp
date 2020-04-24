@@ -1,0 +1,27 @@
+<html>
+
+<head>
+	<title>Login and Sign Up</title>
+	<link href="public/css/login_signup.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="forms_box">
+
+	<div class="forms">
+		<form class="signup_form">
+			<input type="text" placeholder="Username"/>
+			<input type="text" placeholder="Password"/>
+			<input type="text" placeholder="Email"/>
+			<button>SIGN UP</button>
+		</form>
+
+		<form class="login_form" method="POST" action="/login">
+			<input type="text" name="email" placeholder="Username" value="<%= qs.email %>" />
+			<input type="text" name="password" placeholder="Password" value="<%= qs.password %>"/>
+			<button>Log In</button>
+		</form>
+	</div>
+	</div>
+</body>
+</html>
