@@ -453,6 +453,10 @@ app.get('/', (req, res) => {
 	res.render('login_signup', { qs: req.query });
 });
 
+app.get('/temp', (req, res) => {
+	res.render('temp', { qs:req.query});
+});
+
 //admin signup
 app.post('/signup', urlencodedParser, function (req, res) {
 	console.log("signup button clicked");
@@ -531,7 +535,6 @@ app.post('/login', urlencodedParser, function (req, res) {
 			console.log(temp);
 			//res.redirect('/public/temp.html');
 			res.render('temp', { data: admin });
-
 		}
 
 	});
@@ -559,9 +562,9 @@ app.post('/pullTeacher', urlencodedParser, function (req, res) {
 	}
 	
 	// need an empty string check to make sure it doesn't search with an empty queryObject
-	if (req.body.search_email == 0) {
+	if (req.body.search_email.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/');
+		res.redirect('/temp'); // goes back home if invalid entry
 		return;
 	}
 	
@@ -586,7 +589,35 @@ app.post('/pullTeacher', urlencodedParser, function (req, res) {
 
 // render search_by_school.ejs when the "Find School" button in the homepage menu is clicked
 app.get('/findSchool', (req, res) => {
-	res.render('search_by_school', { qs: req.query });
+	
+	// create an empty array to be populated later by school strings
+	var schoolSet = new Set();
+	
+	// find all the User objects in the database and store their school strings in the schoolSet
+	User.find({}, (err, users) => {
+		if (err) {
+			res.type('html').status(200);
+			console.log('uh oh ' + err);
+			res.write(err);
+		}
+		else {
+			if (users.length == 0) {
+				res.type('html').status(200);
+				res.write('There are no users.');
+				res.end();
+				return;
+			}
+			
+			// fetch the school from each user and put it in the schoolArray
+			for (i = 0; i < users.length; i++) {
+				console.log('Pushing user school: ' + users[i].school);
+				schoolSet.add(users[i].school);
+			}
+			
+			res.render('search_by_school', { data: schoolSet });
+		}
+	});
+	
 });
 
 // This method is run when the FIND SCHOOL button is clicked.
@@ -605,9 +636,9 @@ app.post('/pullSchool', urlencodedParser, function (req, res) {
 	}
 	
 	// need an empty string check to make sure it doesn't search with an empty queryObject
-	if (req.body.search_school == 0) {
+	if (req.body.search_school.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/');
+		res.redirect('/temp');
 		return;
 	}
 	
@@ -623,8 +654,6 @@ app.post('/pullSchool', urlencodedParser, function (req, res) {
 			res.end('No users found');
 		}
 		else if (users.length > 0) {
-			
-			// MUST FIND A WAY TO DISPLAY ALL THE CONTENTS IN THE ARRAY!
 			users.forEach(function(entry) {
 				console.log(entry);
 			});
