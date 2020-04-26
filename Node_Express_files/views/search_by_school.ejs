@@ -1,0 +1,41 @@
+<html>
+
+<head>
+	<title>Search by School</title>
+	<link rel="stylesheet" type="text/css" href="public/css/search_by_school.css">
+	
+</head>
+
+<body>
+
+	<%- include ('partials/header') %>
+	
+<div class="header">
+			<form class="form" method="POST" action="/">
+				<h1>Find <span>Teachers</span> by <span>School.</span></h1>
+
+			<div class="form_box">
+				<input class="school_input" name="search_school" type="text" placeholder="Name of School"/>
+
+				<div class="dropdowns">
+					<select name="school">
+						<option>All Schools</option>
+						
+						<% data.forEach(function(entry) { %>
+							<option><%=entry%></option>
+						<% }); %>
+					</select>
+				</div>
+
+				<div class="button">
+					<button class="button search_button" type="submit" formaction="/getSchool">SEARCH</button>
+				</div>
+			</div>
+
+			
+		</form>
+		</div>
+
+		</body>
+
+</html>

@@ -1,0 +1,39 @@
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(classroom.jpg);
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+}
+
+.container_box {
+	width: 360px;
+	padding: 10% 0 0;
+}
+
+.container {
+	position: relative;
+	z-index: 1;
+	background: rgba(75, 65, 52, 0.7);
+    max-width: 360px;
+    /* width: 20 px; */
+    margin: 30px auto;
+	padding: 45px;
+	text-align: center;
+}
+
+h1 {
+    
+	text-align: center;
+    color:  #FFDCAA;
+    font-family: "Garamond";
+	margin-bottom: 10px;
+	letter-spacing: 2px;
+	font-size: 70px;
+	font-weight: bold;
+}
+
+p {
+    font-size: 20px;
+    text-align: center;
+    color: #ffa527;
+}

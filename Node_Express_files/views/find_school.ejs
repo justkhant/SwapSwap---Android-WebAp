@@ -1,0 +1,32 @@
+<!-- views/pages/index.ejs -->
+<html>
+
+
+<head>
+    <title>Find School</title>
+    <link rel="stylesheet" type="text/css" href="public/css/find_school.css">
+
+</head>
+
+
+<body>
+    <%- include ('partials/header') %>
+
+    <div class="header">
+        <div class="container">
+
+            <% data.forEach(function(entry) { %>
+            <div class="card">
+                <h1><%= entry.name %></h1>
+                <p class="info">Email: <%= entry.email %></p>
+                <p class="info">Phone Number: <%= entry.phoneNumber %></p>
+                <p class="info">School: <%= entry.school %></p>
+                <p class="info">Bio: <%= entry.bio %></p>
+            </div>
+            <% }); %>
+
+        </div>
+
+    </div>
+
+</body>

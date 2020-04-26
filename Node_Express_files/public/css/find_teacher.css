@@ -1,0 +1,55 @@
+body {
+	font-family: "Garamond";
+	margin: 0;
+	padding: 0;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    background: rgba(255, 220, 170, 0.3);
+    font-family: "Garamond"; 
+    border-radius: 5px;
+    padding: 2px 16px;
+}
+
+ .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .info {
+    color:  #ffa527;
+    font-size: 20px;
+    font-family: "Garamond";
+  }
+
+
+
+.header {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg4.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+/* display: flex; */
+	/* justify-content: center;
+	align-items: center; */
+	font-family: "Garamond";
+  font-size: 35px;
+  padding: 4px;
+}
+
+
+h1 {
+  text-align: center;
+  /* color: #ffa527; */
+  color:  #FFDCAA; 
+  font-family: "Garamond";
+	margin-bottom: 10px;
+	letter-spacing: 2px;
+	font-size: 60px;
+	font-weight: bold;
+}
+
