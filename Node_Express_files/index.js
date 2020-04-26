@@ -577,7 +577,6 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.write('There is no teacher with this email.');
 			res.redirect('/search_by_teacher');
 		}
 		else if (users.length > 0) {
@@ -604,7 +603,6 @@ app.get('/findSchool', (req, res) => {
 		else {
 			if (users.length == 0) {
 				res.type('html').status(200);
-				res.write('There is no school.');
 				res.redirect('/search_by_school');
 			}
 			
