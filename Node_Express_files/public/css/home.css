@@ -6,7 +6,7 @@ body {
 }
 
 .container_box {
-	width: 360px;
+	width: 380px;
 	padding: 10% 0 0;
 }
 
@@ -14,8 +14,8 @@ body {
 	position: relative;
 	z-index: 1;
 	background: rgba(75, 65, 52, 0.7);
-    max-width: 360px;
-    /* width: 20 px; */
+    max-width: 380px;
+    /* width: 380px;  */
     margin: 30px auto;
 	padding: 45px;
 	text-align: center;

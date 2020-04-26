@@ -577,7 +577,7 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/search_by_teacher');
+			res.redirect('/findTeacher');
 		}
 		else if (users.length > 0) {
 			var userToShow = users[0];
@@ -603,7 +603,7 @@ app.get('/findSchool', (req, res) => {
 		else {
 			if (users.length == 0) {
 				res.type('html').status(200);
-				res.redirect('/search_by_school');
+				res.redirect('/findSchool');
 			}
 			
 			// fetch the school from each user and put it in the schoolArray
@@ -626,17 +626,22 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	console.log(req.body.search_school); // input is named in <search_by_school.ejs>
 	console.log("Searching for user by school...");
 	
+	var search = req.body.search_school;
+	if (search.length == 0) {
+		search = req.body.school;
+	}
+
 	// construct the query object
 	var queryObject = {};
-	if (req.body.search_school) {
+	if (search) {
 		// if there's a school in the query parameter, use it here
-		queryObject = { "school" : req.body.search_school };
+		queryObject = { "school" : search };
 	}
 	
 	// need an empty string check to make sure it doesn't search with an empty queryObject
-	if (req.body.search_school.length == 0) {
+	if (search.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/home');
+		res.redirect('/findSchool');
 		return;
 	}
 	
@@ -649,7 +654,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/search_by_school');
+			res.redirect('/findSchool');
 		}
 		else if (users.length > 0) {
 			users.forEach(function(entry) {
