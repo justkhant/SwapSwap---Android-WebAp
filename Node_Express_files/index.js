@@ -577,8 +577,7 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.write('There is no teacher with this email.');
-			res.redirect('/search_by_teacher');
+			res.redirect('/findTeacher');
 		}
 		else if (users.length > 0) {
 			var userToShow = users[0];
@@ -604,8 +603,7 @@ app.get('/findSchool', (req, res) => {
 		else {
 			if (users.length == 0) {
 				res.type('html').status(200);
-				res.write('There is no school.');
-				res.redirect('/search_by_school');
+				res.redirect('/findSchool');
 			}
 			
 			// fetch the school from each user and put it in the schoolArray
@@ -643,8 +641,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	// need an empty string check to make sure it doesn't search with an empty queryObject
 	if (search.length == 0) {
 		console.log("Empty search field");
-		res.write('There is no school.');
-		res.redirect('/search_by_school');
+		res.redirect('/findSchool');
 		return;
 	}
 	
@@ -657,7 +654,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/search_by_school');
+			res.redirect('/findSchool');
 		}
 		else if (users.length > 0) {
 			users.forEach(function(entry) {
