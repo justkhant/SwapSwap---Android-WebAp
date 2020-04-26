@@ -327,8 +327,8 @@ app.use('/findUserPosts', (req, res) => {
 		else {
 		    if (posts.length == 0) {
 				res.type('html').status(200);
-				res.write('There are no posts for this user yet.');
-				return res.json({})
+				//res.write('There are no posts for this user yet.');
+				return res.json({});
 			}
 			
 			//otherwise return all posts
