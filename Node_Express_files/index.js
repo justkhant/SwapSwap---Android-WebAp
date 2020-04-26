@@ -665,6 +665,50 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	});
 });
 
+// render delete_by_teacher.ejs when the "Delete Teacher" button in the homepage menu is clicked
+app.get('/deleteTeacher', (req, res) => {
+	res.render('delete_by_teacher', { qs: req.query });
+});
+
+// This method is run when the DELETE USER button is clicked.
+app.post('/executeDeleteTeacher', urlencodedParser, function (req, res) {
+
+	console.log("Delete User button clicked");
+	var queryObject = {};
+	
+	if (req.body.delete_email) {
+		queryObject = { "email": req.body.delete_email };
+	}
+	
+	if (req.body.delete_email.length == 0) {
+		console.log("Empty delete field.");
+		res.redirect('/home'); // goes back to home if invalid entry
+		return;
+	}
+	
+	console.log("Attempting to deleting user: " + req.body.delete_email);
+	
+	User.deleteOne(queryObject, (err, result) => {
+		if (err) {
+			res.type('html').status(200);				
+			console.log('uh oh' + err);
+			res.write(err);
+			return res.status(200).json({
+				message: "Error Deleting User"
+			});
+		} else if (result.deletedCount != 1) {
+			console.log(result.ok);
+			console.log(result.n);
+			console.log(result.deletedCount);
+			console.log("No such user found.");
+			res.render('delete_by_teacher', { qs: req.query });
+		} else {
+			console.log("Successful deletion of " + result.ok + " user!");
+			res.render('delete_teacher', {data: req.body.delete_email});
+		}
+	});
+});
+
 
 
 // app.post('/temp', urlencodedParser, function(req, res){

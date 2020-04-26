@@ -1,0 +1,59 @@
+body {
+	font-family: "Garamond";
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg5.jpg);
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "Garamond";
+	font-size: 35px;
+}
+
+h1 {
+	text-align: center;
+	color: #FFDCAA;
+	margin-bottom: 70px;
+	letter-spacing: 2px;
+	font-size: 60px;
+	font-weight: bold;
+}
+
+span {
+	color: #ffa527;
+	font-size: 80px;
+}
+
+.form_box {
+	background: rgba(255, 220, 170, 0.3);
+	padding: 30px 50px;
+	text-align: center;
+}
+
+input[type=text] {
+	margin-top: 30px;
+	font-family: "Garamond";
+	font-size: 20px;
+	width: 350px;
+	height: 50px;
+	padding: 10px;
+}
+
+
+.search_button {
+	height: 70px;
+	width: 350px;
+	background: #FFA527;
+	color: #FFDCAA;
+	border: none;
+	font-size: 25px;
+	margin-top: 70px;
+	font-weight: bold;
+	margin-bottom: 40px;
+}
