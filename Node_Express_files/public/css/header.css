@@ -1,6 +1,7 @@
 /* Add a black background color to the top navigation */
 .topnav {
-    background-color: #333;
+    /* background-color: #333; */
+    background-color:  #8B734F;
     overflow: hidden;
   }
   
@@ -21,8 +22,8 @@
     color: black;
   }
   
-  /* Add a color to the active/current link */
+  /* Add a color to the active/current link
   .topnav a.active {
-    background-color: #ffa527;
+    background-color: #8B734F;
     color: white;
-  }
+  } */

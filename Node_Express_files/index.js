@@ -453,8 +453,8 @@ app.get('/', (req, res) => {
 	res.render('login_signup', { qs: req.query });
 });
 
-app.get('/temp', (req, res) => {
-	res.render('temp', { qs:req.query});
+app.get('/home', (req, res) => {
+	res.render('home', { qs:req.query});
 });
 
 //admin signup
@@ -499,7 +499,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
 });
 
 //admin login
-app.post('/login', urlencodedParser, function (req, res) {
+app.post('/home', urlencodedParser, function (req, res) {
 	console.log("login button clicked");
 	console.log(req.body.login_email);
 	console.log(req.body.login_password);
@@ -534,7 +534,7 @@ app.post('/login', urlencodedParser, function (req, res) {
 			var temp = { "email": admin.email, "password": admin.password, "name": admin.name };
 			console.log(temp);
 			//res.redirect('/public/temp.html');
-			res.render('temp', { data: admin });
+			res.render('home', { data: admin });
 		}
 
 	});
@@ -548,7 +548,7 @@ app.get('/findTeacher', (req, res) => {
 
 // This method is run when the FIND PROFILE button is clicked.
 // (Done similarly to findPost - we search by email)
-app.post('/pullTeacher', urlencodedParser, function (req, res) {
+app.post('/getTeacher', urlencodedParser, function (req, res) {
 
 	console.log("Find Profile button clicked");
 	console.log(req.body.search_email); // input is named in <search_by_teacher.ejs>
@@ -564,7 +564,7 @@ app.post('/pullTeacher', urlencodedParser, function (req, res) {
 	// need an empty string check to make sure it doesn't search with an empty queryObject
 	if (req.body.search_email.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/temp'); // goes back home if invalid entry
+		res.redirect('/home'); // goes back home if invalid entry
 		return;
 	}
 	
@@ -577,12 +577,13 @@ app.post('/pullTeacher', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.end('No users found');
+			res.write('There is no teacher with this email.');
+			res.redirect('/search_by_teacher');
 		}
 		else if (users.length > 0) {
 			var userToShow = users[0];
 			console.log(userToShow);
-			res.render('find_teacher_result', { data: userToShow});
+			res.render('find_teacher', { data: userToShow});
 		}
 	});
 });
@@ -603,9 +604,8 @@ app.get('/findSchool', (req, res) => {
 		else {
 			if (users.length == 0) {
 				res.type('html').status(200);
-				res.write('There are no users.');
-				res.end();
-				return;
+				res.write('There is no school.');
+				res.redirect('/search_by_school');
 			}
 			
 			// fetch the school from each user and put it in the schoolArray
@@ -622,7 +622,7 @@ app.get('/findSchool', (req, res) => {
 
 // This method is run when the FIND SCHOOL button is clicked.
 // (Done similarly to findPost - we search for users by school)
-app.post('/pullSchool', urlencodedParser, function (req, res) {
+app.post('/getSchool', urlencodedParser, function (req, res) {
 
 	console.log("Find School button clicked");
 	console.log(req.body.search_school); // input is named in <search_by_school.ejs>
@@ -638,7 +638,7 @@ app.post('/pullSchool', urlencodedParser, function (req, res) {
 	// need an empty string check to make sure it doesn't search with an empty queryObject
 	if (req.body.search_school.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/temp');
+		res.redirect('/home');
 		return;
 	}
 	
@@ -651,13 +651,13 @@ app.post('/pullSchool', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.end('No users found');
+			res.redirect('/search_by_school');
 		}
 		else if (users.length > 0) {
 			users.forEach(function(entry) {
-				console.log(entry);
+				console.log(entry.name);
 			});
-			res.render('find_school_result', { data: users});
+			res.render('find_school', { data: users});
 		}
 	});
 });

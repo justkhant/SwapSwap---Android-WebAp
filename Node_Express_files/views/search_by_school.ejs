@@ -1,7 +1,9 @@
 <html>
 
 <head>
+	<title>Search by School</title>
 	<link rel="stylesheet" type="text/css" href="public/css/search_by_school.css">
+	
 </head>
 
 <body>
@@ -22,18 +24,11 @@
 						<% data.forEach(function(entry) { %>
 							<option><%=entry%></option>
 						<% }); %>
-						
-						<option value="0">Jefferson Middle School</option>
-						<option value="1">Drexel University</option>
-						<option value="2">Pennsylvania State University</option>
-						<option value="3">University of New Mexico</option>
-						<option value="4">University of Pennsylvania</option>
-						<option value="5">Zora Elementary</option>
 					</select>
 				</div>
 
 				<div class="button">
-					<button class="button search_button" type="submit" formaction="/pullSchool">SEARCH</button>
+					<button class="button search_button" type="submit" formaction="/getSchool">SEARCH</button>
 				</div>
 			</div>
 
