@@ -628,17 +628,23 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	console.log(req.body.search_school); // input is named in <search_by_school.ejs>
 	console.log("Searching for user by school...");
 	
+	var search = req.body.search_school;
+	if (search.length == 0) {
+		search = req.body.school;
+	}
+
 	// construct the query object
 	var queryObject = {};
-	if (req.body.search_school) {
+	if (search) {
 		// if there's a school in the query parameter, use it here
-		queryObject = { "school" : req.body.search_school };
+		queryObject = { "school" : search };
 	}
 	
 	// need an empty string check to make sure it doesn't search with an empty queryObject
-	if (req.body.search_school.length == 0) {
+	if (search.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/home');
+		res.write('There is no school.');
+		res.redirect('/search_by_school');
 		return;
 	}
 	
