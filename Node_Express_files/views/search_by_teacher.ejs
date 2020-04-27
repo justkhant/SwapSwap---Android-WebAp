@@ -14,11 +14,26 @@
 				<h1>Find <span>Teachers</span> by <span>Email.</span></h1>
 
 			<div class="form_box">
-				<input class="email_input" type="text" name="search_email" placeholder="Email" value="<%= qs.search_email %>" />
-
-				<div class="button">
+				<input class="email_input" type="email" name="search_email" placeholder="Email" value="<%= qs.search_email %>" />
+				<% if (qs.empty) { %>
+				<div class="error-text fadeOut">
+					<p>Please enter an email!</p>
+				</div>
+				<div class="button" >
+					<button class="button search_button1" type="submit" formaction="/getTeacher">FIND PROFILE</button>
+				</div>
+				<% } else if (qs.no_users) { %>
+				<div class="error-text fadeOut">
+					<p>No teachers found!</p>
+				</div>
+				<div class="button" >
+					<button class="button search_button1" type="submit" formaction="/getTeacher">FIND PROFILE</button>
+				</div>
+				<% } else { %>
+				<div class="button" >
 					<button class="button search_button" type="submit" formaction="/getTeacher">FIND PROFILE</button>
 				</div>
+				<% } %>
 			</div>
 
 			

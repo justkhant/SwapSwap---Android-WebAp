@@ -460,9 +460,14 @@ app.get('/home', (req, res) => {
 //admin signup
 app.post('/signup', urlencodedParser, function (req, res) {
 	console.log("signup button clicked");
-	console.log(req.body.signup_name);
-	console.log(req.body.signup_email);
-	console.log(req.body.signup_password);
+	var email = req.body.signup_email;
+	var name = req.body.signup_name;
+	var password = req.body.signup_password;
+	if (name.length == 0 || email.length  == 0 || password.length == 0) {
+			console.log("empty fields");
+			res.redirect('/?signup_empty=true&signup_email='+ email + '&signup_name=' + name);
+			return;
+	}
 
 	var newAdmin = new Admin({
 		name: req.body.signup_name,
@@ -470,32 +475,37 @@ app.post('/signup', urlencodedParser, function (req, res) {
 		password: req.body.signup_password,
 	});
 
-	console.log("Creating new Admin...");
-	console.log("Name: " + newAdmin.name);
-	console.log("Email: " + newAdmin.email);
-	console.log("Password: " + newAdmin.password);
-
-	if (req.body.signup_name.length == 0 ||
-		req.body.signup_email.length == 0 ||
-		req.body.signup_password.length == 0) {
-		console.log("empty fields");
-		res.redirect('/');
-		return;
-	}
-
-	// save the user to the database
-	newAdmin.save((err) => {
-		console.log("save")
+	var query = {"email": req.body.signup_email};
+	Admin.find(query, (err, admins) => {
 		if (err) {
-			res.type('html').status(200);
-			res.write('uh oh: ' + err);
-			console.log(err);
+			console.log('uh oh ' + err);
+			res.end('Error');
 		}
-		else {
-			console.log("New User Created Successfully...")
+		else if (admins.length == 0) {
+			console.log("Creating new Admin...");
+			console.log("Name: " + newAdmin.name);
+			console.log("Email: " + newAdmin.email);
+			console.log("Password: " + newAdmin.password);
+
+			// save the user to the database
+			newAdmin.save((err) => {
+				console.log("save")
+				if (err) {
+					res.type('html').status(200);
+					res.write('uh oh: ' + err);
+					console.log(err);
+				}
+				else {
+					console.log("New User Created Successfully...")
+				}
+			});
+			res.redirect('/?signup_success=true');
+		}
+
+		else if (admins.length > 0) {
+			res.redirect('/?account_exists=true');
 		}
 	});
-	res.redirect('/');
 });
 
 //admin login
@@ -514,7 +524,7 @@ app.post('/home', urlencodedParser, function (req, res) {
 
 	if (req.body.login_email.length == 0 || req.body.login_password.length == 0) {
 		console.log("empty fields");
-		res.redirect('/');
+		res.redirect('/?empty_fields=true');
 		return;
 	}
 
@@ -525,7 +535,7 @@ app.post('/home', urlencodedParser, function (req, res) {
 		}
 		else if (admins.length == 0) {
 			console.log('Invalid User');
-			res.end('Invalid User');
+			res.redirect('/?invalid_username=true');
 			// no objects found, so send back empty json
 		}
 
@@ -550,6 +560,13 @@ app.get('/findTeacher', (req, res) => {
 // (Done similarly to findPost - we search by email)
 app.post('/getTeacher', urlencodedParser, function (req, res) {
 
+	// need an empty string check to make sure it doesn't search with an empty queryObject
+	if (req.body.search_email.length == 0) {
+		console.log("Empty search field");
+		res.redirect('/findTeacher?empty=true'); // goes back home if invalid entry
+		return;
+	}
+
 	console.log("Find Profile button clicked");
 	console.log(req.body.search_email); // input is named in <search_by_teacher.ejs>
 	console.log("Searching for user by email...");
@@ -561,13 +578,6 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 		queryObject = { "email": req.body.search_email };
 	}
 	
-	// need an empty string check to make sure it doesn't search with an empty queryObject
-	if (req.body.search_email.length == 0) {
-		console.log("Empty search field");
-		res.redirect('/home'); // goes back home if invalid entry
-		return;
-	}
-	
 	console.log("Retrieving User...");
 	
 	User.find(queryObject, (err, users) => {
@@ -577,7 +587,7 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/findTeacher');
+			res.redirect('/findTeacher?no_users=true&search_email=' + req.body.search_email);
 		}
 		else if (users.length > 0) {
 			var userToShow = users[0];
@@ -612,7 +622,7 @@ app.get('/findSchool', (req, res) => {
 				schoolSet.add(users[i].school);
 			}
 			
-			res.render('search_by_school', { data: schoolSet });
+			res.render('search_by_school', { qs: req.query, data: schoolSet });
 		}
 	});
 	
@@ -641,7 +651,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	// need an empty string check to make sure it doesn't search with an empty queryObject
 	if (search.length == 0) {
 		console.log("Empty search field");
-		res.redirect('/findSchool');
+		res.redirect('/findSchool?empty=true');
 		return;
 	}
 	
@@ -654,7 +664,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/findSchool');
+			res.redirect('/findSchool?no_users=true');
 		}
 		else if (users.length > 0) {
 			users.forEach(function(entry) {

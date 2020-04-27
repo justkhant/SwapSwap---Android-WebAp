@@ -27,15 +27,17 @@ body {
 	margin: auto;
 }
 
+
 .forms {
 	position: relative;
 	z-index: 1;
 	background: rgba(100, 86, 67, 0.7);
 	max-width: 360px;
-	margin: 0 auto 100px;
+	margin: 0 auto 10px;
 	padding: 45px;
 	text-align: center;
 }
+
 .forms input {
 	font-family: "Geneva", sans-serif;
 	outline: 1;
@@ -48,6 +50,42 @@ body {
 	font-size: 16px;
 }
 
+.error-text {
+   
+    color: #FF0000;
+    text-align: center;
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+                             
+}
+
+.success-text {
+   
+    color: 	#FFFF00;
+    text-align: center;
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+                             
+}
+
+@-webkit-keyframes fadeOut {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+         
+	@keyframes fadeOut {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+         
+.fadeOut {
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
 
 .signup_form button{
 	font-family: "Geneva", sans-serif;
@@ -60,7 +98,7 @@ body {
 	color: #FFDCAA;
 	font-size: 20px;
 	cursor: pointer;
-	margin-bottom: 25px;
+  
 }
 .login_form button{
 	font-family: "Geneva", sans-serif;
@@ -73,4 +111,5 @@ body {
 	color: #FFDCAA;
 	font-size: 20px;
 	cursor: pointer;
+  
 }

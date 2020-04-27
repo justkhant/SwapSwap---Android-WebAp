@@ -10,8 +10,13 @@
     "mongodb": "^3.5.6",
     "mongoose": "^5.9.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "http-server": "^0.12.1"
+  },
   "scripts": {
+    "start": "npm run open",
+    "open": "concurrently \"http-server -a localhost -p 3000\" \"open http://localhost:3000/\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
