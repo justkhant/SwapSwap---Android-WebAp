@@ -646,7 +646,10 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	var queryObject = {};
 	if (search) {
 		// if there's a school in the query parameter, use it here
-		queryObject = { "school" : search };
+		if (search == "All Schools") {
+		} else {
+			queryObject = { "school" : search };
+		}
 	}
 	
 	// need an empty string check to make sure it doesn't search with an empty queryObject
@@ -665,7 +668,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 		}
 		else if (users.length == 0) {
 			console.log('No users found');
-			res.redirect('/findSchool?no_users=true');
+			res.redirect('/findSchool?no_users=true&school=' + search);
 		}
 		else if (users.length > 0) {
 			users.forEach(function(entry) {
