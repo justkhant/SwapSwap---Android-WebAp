@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -21,7 +22,8 @@ import java.util.Scanner;
 public class PostingsListActivity extends AppCompatActivity implements PostingsAdapter.OnPostListener {
 
     private static final int VIEW_POST_ACTIVITY_ID = 80;
-    static final int HOME_ACTIVITY_ID = 29;
+    static final int HOME_ACTIVITY_ID = 81;
+    private static final int VIEW_OTHER_POST_ACTIVITY_ID = 82;
 
     private List<String> titles = new ArrayList<>();
     private List<String> descriptions = new ArrayList<>();
@@ -36,6 +38,8 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
     private RecyclerView recyclerView;
     private RecyclerView.Adapter postAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TextView title;
+    private Intent curr_intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +56,18 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        curr_user = SingletonVariableStorer.getCurrUserInstance();
-        getUserPosts(curr_user);
 
+        curr_intent = getIntent();
+        title = (TextView) findViewById(R.id.post_text);
+
+        if(curr_intent.getBooleanExtra("otherUser", false)) {
+            curr_user = curr_intent.getStringExtra("email");
+            title.setText(curr_intent.getStringExtra("name") + "'s Posts");
+        } else {
+            title.setText("My Posts");
+            curr_user = SingletonVariableStorer.getCurrUserInstance();
+        }
+        getUserPosts(curr_user);
         // specify an adapter (see also next example)
         postAdapter = new PostingsAdapter(titles, descriptions, image_icons, this);
         recyclerView.setAdapter(postAdapter);
@@ -63,9 +76,15 @@ public class PostingsListActivity extends AppCompatActivity implements PostingsA
 
     @Override
     public void onPostClick(int position) {
-        Intent i = new Intent(this, ViewPostActivity.class);
-        i.putExtra("_id", post_ids.get(position));
-        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
+        if (curr_intent.getBooleanExtra("otherUser", false)) {
+            Intent i = new Intent(this, ViewOtherPostActivity.class);
+            i.putExtra("_id", post_ids.get(position));
+            startActivityForResult(i, VIEW_OTHER_POST_ACTIVITY_ID);
+        } else {
+            Intent i = new Intent(this, ViewPostActivity.class);
+            i.putExtra("_id", post_ids.get(position));
+            startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
+        }
     }
 
     // inner class used to access the web

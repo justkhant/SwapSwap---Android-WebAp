@@ -89,12 +89,6 @@ public class EditProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.edit_email_body);
         email.setText(user_email);
 
-        rank = findViewById(R.id.edit_rank);
-        rank.setText(String.valueOf(curr_intent.getIntExtra("rank", 0)));
-
-        points = findViewById(R.id.edit_points);
-        points.setText(String.valueOf(curr_intent.getIntExtra("points", 0)));
-
         school = findViewById(R.id.edit_school_body);
         school.setText(curr_intent.getStringExtra("school"));
 

@@ -207,9 +207,22 @@ app.use('/deleteUser', (req, res) => {
 				message: "Error Deleting User"
 			});
 		} else {
-			console.log("Successful deletion");
-			return res.status(200).json({
-				message: "User Deleted"
+			Post.deleteMany({ "owner": userToDelete }, (err, results) => {
+				if (err) {
+					res.type('html').status(200);
+					console.log('uh oh' + err);
+					res.write(err);
+					return res.status(200).json({
+						message: "Error Deleting User Posts"
+					});
+				} else {
+					console.log("Deleting...");
+					console.log(results);
+					console.log("Successful deletion");
+					return res.status(200).json({
+						message: "User Deleted"
+					});
+				}
 			});
 		}
 	});
@@ -733,8 +746,21 @@ app.post('/executeDeleteTeacher', urlencodedParser, function (req, res) {
 			console.log("No such user found.");
 			res.render('delete_by_teacher', { qs: req.query });
 		} else {
-			console.log("Successful deletion of " + result.ok + " user!");
-			res.render('delete_teacher', {data: req.body.delete_email});
+			//delete posts
+			Post.deleteMany({ "owner": req.body.delete_email }, (err, results) => {
+				if (err) {
+					res.type('html').status(200);
+					console.log('uh oh' + err);
+					res.write(err);
+					return res.status(200).json({
+						message: "Error Deleting User Posts"
+					});
+				} else {
+					console.log("Successful deletion of " + result.ok + " user!");
+					res.render('delete_teacher', {data: req.body.delete_email});
+				}
+			});
+			
 		}
 	});
 });

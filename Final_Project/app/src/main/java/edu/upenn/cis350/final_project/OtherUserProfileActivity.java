@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -17,35 +18,23 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class OtherUserProfileActivity extends AppCompatActivity {
+
     private TextView bio;
-    private TextView rank;
     private TextView name;
     private TextView phoneNumber;
     private TextView email;
-    private TextView points;
     private TextView school;
     private String user_email;
     private Intent curr_intent;
-
     private JSONObject user;
-    private Button viewPostings;
-    public static final int EDIT_ACTIVITY_ID = 9;
-    public static final int POSTS_ACTIVITY_ID = 10;
-    static final int HOME_ACTIVITY_ID = 29;
 
+    static final int HOME_ACTIVITY_ID = 29;
+    private static final int VIEW_POST_ACTIVITY_ID = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_user_profile);
-
-//        viewPostings = findViewById(R.id.view_user_listings_button);
-//        viewPostings.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                goToPostingsListPage();
-//            }
-//        });
 
         //find user to display their information
         curr_intent = getIntent();
@@ -60,12 +49,6 @@ public class OtherUserProfileActivity extends AppCompatActivity {
 
             email = findViewById(R.id.email_body);
             email.setText(user_email);
-
-            rank = findViewById(R.id.rank);
-            rank.setText("" + user.getInt("rank"));
-
-            points = findViewById(R.id.points);
-            points.setText("" + user.getInt("points"));
 
             school = findViewById(R.id.school_body);
             school.setText(user.getString("school"));
@@ -96,13 +79,6 @@ public class OtherUserProfileActivity extends AppCompatActivity {
             e.printStackTrace();
             return new JSONObject(); // return empty JSON Object upon encountering an exception
         }
-    }
-
-
-    private void goToPostingsListPage() {
-        Intent intent = new Intent(this, PostingsListActivity.class);
-        passOnEmail(intent, user_email);
-        startActivity(intent);
     }
 
     // inner class used to access the web by the login method
@@ -143,6 +119,14 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     public void backToAllPostsClick(View view) {
         Intent i = new Intent(this, HomeActivity.class);
         startActivityForResult(i, HOME_ACTIVITY_ID);
+    }
+
+    public void viewUserPostsClick(View view) throws JSONException {
+        Intent i = new Intent(this, PostingsListActivity.class);
+        i.putExtra("otherUser", true);
+        i.putExtra("email", user_email);
+        i.putExtra("name", user.getString("name"));
+        startActivityForResult(i, VIEW_POST_ACTIVITY_ID);
     }
 
     public void passOnEmail(Intent i, String email) {

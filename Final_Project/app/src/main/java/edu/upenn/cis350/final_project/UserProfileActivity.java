@@ -60,12 +60,6 @@ public class UserProfileActivity extends AppCompatActivity {
             email = findViewById(R.id.email_body);
             email.setText(user_email);
 
-            rank = findViewById(R.id.rank);
-            rank.setText("" + user.getInt("rank"));
-
-            points = findViewById(R.id.points);
-            points.setText("" + user.getInt("points"));
-
             school = findViewById(R.id.school_body);
             school.setText(user.getString("school"));
 

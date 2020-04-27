@@ -37,25 +37,14 @@
         android:layout_marginStart="6dp"
         android:layout_marginBottom="13dp"
         android:onClick="onHomeClick"
-        android:text="Home" />
+        android:text="All Posts" />
 
     <Button
-        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="110dp"
-        android:layout_marginBottom="13dp"
-        android:onClick="onSearchClick"
-        android:text="Search" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="105dp"
         android:layout_marginBottom="13dp"
         android:onClick="onMyPostsClick"
         android:text="My Posts" />
@@ -65,10 +54,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="105dp"
         android:layout_marginBottom="13dp"
         android:onClick="onProfileClick"
         android:text="Profile" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="13dp"
+        android:onClick="onLogoutClick"
+        android:text="Logout" />
 
     <ImageButton
         android:id="@+id/infoButton"
@@ -82,19 +82,6 @@
         android:layout_marginEnd="360dp"
         android:onClick="onInfoClick"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
-
-    <ImageButton
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="310dp"
-        android:onClick="onLogoutClick"
-        app:srcCompat="@android:drawable/ic_lock_power_off" />
 
     <ImageButton
         android:id="@+id/addButton"

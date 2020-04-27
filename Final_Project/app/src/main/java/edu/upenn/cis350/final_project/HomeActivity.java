@@ -164,15 +164,10 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
         //startActivityForResult(i, HOME_ACTIVITY_ID);
     }
 
-    public void onSearchClick(View view) {
-       //not implemented yet
-        Intent i = new Intent(this, SearchActivity.class);
-        startActivityForResult(i, SEARCH_ACTIVITY_ID);
-    }
-
     public void onMyPostsClick(View view) {
         //not implemented yet
         Intent i = new Intent(this, PostingsListActivity.class);
+        i.putExtra("otherUser", false);
         startActivityForResult(i, POSTS_ACTIVITY_ID);
     }
 
