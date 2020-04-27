@@ -580,7 +580,7 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 	}
 	
 	console.log("Retrieving User...");
-	
+	var userToShow = {};
 	User.find(queryObject, (err, users) => {
 		if (err) {
 			console.log('uh oh ' + err);
@@ -591,11 +591,30 @@ app.post('/getTeacher', urlencodedParser, function (req, res) {
 			res.redirect('/findTeacher?no_users=true&search_email=' + req.body.search_email);
 		}
 		else if (users.length > 0) {
-			var userToShow = users[0];
+			userToShow = users[0];
 			console.log(userToShow);
-			res.render('find_teacher', { data: userToShow});
+			//find the user's posts
+			var posts = {};
+			Post.find({"owner": req.body.search_email}, (err, result_posts) => {
+				console.log(result_posts);
+				if (err) {
+					console.log('uh oh' + err);
+				}
+				else {
+					if (posts.length == 0) {
+						console.log('No posts found');
+					}	
+					posts = result_posts;
+					res.render('find_teacher', { data: { user_data: userToShow, post_data: posts} } );
+				}
+			});
 		}
 	});
+
+
+
+	
+
 });
 
 // render search_by_school.ejs when the "Find School" button in the homepage menu is clicked
@@ -661,7 +680,7 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 	
 	console.log("Retrieving User...");
 	
-	User.find(queryObject, (err, users) => {
+	User.find(queryObject, async (err, users) => {
 		if (err) {
 			console.log('uh oh ' + err);
 			res.end('Error');
@@ -670,11 +689,8 @@ app.post('/getSchool', urlencodedParser, function (req, res) {
 			console.log('No users found');
 			res.redirect('/findSchool?no_users=true&school=' + search);
 		}
-		else if (users.length > 0) {
-			users.forEach(function(entry) {
-				console.log(entry.name);
-			});
-			res.render('find_school', { data: users});
+		else if (users.length > 0) {			
+			res.render('find_school', { data: users } );
 		}
 	});
 });

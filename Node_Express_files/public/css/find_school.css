@@ -1,89 +1,107 @@
 body {
-    font-family: "Garamond";
-    padding: 0;
-    height: 100vh;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg3.jpg);
-	background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-size: 35px;
-    margin:0
-    
+  font-family: "Garamond";
+  padding: 0;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg3.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-size: 35px;
+  margin:0
+  
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    /* max-width: 300px; */
-    /* margin: auto; */
-    margin: 10px auto;
-    text-align: center;
-    background: rgba(135, 119, 79, 0.6);
-    /* background-color: #FFDCAA; */
-    font-family: "Garamond"; 
-    border-radius: 5px;
-    padding: 2px 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* max-width: 300px; */
+  /* margin: auto; */
+  margin: 10px auto;
+  text-align: center;
+  background: rgba(135, 119, 79, 0.6);
+  /* background-color: #FFDCAA; */
+  font-family: "Garamond"; 
+  border-radius: 5px;
+  padding: 2px 16px;
 }
 
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
 
-  .info {
-    color:  #ffa527;
-    font-size: 20px;
-    font-family: "Garamond";
-  }
+.info {
+  color:  #ffa527;
+  font-size: 20px;
+  font-family: "Garamond";
+}
 
 
 h1 {
-    
-	text-align: center;
-    color:  #FFDCAA;
-    font-family: "Garamond";
-	margin-bottom: 10px;
-	letter-spacing: 2px;
-	font-size: 30px;
-	font-weight: bold;
+  
+text-align: center;
+  color:  #FFDCAA;
+  font-family: "Garamond";
+margin-bottom: 10px;
+letter-spacing: 2px;
+font-size: 30px;
+font-weight: bold;
 }
 
 p {
-    font-size: 16px;
-    text-align: center;
+  font-size: 16px;
+  text-align: center;
 }
 
 /* Float four columns side by side */
- /* .column {
-    float: left;
-    width: 32%;
-    padding: 0 10px;
-    margin: 0;
-  }  */
+/* .column {
+  float: left;
+  width: 32%;
+  padding: 0 10px;
+  margin: 0;
+}  */
 
+.profilePic {
+	width: 200px;
+	height: 200px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+.display_post {
+  height: 70px;
+	width: 200px;
+	background: #FFA527;
+	color: #FFDCAA;
+	border: none;
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 40px;
+	margin-top: 8px;
+}
 
 .container {
-    display: grid;
-    padding: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    grid-gap: 1rem;
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 1rem;
 
 }
 
-  /* Remove extra left and right margins, due to padding in columns */
+/* Remove extra left and right margins, due to padding in columns */
 /* .row {margin: 0 -5px;} */
 
 /* Clear floats after the columns */
 /* .row:after {
-  content: "";
-  display: table;
-  clear: both;
+content: "";
+display: table;
+clear: both;
 } */
 
 @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-    }
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
 }

@@ -1,18 +1,57 @@
 body {
 	font-family: "Garamond";
 	margin: 0;
-	padding: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg4.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-size: 35px;
+  margin:0
+}
+
+.profilePic {
+	width: 200px;
+	height: 200px;
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+.display_post {
+  height: 70px;
+	width: 200px;
+	background: #FFA527;
+	color: #FFDCAA;
+	border: none;
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 40px;
+	margin-top: 8px;
+}
+
+.post {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 10px auto;
+  text-align: center;
+  background: rgba(255, 220, 170, 0.3);
+  font-family: "Garamond"; 
+  border-radius: 5px;
+  padding: 0.1px 16px 8px 16px;
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: 10px auto;
-    text-align: center;
-    background: rgba(255, 220, 170, 0.3);
-    font-family: "Garamond"; 
-    border-radius: 5px;
-    padding: 2px 16px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 10px auto;
+  text-align: center;
+  background: rgba(80, 68, 52, 0.8);
+  font-family: "Garamond"; 
+  border-radius: 5px;
+  padding: 2px 16px;
 }
 
  .card:hover {
@@ -25,14 +64,7 @@ body {
     font-family: "Garamond";
   }
 
-
-
 .header {
-	height: 100vh;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg4.jpg);
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
 /* display: flex; */
 	/* justify-content: center;
 	align-items: center; */
@@ -55,6 +87,17 @@ h1 {
 	margin-bottom: 10px;
 	letter-spacing: 2px;
 	font-size: 60px;
+	font-weight: bold;
+}
+
+h3 {
+  text-align: center;
+  /* color: #ffa527; */
+  color:  #FFDCAA; 
+  font-family: "Garamond";
+	margin-bottom: 10px;
+	letter-spacing: 2px;
+	font-size: 40px;
 	font-weight: bold;
 }
 

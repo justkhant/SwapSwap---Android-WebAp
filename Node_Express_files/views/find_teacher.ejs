@@ -8,14 +8,43 @@
 <body>
   <%- include ('partials/header') %>
   <div class="header">
-    <div class="card">
-      <img src="<%= 'data:image/bmp;base64,' + data.profilePic %>" width="100" height="100" />
-      <h1><%= data.name %></h1>
-      <p class="info" id="email_to_be_deleted">Email: <%= data.email %></p>
-      <p class="info">Phone Number: <%= data.phoneNumber %></p>
-      <p class="info">School: <%= data.school %></p>
-      <p class="info">Bio: <%= data.bio %></p>
+    <div class="post">
+    
+        <img src="<%= 'data:image/bmp;base64,' + data.user_data.profilePic %>" class="profilePic" />
+        <h1><%= data.user_data.name %></h1>
+        <p class="info" id="email_to_be_deleted">Email: <%= data.user_data.email %></p>
+        <p class="info">Phone Number: <%= data.user_data.phoneNumber %></p>
+        <p class="info">School: <%= data.user_data.school %></p>
+        <p class="info">Bio: <%= data.user_data.bio %></p>
+    
+
+    <button id="post_button" class="display_post" onclick="myFunction()">Show Posts</button>
     </div>
+  
+    <div class="card" style="display:none;" id="myDIV">
+      <% data.post_data.forEach(function(entry) { %>
+        <div class="post">
+          <h3><%= entry.title %></h3>
+          <p class="info">Category: <%= entry.category %></p>
+          <p class="info">Completed: <%= entry.completed %></p>
+          <p class="info">Details: <%= entry.details %></p>
+        </div>
+      <% }); %>
+    </div>
+
+    <script>
+        function myFunction() {
+          var y = document.getElementById("post_button");
+          var x = document.getElementById("myDIV");
+          if (x.style.display === "none") {                       
+            x.style.display = "block";
+            y.innerHTML = "Hide Posts";
+          } else {
+            x.style.display = "none";
+            y.innerHTML = "Show Posts";
+          }
+        }
+    </script>
   </div>
 </body>
 

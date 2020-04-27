@@ -17,14 +17,15 @@
 
             <% data.forEach(function(entry) { %>
             <div class="card">
+                <img src="<%= 'data:image/bmp;base64,' + entry.profilePic %>" class="profilePic" />
                 <h1><%= entry.name %></h1>
                 <p class="info">Email: <%= entry.email %></p>
                 <p class="info">Phone Number: <%= entry.phoneNumber %></p>
                 <p class="info">School: <%= entry.school %></p>
                 <p class="info">Bio: <%= entry.bio %></p>
+                <button id="post_button" class="display_post" onclick="myFunction()">View</button>
             </div>
             <% }); %>
-
         </div>
 
     </div>
