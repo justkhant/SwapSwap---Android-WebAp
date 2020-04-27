@@ -2,18 +2,15 @@
  -->
 
 <head>
-  <title>Find Teacher</title>
-  <link rel="stylesheet" type="text/css" href="public/css/find_teacher.css">
+  <title>Delete Teacher</title>
+  <link rel="stylesheet" type="text/css" href="public/css/delete_teacher.css">
 </head>
 <body>
   <%- include ('partials/header') %>
   <div class="header">
     <div class="card">
-      <h1><%= data.name %></h1>
-      <p class="info" id="email_to_be_deleted">Email: <%= data.email %></p>
-      <p class="info">Phone Number: <%= data.phoneNumber %></p>
-      <p class="info">School: <%= data.school %></p>
-      <p class="info">Bio: <%= data.bio %></p>
+      <h1>User deleted!</h1>
+	  <h2><%= data %></h2>
     </div>
   </div>
 </body>

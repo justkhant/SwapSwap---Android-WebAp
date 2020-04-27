@@ -1,22 +1,16 @@
 body {
     font-family: "Garamond";
-	margin: 0;
-	padding: 0;
-}
-
-.header {
-	height: 100vh;
+    padding: 0;
+    height: 100vh;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bg3.jpg);
 	background-size: cover;
     background-position: center;
     background-attachment: scroll;
-
-	/* display: flex;
-	justify-content: center;
-	align-items: center; */
-	font-family: "Garamond";
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-size: 35px;
     margin:0
+    
 }
 
 .card {

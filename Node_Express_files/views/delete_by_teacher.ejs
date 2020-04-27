@@ -1,0 +1,30 @@
+<html>
+
+<head>
+	<title>Delete by Teacher</title>
+	<link rel="stylesheet" type="text/css" href="public/css/delete_by_teacher.css">
+</head>
+
+<body>
+
+    <%- include ('partials/header') %>
+
+    <div class="header">
+			<form class="form" method="POST" action="/">
+				<h1>Delete <span>Teachers</span> by <span>Email.</span></h1>
+
+			<div class="form_box">
+				<input class="email_input" type="text" name="delete_email" placeholder="Email" value="<%= qs.delete_email %>" />
+
+				<div class="button">
+					<button class="button search_button" type="submit" formaction="/executeDeleteTeacher">DELETE PROFILE</button>
+				</div>
+			</div>
+
+			
+		</form>
+		</div>
+
+		</body>
+
+</html>
