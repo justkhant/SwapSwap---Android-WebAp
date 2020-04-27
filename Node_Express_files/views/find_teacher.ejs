@@ -16,12 +16,16 @@
         <p class="info">Phone Number: <%= data.user_data.phoneNumber %></p>
         <p class="info">School: <%= data.user_data.school %></p>
         <p class="info">Bio: <%= data.user_data.bio %></p>
-    
 
-    <button id="post_button" class="display_post" onclick="myFunction()">Show Posts</button>
+        <form>
+          <input class="back-button" value="Back" onclick="history.back()">
+        </form>
+
+         <button id="post_button" class="display_post" onclick="myFunction()">Show Posts</button>
     </div>
   
     <div class="card" style="display:none;" id="myDIV">
+      <% if (data.post_data.length > 0) {%>
       <% data.post_data.forEach(function(entry) { %>
         <div class="post">
           <h3><%= entry.title %></h3>
@@ -30,6 +34,9 @@
           <p class="info">Details: <%= entry.details %></p>
         </div>
       <% }); %>
+      <% } else { %>
+        <h3>No Posts To Show.</h3>
+      <% } %>
     </div>
 
     <script>

@@ -187,35 +187,30 @@ public class HomeActivity extends AppCompatActivity implements PostingsAdapter.O
     }
 
     public void onLogoutClick(View view) {
+        AlertDialog.Builder altDial = new AlertDialog.Builder(this);
+        altDial.setMessage("Are you sure you want to log out?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-        ImageButton logoutButton = (ImageButton) findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder altDial = new AlertDialog.Builder(HomeActivity.this);
-                altDial.setMessage("Are you sure you want to log out?").setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // finish(); this option will just destroy the stack
-
-                                // This just returns the user to the login page
-                                Intent i = new Intent(HomeActivity.this, LoginActivity.class);
-                                startActivityForResult(i, 100);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        // finish(); this option will just destroy the stack
+                        // This just returns the user to the login page
+                        Intent i = new Intent(HomeActivity.this, LoginActivity.class);
+                        startActivityForResult(i, 100);
+                    }
+                })
+                .setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
-                        });
+                         });
 
-                AlertDialog alert = altDial.create();
-                alert.setTitle("Logout");
-                alert.show();
-            }
-        });
+        AlertDialog alert = altDial.create();
+        alert.setTitle("Logout");
+        alert.show();
+
 
 
     }

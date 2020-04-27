@@ -191,36 +191,28 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void onDeleteUserClick(View view) {
 
-        Button deleteUserButton = (Button) findViewById(R.id.delete_user_button);
-        deleteUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder altDialog = new AlertDialog.Builder(UserProfileActivity.this);
-                altDialog.setMessage("Are you sure you want to delete your profile?").setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+        AlertDialog.Builder altDialog = new AlertDialog.Builder(UserProfileActivity.this);
+        altDialog.setMessage("Are you sure you want to delete your profile?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteUser(user_email);
 
-                                deleteUser(user_email);
+                        // Go back to the login page after deleting the profile from the database
+                        Intent i = new Intent(UserProfileActivity.this, LoginActivity.class);
+                        startActivityForResult(i, 100);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
-                                // Go back to the login page after deleting the profile from the database
-                                Intent i = new Intent(UserProfileActivity.this, LoginActivity.class);
-                                startActivityForResult(i, 100);
-
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alert = altDialog.create();
-                alert.setTitle("Logout");
-                alert.show();
-            }
-        });
+        AlertDialog alert = altDialog.create();
+        alert.setTitle("Delete User");
+        alert.show();
     }
 
     public void onHomeClick(View view) {

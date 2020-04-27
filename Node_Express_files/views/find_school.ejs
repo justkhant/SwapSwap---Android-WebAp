@@ -23,7 +23,11 @@
                 <p class="info">Phone Number: <%= entry.phoneNumber %></p>
                 <p class="info">School: <%= entry.school %></p>
                 <p class="info">Bio: <%= entry.bio %></p>
-                <button id="post_button" class="display_post" onclick="myFunction()">View</button>
+                <form action="/getTeacher" method="post">
+                    <input style="display:none;"  type="email" name="search_email" value="<%= entry.email %>" />
+                    <input type="submit" class="display_post" value="View" />
+                </form>
+               
             </div>
             <% }); %>
         </div>
