@@ -1,0 +1,202 @@
+[
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_signup.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_signup.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_green_check.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/green_check.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_edit_post.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_edit_post.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_home.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_home.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_new_post.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_new_post.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_books_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/books_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_anonymous_user2.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/anonymous_user2.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_login.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/xml_provider_paths.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/xml/provider_paths.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/xml_searchable.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/xml/searchable.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_view_other_post.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_view_other_post.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_computer_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/computer_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_instructions.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_instructions.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_postingslist_row.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/postingslist_row.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_anonymous_user3.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/anonymous_user3.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_pencil_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/pencil_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_points_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/points_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_deskchair_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/deskchair_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_ic_autorenew_black_24dp.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/ic_autorenew_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_blackboard_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/blackboard_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_search.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_search.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_view_post.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_view_post.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_ic_search_black_24dp.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/ic_search_black_24dp.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-xhdpi_image_1.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-xhdpi/image_1.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_item_adapter_view_layout.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_item_adapter_view_layout.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_red_x.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/red_x.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_book_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/book_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_printer_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/printer_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_anonymous_user4.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/anonymous_user4.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_profile_pic.jpg.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/profile_pic.jpg"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-xxhdpi_image_1.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-xxhdpi/image_1.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable-v24_anonymous_user1.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable-v24/anonymous_user1.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_image_1.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/image_1.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/menu_search_menu.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/menu/search_menu.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_switch_item.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/switch_item.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_art_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/art_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_postings_list.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_postings_list.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_other_user_profile.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_other_user_profile.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_rank_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/rank_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_user_profile.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_user_profile.xml"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/drawable_ruler_icon.png.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/drawable/ruler_icon.png"
+    },
+    {
+        "merged": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/build/intermediates/res/merged/debug/layout_activity_edit_profile.xml.flat",
+        "source": "/Users/kaungkhant/Desktop/CIS 350/350S20-70/Final_Project/app/src/main/res/layout/activity_edit_profile.xml"
+    }
+]
